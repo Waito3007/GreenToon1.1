@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white"
+    android:id="@+id/body_container"
+    tools:context="com.cadenza.greentoon.MainActivity">
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
+        app:menu="@menu/item_menu"
+        android:background="@drawable/round_coners"
+        app:itemRippleColor="@android:color/transparent"
+        app:itemIconSize="30sp"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconTint="@drawable/item_selector"
+        android:id="@+id/bottom_navigation"/>
+
+
+
+</RelativeLayout>
