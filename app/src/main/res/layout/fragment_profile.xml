@@ -16,13 +16,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FBFBFB">
+            android:background="@color/white">
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="-60dp"
-                android:layout_marginEnd="15dp"
-                android:background="#1ABC9B"
+                android:background="#FFFEFE"
                 android:src="@drawable/frofile_bg_top"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +33,7 @@
                 android:id="@+id/imageButton4"
                 android:layout_width="145dp"
                 android:layout_height="144dp"
-                android:layout_marginTop="148dp"
+                android:layout_marginTop="120dp"
                 android:background="@drawable/round_coners"
                 android:src="@drawable/profile_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +45,7 @@
                 android:layout_width="44dp"
                 android:layout_height="54dp"
                 android:layout_marginTop="84dp"
-                android:background="@drawable/round_coners"
+                android:background="#1ABC9B"
                 android:src="@drawable/ic_like"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.3"
@@ -56,7 +57,7 @@
                 android:layout_width="44dp"
                 android:layout_height="54dp"
                 android:layout_marginTop="84dp"
-                android:background="@drawable/round_coners"
+                android:background="#1ABC9B"
                 android:src="@drawable/ic_like"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +68,7 @@
                 android:layout_width="44dp"
                 android:layout_height="54dp"
                 android:layout_marginTop="84dp"
-                android:background="@drawable/round_coners"
+                android:background="#1ABC9B"
                 android:src="@drawable/ic_like"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.7"
@@ -75,11 +76,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/btn_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#1ABC9B"
+                android:backgroundTint="#FFFFFF"
                 android:text="Tìm Kiếm Truyện"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,22 +91,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#1ABC9B"
+                android:backgroundTint="#FFFFFF"
                 android:text="Truyện của tôi"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button6" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_search" />
 
             <Button
                 android:id="@+id/button8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#1ABC9B"
+                android:backgroundTint="#FFFFFF"
                 android:text="Giới thiệu về chúng tôi"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button7" />
+                app:layout_constraintTop_toBottomOf="@+id/button7"
+                app:rippleColor="#000000" />
 
             <TextView
                 android:id="@+id/textView"
