@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-60dp"
                 android:background="#FFFEFE"
-                android:src="@drawable/frofile_bg_top"
+                android:src="@drawable/bg_pf"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,8 @@
                 android:layout_height="144dp"
                 android:layout_marginTop="120dp"
                 android:background="@drawable/round_coners"
-                android:src="@drawable/profile_avatar"
+                android:src="@drawable/avatar"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -113,7 +114,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="San"
+                android:text="Le Trong Nghia"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
