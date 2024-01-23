@@ -25,7 +25,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="189dp"
             android:backgroundTint="@color/white">
 
         </androidx.viewpager2.widget.ViewPager2>
@@ -43,7 +43,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="512dp"
-            android:background="#F5F5F5"
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:padding="10dp"
@@ -51,14 +52,30 @@
             android:visibility="visible">
 
         </androidx.recyclerview.widget.RecyclerView>
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/bttruyendafull"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/frofile_bg_top" />
+            android:background="@android:color/transparent"
+            android:text="Truyện đã full chapter" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="189dp"
+            android:backgroundTint="@color/white">
 
-        <!-- Your other UI components go here -->
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <TextView
+            android:id="@+id/textend"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:text="không còn nội dung bên dưới"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

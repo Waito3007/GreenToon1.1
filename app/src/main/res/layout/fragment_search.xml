@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Duyệt tìm tất cả"
+            android:text="Danh sách truyện"
             android:textSize="16sp"
             tools:ignore="HardcodedText"
             android:textStyle="bold"
@@ -56,10 +56,11 @@
 
         <GridView
             android:id="@+id/gv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="471dp"
             android:layout_marginTop="0dp"
             android:numColumns="1"
             tools:ignore="NestedScrolling" />
+
     </LinearLayout>
 </ScrollView>

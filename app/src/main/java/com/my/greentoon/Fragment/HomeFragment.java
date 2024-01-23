@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        // Set up ViewPager2 for image slider ( top truyen )
+        // Set up ViewPager2 for image slider ( slider thu 1 )
         viewPager = binding.getRoot().findViewById(R.id.viewPager);
         List<Integer> images = new ArrayList<>();
         images.add(R.drawable.sliderimg1);
@@ -44,7 +44,17 @@ public class HomeFragment extends Fragment {
         imageSliderAdapter = new ImageSliderAdapter(requireContext(), images);
         viewPager.setAdapter(imageSliderAdapter);
 
-        // Set up RecyclerView with GridLayoutManager and ImageItemAdapter ( rank )
+
+        //slider thu 2
+        viewPager = binding.getRoot().findViewById(R.id.slider);
+        List<Integer> imagesl2 = new ArrayList<>();
+        imagesl2.add(R.drawable.sliderimg2);
+        imagesl2.add(R.drawable.sliderimg3);
+        imagesl2.add(R.drawable.sliderimg1);
+        imageSliderAdapter = new ImageSliderAdapter(requireContext(), imagesl2);
+        viewPager.setAdapter(imageSliderAdapter);
+
+        // Set up RecyclerView with GridLayoutManager and ImageItemAdapter ( sap xep )
         RecyclerView recyclerView = binding.getRoot().findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
 

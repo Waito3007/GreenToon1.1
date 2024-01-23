@@ -21,8 +21,10 @@ import java.util.Objects;
 
 public class SearchFragment extends Fragment {
 
-    int[] img ={R.drawable.truyen1,R.drawable.truyen2,R.drawable.truyen3,R.drawable.truyen4,R.drawable.truyen1};
-    String[] name ={"truyen 1","truyen 2","truyen3","Truyen4","truyen5"};
+    int[] img ={R.drawable.truyen1,R.drawable.truyen2,R.drawable.truyen3,R.drawable.truyen4,R.drawable.truyen1,R.drawable.truyen2
+            ,R.drawable.truyen3,R.drawable.truyen1
+    };
+    String[] name ={"truyen 1","truyen 2","truyen3","Truyen4","truyen5","truyen6","truyen7","truyen8"};
 
 
     @SuppressLint("UseRequireInsteadOfGet")

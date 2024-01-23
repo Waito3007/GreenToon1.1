@@ -85,7 +85,8 @@
                 android:text="Tìm Kiếm Truyện"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_bt2" />
+                app:layout_constraintTop_toBottomOf="@+id/profile_bt2"
+                android:background="@android:color/transparent" />
 
             <Button
                 android:id="@+id/button7"
@@ -96,7 +97,8 @@
                 android:text="Truyện của tôi"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_search" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_search"
+                android:background="@android:color/transparent" />
 
             <Button
                 android:id="@+id/button8"
@@ -108,13 +110,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button7"
-                app:rippleColor="#000000" />
+                app:rippleColor="#000000"
+                android:background="@android:color/transparent" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Le Trong Nghia"
+                android:text="Nhấn vào đây để đăng nhập hoặc đăng kí"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
