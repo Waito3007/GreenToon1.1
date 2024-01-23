@@ -49,7 +49,7 @@ public class SearchFragment extends Fragment {
         gv.setAdapter(myadapter);
         SearchView sv1 = view.findViewById(R.id.sv1);
 
-        sv1.setQueryHint("Bạn muốn nghe gì ?");
+        sv1.setQueryHint("Nhập tên truyện bạn muốn tìm");
         sv1.setIconifiedByDefault(false);
         sv1.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
