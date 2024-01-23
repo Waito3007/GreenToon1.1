@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.my.greentoon.Adapter.ImageItemAdapter;
 import com.my.greentoon.Adapter.ImageSliderAdapter;
 import com.my.greentoon.Model.ImageItem;
 import com.my.greentoon.R;
