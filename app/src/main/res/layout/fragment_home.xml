@@ -17,12 +17,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="468dp"
+        android:layout_height="512dp"
         android:layout_marginTop="16dp"
         android:background="#F5F5F5"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:padding="8dp"
+        android:padding="10dp"
         android:scrollbars="vertical"
         android:visibility="visible" />
 

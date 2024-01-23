@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
 
     private List<ImageItem> imageItemList;
     private Context context;
+
 
     public ImageItemAdapter(Context context, List<ImageItem> imageItemList) {
         this.context = context;
@@ -33,8 +35,12 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
 
     @Override
     public void onBindViewHolder(@NonNull ImageItemViewHolder holder, int position) {
-        ImageItem imageItem = imageItemList.get(position);
-        holder.imageView.setImageResource(imageItem.getImageResId());
+
+        ImageItem item = imageItemList.get(position);
+
+        holder.imageView.setImageResource(item.getImageResId());
+        holder.tenTruyen.setText(item.getTenTruyen());
+
     }
 
     @Override
@@ -45,9 +51,11 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
     static class ImageItemViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
+        TextView tenTruyen;
         ImageItemViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
+            tenTruyen = itemView.findViewById(R.id.item_name);
         }
     }
 }

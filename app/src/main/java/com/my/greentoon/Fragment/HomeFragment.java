@@ -52,15 +52,16 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(imageItemAdapter);
 
         return view;
+
     }
 
     // Method to generate dummy data for the RecyclerView
     private List<ImageItem> generateImageItems() {
         List<ImageItem> imageItemList = new ArrayList<>();
-        imageItemList.add(new ImageItem(R.drawable.truyen1));
-        imageItemList.add(new ImageItem(R.drawable.truyen2));
-        imageItemList.add(new ImageItem(R.drawable.truyen3));
-        imageItemList.add(new ImageItem(R.drawable.truyen4));
+        imageItemList.add(new ImageItem(R.drawable.truyen1,"Ten truyen 1"));
+        imageItemList.add(new ImageItem(R.drawable.truyen2,"Ten Truyen 2"));
+        imageItemList.add(new ImageItem(R.drawable.truyen3,"Ten truyen 3"));
+        imageItemList.add(new ImageItem(R.drawable.truyen4,"Ten Truyen 4"));
         // Add more images as needed
         return imageItemList;
     }
