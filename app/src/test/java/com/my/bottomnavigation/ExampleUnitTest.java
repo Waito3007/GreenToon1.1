@@ -1,4 +1,4 @@
-package com.cadenza.bottomnavigation;
+package com.my.bottomnavigation;
 
 import org.junit.Test;
 

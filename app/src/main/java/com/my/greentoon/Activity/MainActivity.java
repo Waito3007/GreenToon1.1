@@ -1,15 +1,19 @@
-package com.cadenza.greentoon;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+package com.my.greentoon.Activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.cadenza.bottomnavigation.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.my.greentoon.Fragment.CategoryFragment;
+import com.my.greentoon.Fragment.HomeFragment;
+import com.my.greentoon.Fragment.ProfileFragment;
+import com.my.greentoon.Fragment.SearchFragment;
+import com.my.greentoon.R;
 
 public class MainActivity extends AppCompatActivity {
 

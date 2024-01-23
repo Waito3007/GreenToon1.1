@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/light_white"
     android:id="@+id/body_container"
-    tools:context="com.cadenza.greentoon.MainActivity">
+    tools:context="com.my.greentoon.Activity.MainActivity">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
