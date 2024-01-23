@@ -22,9 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
+    // slider
     private ViewPager2 viewPager;
     private ImageSliderAdapter imageSliderAdapter;
+    //top truyen
     private ImageItemAdapter imageItemAdapter;
     private FragmentHomeBinding binding;
 
@@ -34,7 +35,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        // Set up ViewPager2 for image slider
+        // Set up ViewPager2 for image slider ( top truyen )
         viewPager = binding.getRoot().findViewById(R.id.viewPager);
         List<Integer> images = new ArrayList<>();
         images.add(R.drawable.sliderimg1);
@@ -43,7 +44,7 @@ public class HomeFragment extends Fragment {
         imageSliderAdapter = new ImageSliderAdapter(requireContext(), images);
         viewPager.setAdapter(imageSliderAdapter);
 
-        // Set up RecyclerView with GridLayoutManager and ImageItemAdapter
+        // Set up RecyclerView with GridLayoutManager and ImageItemAdapter ( rank )
         RecyclerView recyclerView = binding.getRoot().findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
 

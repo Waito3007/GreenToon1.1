@@ -1,29 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rootLayout"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <!-- ViewPager2 for image slider -->
-
-    <!-- RecyclerView with GridLayoutManager and CardView for items -->
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+    <LinearLayout
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="512dp"
-        android:layout_marginTop="16dp"
-        android:background="#F5F5F5"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:padding="10dp"
-        android:scrollbars="vertical"
-        android:visibility="visible" />
+        <!-- ViewPager2 for image slider -->
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btdexuat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@color/white"
+            android:text="Đề Xuất" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:backgroundTint="@color/white">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <!-- RecyclerView with GridLayoutManager and CardView for items -->
+
+        <Button
+            android:id="@+id/btdetruyenhot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Truyện Hot" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="512dp"
+            android:background="#F5F5F5"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            android:visibility="visible">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/frofile_bg_top" />
+
+        <!-- Your other UI components go here -->
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

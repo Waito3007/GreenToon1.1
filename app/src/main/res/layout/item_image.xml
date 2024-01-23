@@ -5,13 +5,14 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="30dp">
+    android:padding="32dp">
 
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="150dp"
+        android:hapticFeedbackEnabled="false"
         android:scaleType="centerCrop" />
 
     <TextView
