@@ -15,6 +15,18 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="34">
         <activity
+            android:name=".Activity.EditAvatarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditUsernameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.SignUpActivity"
             android:exported="false" />
         <activity

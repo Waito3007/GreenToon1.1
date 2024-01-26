@@ -23,7 +23,7 @@ import com.my.greentoon.R;
 
 public class SignUpActivity extends AppCompatActivity {
     private EditText edEmail, edPassword, edConfirmPassword;
-    private Button btSignup;
+    private Button btSignup,btBack;
 
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
@@ -45,6 +45,14 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signUp();
+            }
+        });
+        //code back ve trang truoc
+        btBack = findViewById(R.id.btback);
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Đóng SignInActivity và trở về fragment_profile
             }
         });
     }

@@ -30,12 +30,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/imgAvatar"
                 android:layout_width="145dp"
                 android:layout_height="144dp"
                 android:layout_marginTop="120dp"
                 android:background="@drawable/round_coners"
-                android:src="@drawable/avatar"
+                android:src="@drawable/ic_default_avatar"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+                app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
             <ImageButton
                 android:id="@+id/profile_bt2"
@@ -62,7 +62,7 @@
                 android:src="@drawable/ic_like"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+                app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
             <ImageButton
                 android:id="@+id/profile_bt3"
@@ -74,7 +74,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.7"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+                app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
             <Button
                 android:id="@+id/btn_search"
@@ -121,7 +121,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:background="@android:color/transparent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
+                app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

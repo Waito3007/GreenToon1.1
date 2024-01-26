@@ -3,14 +3,11 @@ package com.my.greentoon.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.my.greentoon.Fragment.CategoryFragment;
 import com.my.greentoon.Fragment.HomeFragment;
 import com.my.greentoon.Fragment.ProfileFragment;
@@ -22,21 +19,16 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
     BottomNavigationView navigationView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         navigationView = findViewById(R.id.bottom_navigation);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.body_container , new HomeFragment()).commit();
         navigationView.setSelectedItemId(R.id.nav_home);
-
-
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -67,4 +59,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

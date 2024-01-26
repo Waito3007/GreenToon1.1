@@ -4,6 +4,8 @@ public class User {
     private String userId;
     private String email;
     private String password;
+    private String avatarUser;
+    private String nameUser;
     public User() {
         // Cần phải có constructor không tham số để Firebase có thể chuyển đổi dữ liệu từ database
     }
@@ -23,5 +25,14 @@ public class User {
     }
     public String getPassword() {
         return password;
+    }
+    public String getAvatarUser() {
+        return avatarUser;
+    }
+    public String getNameUser() {
+        return nameUser;
+    }
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
     }
 }
