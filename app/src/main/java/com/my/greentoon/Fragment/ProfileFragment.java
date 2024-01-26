@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ public class ProfileFragment extends Fragment {
     private Button btLogin;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
+    private ImageButton btnLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,10 +40,25 @@ public class ProfileFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         btLogin = view.findViewById(R.id.btLogin);
+        btnLogout = view.findViewById(R.id.btLogout);
 
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutUser();
+            }
+        });
         return view;
     }
+    private void logoutUser() {
+        mAuth.signOut();
 
+        // Đăng xuất thành công, chuyển hướng đến màn hình đăng nhập hoặc màn hình khác tùy ý
+        Intent intent = new Intent(getActivity(), SignInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        getActivity().finish();
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -59,7 +76,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-
         updateLoginButtonText();
     }
 

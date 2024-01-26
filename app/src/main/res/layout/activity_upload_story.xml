@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imgBookCover"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sliderimg2" />
+
+    <EditText
+        android:id="@+id/edtStoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgBookCover"
+        android:layout_marginTop="16dp"
+        android:hint="Tên truyện"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/edtStoryGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtStoryName"
+        android:layout_marginTop="8dp"
+        android:hint="Thể loại"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/edtStoryDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtStoryGenre"
+        android:layout_marginTop="8dp"
+        android:hint="Mô tả truyện"
+        android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/btnChooseCover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtStoryDescription"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_coners"
+        android:backgroundTint="#1ed760"
+        android:text="Chọn ảnh bìa truyện"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChooseCover"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_coners"
+        android:backgroundTint="#1ed760"
+        android:text="Đăng truyện"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.my.greentoon.R;
 
 public class EditProfileActivity extends AppCompatActivity {
-Button btUsername,btBack,btImg;
+Button btUsername,btBack,btImg,btUpload,btEdit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +18,8 @@ Button btUsername,btBack,btImg;
         btBack = findViewById(R.id.btBack);
         btUsername = findViewById(R.id.btUsername);
         btImg = findViewById(R.id.btImg);
+        btUpload=findViewById(R.id.btUpload);
+        btEdit=findViewById(R.id.btEdit);
 
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +38,20 @@ Button btUsername,btBack,btImg;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditProfileActivity.this, EditAvatarActivity.class);
+                startActivity(intent);
+            }
+        });
+        btUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this, UploadStoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        btEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this, ListStoriesActivity.class);
                 startActivity(intent);
             }
         });

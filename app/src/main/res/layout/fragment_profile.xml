@@ -42,12 +42,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/profile_bt1"
+                android:id="@+id/btLogout"
                 android:layout_width="44dp"
                 android:layout_height="54dp"
                 android:layout_marginTop="84dp"
-                android:background="#1ABC9B"
-                android:src="@drawable/ic_like"
+                android:background="@drawable/ic_logout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +116,6 @@
                 android:id="@+id/btLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nhấn vào đây để đăng nhập hoặc đăng kí"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:background="@android:color/transparent"
