@@ -9,14 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.my.greentoon.Fragment.CategoryFragment;
 import com.my.greentoon.Fragment.HomeFragment;
 import com.my.greentoon.Fragment.ProfileFragment;
 import com.my.greentoon.Fragment.SearchFragment;
 import com.my.greentoon.R;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
+    DatabaseReference mDatabase;
     BottomNavigationView navigationView;
 
 
@@ -24,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //hide line status bar
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 

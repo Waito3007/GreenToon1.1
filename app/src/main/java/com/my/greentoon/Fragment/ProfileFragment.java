@@ -23,7 +23,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         // Tìm nút có id là btLogin
-        Button btLogin = view.findViewById(R.id.btLogin);
+        btLogin = view.findViewById(R.id.btLogin);
 
         // Thiết lập sự kiện click cho nút btLogin
         btLogin.setOnClickListener(new View.OnClickListener() {

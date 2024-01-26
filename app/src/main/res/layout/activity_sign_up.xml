@@ -8,7 +8,7 @@
     android:background="@drawable/profile_bglogin"
     android:orientation="vertical"
     app:layout_anchorGravity="center"
-    tools:context=".Activity.SignInActivity">
+    tools:context=".Activity.SignUpActivity">
 
 
     <Button
@@ -21,7 +21,7 @@
         android:textColor="#FFFAFA" />
 
     <TextView
-        android:id="@+id/tvLogo"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -37,7 +37,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="46dp"
         android:background="@drawable/borderinput"
-        android:hint="Email"
+        android:hint="Nhập Email Của Bạn"
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#858080"
@@ -50,44 +50,37 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:background="@drawable/borderinput"
-        android:hint="Pasword"
+        android:hint="Nhập Mật Khẩu"
+        android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#858080"
+        android:textSize="20sp" />
+    <EditText
+        android:id="@+id/edConfirmPassword"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/borderinput"
+        android:hint="Nhập Lại Mật Khẩu"
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#858080"
         android:textSize="20sp" />
 
-
     <Button
-        android:id="@+id/btLogin"
+        android:id="@+id/btSignup"
         android:layout_width="354dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:background="@drawable/round_coners"
         android:backgroundTint="#1ed760"
-        android:text="Đăng Nhập"
+        android:text="Đăng Kí"
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btForget"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:backgroundTint="@color/purple_700"
-        android:text="Bạn quên mật khẩu?"
-        android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/btSignup"
-        android:layout_width="323dp"
-        android:layout_height="42dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:background="@android:color/transparent"
-        android:backgroundTint="@color/white"
-        android:text="Create a account"
-        android:textColor="@color/white" />
+
 
 </LinearLayout>
