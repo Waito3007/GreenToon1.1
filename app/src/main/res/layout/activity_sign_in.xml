@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="@drawable/profile_bglogin"
     android:orientation="vertical"
     app:layout_anchorGravity="center"
     tools:context=".Activity.SignInActivity">
@@ -14,25 +15,32 @@
         android:id="@+id/btback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:layout_marginLeft="20dp"
-        android:drawableLeft="@drawable/baseline_arrow_back_ios_24" />
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+        android:textColor="#FFFAFA" />
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="113dp"
-        app:srcCompat="@drawable/gt" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="GreenToon"
+        android:textColor="#F1EEEE"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edlogin"
         android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="46dp"
         android:background="@drawable/borderinput"
         android:hint="Email"
         android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#858080"
         android:textSize="20sp" />
 
     <EditText
@@ -43,20 +51,23 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/borderinput"
         android:hint="Pasword"
-        android:inputType=""
         android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#858080"
         android:textSize="20sp" />
 
 
     <Button
         android:id="@+id/btLogin"
-        android:layout_width="351dp"
-        android:layout_height="53dp"
+        android:layout_width="354dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#3F51B5"
-        android:text="Login"
-        android:textSize="17sp" />
+        android:layout_marginTop="40dp"
+        android:background="@drawable/round_coners"
+        android:backgroundTint="#1ed760"
+        android:text="Đăng Nhập"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btForget"
@@ -65,8 +76,8 @@
         android:layout_gravity="center"
         android:background="@android:color/transparent"
         android:backgroundTint="@color/purple_700"
-        android:text="Forgot Password?"
-        android:textColor="#3F51B5" />
+        android:text="Bạn quên mật khẩu?"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btSignUp"
@@ -75,7 +86,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:background="@android:color/transparent"
+        android:backgroundTint="@color/white"
         android:text="Create a account"
-        android:textColor="#000000" />
+        android:textColor="@color/white" />
 
 </LinearLayout>
