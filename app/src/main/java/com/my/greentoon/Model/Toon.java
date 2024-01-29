@@ -1,6 +1,8 @@
 package com.my.greentoon.Model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Toon implements Serializable {
     private String userId;
@@ -55,5 +57,16 @@ public class Toon implements Serializable {
 
     public void setStoryBookCover(String storyBookCover) {
         this.storyBookCover = storyBookCover;
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("userId", userId);
+        result.put("storyName", storyName);
+        result.put("storyGenre", storyGenre);
+        result.put("storyDescription", storyDescription);
+        result.put("storyBookCover", storyBookCover);
+
+        return result;
     }
 }

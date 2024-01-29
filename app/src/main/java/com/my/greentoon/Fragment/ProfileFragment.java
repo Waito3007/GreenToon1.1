@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        updateLoginButtonText();
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-        updateLoginButtonText();
     }
 
     private void updateLoginButtonText() {

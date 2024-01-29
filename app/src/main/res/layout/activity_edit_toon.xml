@@ -5,55 +5,44 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/imgStoryCover"
-        android:layout_width="120dp"
-        android:layout_height="160dp"
+        android:id="@+id/imgBookCover"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/sliderimg2"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/sliderimg2" />
 
     <EditText
         android:id="@+id/edtStoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imgStoryCover"
+        android:layout_below="@+id/imgBookCover"
         android:layout_marginTop="16dp"
-        android:hint="Tên truyện"
-        android:inputType="text" />
+        android:hint="Story Name" />
 
     <EditText
         android:id="@+id/edtStoryGenre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edtStoryName"
+        android:layout_below="@+id/edtStoryName"
         android:layout_marginTop="8dp"
-        android:hint="Thể loại"
-        android:inputType="text" />
+        android:hint="Story Genre" />
 
     <EditText
         android:id="@+id/edtStoryDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edtStoryGenre"
+        android:layout_below="@+id/edtStoryGenre"
         android:layout_marginTop="8dp"
-        android:hint="Mô tả truyện"
-        android:inputType="textMultiLine"
-        android:lines="4" />
+        android:hint="Story Description" />
 
     <Button
-        android:id="@+id/btnSave"
+        android:id="@+id/btnSaveChanges"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edtStoryDescription"
+        android:layout_below="@+id/edtStoryDescription"
         android:layout_marginTop="16dp"
-        android:text="Lưu" />
+        android:text="Save Changes" />
 
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnSave"
-        android:layout_marginTop="8dp"
-        android:text="Xóa" />
 </RelativeLayout>

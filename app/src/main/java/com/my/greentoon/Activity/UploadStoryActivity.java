@@ -93,7 +93,8 @@ public class UploadStoryActivity extends AppCompatActivity {
                                 Toon toon = new Toon(userId, storyName, storyGenre, storyDescription, storyBookCover);
 
                                 // Lưu thông tin truyện vào Firebase Realtime Database
-                                databaseReference.push().setValue(toon);
+                                DatabaseReference toonRef = databaseReference.child(userId).child(storyName);
+                                toonRef.setValue(toon);
 
                                 Toast.makeText(UploadStoryActivity.this, "Đăng truyện thành công", Toast.LENGTH_SHORT).show();
                                 finish();
