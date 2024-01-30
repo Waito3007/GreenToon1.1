@@ -1,82 +1,54 @@
 package com.my.greentoon.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ToonAdapter extends RecyclerView.Adapter<ToonAdapter.ViewHolder> {
+public class ToonAdapter extends ArrayAdapter<Toon> {
 
+    private Context context;
     private List<Toon> toonList;
-    private OnItemClickListener listener;
 
-    public interface OnItemClickListener {
-        void onItemClick(Toon toon);
-        void onDeleteClick(Toon toon);
-    }
-
-    public ToonAdapter(List<Toon> toonList, OnItemClickListener listener) {
+    public ToonAdapter(@NonNull Context context, int resource, @NonNull List<Toon> toonList) {
+        super(context, resource, toonList);
+        this.context = context;
         this.toonList = toonList;
-        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_toon, parent, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Toon toon = toonList.get(position);
-        holder.bind(toon, listener);
-    }
-
-    @Override
-    public int getItemCount() {
-        return toonList.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView imgBookCover;
-        private TextView txtStoryName;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imgBookCover = itemView.findViewById(R.id.imgBookCover);
-            txtStoryName = itemView.findViewById(R.id.txtStoryName);
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_toon, parent, false);
         }
 
-        public void bind(final Toon toon, final OnItemClickListener listener) {
-            txtStoryName.setText(toon.getStoryName());
-            Picasso.get().load(toon.getStoryBookCover()).into(imgBookCover);
+        TextView textViewToonName = convertView.findViewById(R.id.textViewToonName);
+        TextView textViewToonDesc = convertView.findViewById(R.id.textViewToonDesc);
+        ImageView imageViewToonCover = convertView.findViewById(R.id.imageViewToonCover);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(toon);
-                }
-            });
+        Toon currentToon = toonList.get(position);
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    listener.onDeleteClick(toon);
-                    return true;
-                }
-            });
-        }
+        textViewToonName.setText(currentToon.getToonName());
+        textViewToonDesc.setText(currentToon.getToonDes());
+
+        // Sử dụng thư viện Glide để hiển thị ảnh từ URL
+        Glide.with(context)
+                .load(currentToon.getToonCover())
+                .into(imageViewToonCover);
+
+        return convertView;
     }
 }

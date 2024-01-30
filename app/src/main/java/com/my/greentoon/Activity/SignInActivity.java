@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.my.greentoon.Fragment.HomeFragment;
+import com.my.greentoon.Fragment.ProfileFragment;
 import com.my.greentoon.R;
 
 public class SignInActivity extends AppCompatActivity {
@@ -70,7 +70,7 @@ public class SignInActivity extends AppCompatActivity {
                             // Đăng nhập thành công
                             Toast.makeText(SignInActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                             // Chuyển đến màn hình chính hoặc màn hình cần thiết
-                            startActivity(new Intent(SignInActivity.this, HomeFragment.class));
+                            startActivity(new Intent(SignInActivity.this, ProfileFragment.class));
                         } else {
                             // Đăng nhập thất bại
                             Toast.makeText(SignInActivity.this, "Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu", Toast.LENGTH_SHORT).show();

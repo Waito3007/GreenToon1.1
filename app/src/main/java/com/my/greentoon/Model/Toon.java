@@ -1,72 +1,60 @@
 package com.my.greentoon.Model;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+public class Toon {
 
-public class Toon implements Serializable {
     private String userId;
-    private String storyName;
-    private String storyGenre;
-    private String storyDescription;
-    private String storyBookCover;
+    private String toonCover;
+    private String toonName;
+    private String toonDes;
+
+    // Constructors, getters, setters
 
     public Toon() {
         // Default constructor required for calls to DataSnapshot.getValue(Toon.class)
     }
 
-    public Toon(String userId, String storyName, String storyGenre, String storyDescription, String storyBookCover) {
+    public Toon(String userId, String toonName, String toonDes) {
         this.userId = userId;
-        this.storyName = storyName;
-        this.storyGenre = storyGenre;
-        this.storyDescription = storyDescription;
-        this.storyBookCover = storyBookCover;
+        this.toonName = toonName;
+        this.toonDes = toonDes;
+    }
+
+    public Toon(String userId, String toonCover, String toonName, String toonDes) {
+        this.userId = userId;
+        this.toonCover = toonCover;
+        this.toonName = toonName;
+        this.toonDes = toonDes;
+    }
+
+    public String getToonName() {
+        return toonName;
+    }
+
+    public void setToonName(String toonName) {
+        this.toonName = toonName;
+    }
+
+    public String getToonDes() {
+        return toonDes;
+    }
+
+    public void setToonDes(String toonDes) {
+        this.toonDes = toonDes;
+    }
+
+    public String getToonCover() {
+        return toonCover;
+    }
+
+    public void setToonCover(String toonCover) {
+        this.toonCover = toonCover;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public String getStoryName() {
-        return storyName;
-    }
-
-    public void setStoryName(String storyName) {
-        this.storyName = storyName;
-    }
-
-    public String getStoryGenre() {
-        return storyGenre;
-    }
-
-    public void setStoryGenre(String storyGenre) {
-        this.storyGenre = storyGenre;
-    }
-
-    public String getStoryDescription() {
-        return storyDescription;
-    }
-
-    public void setStoryDescription(String storyDescription) {
-        this.storyDescription = storyDescription;
-    }
-
-    public String getStoryBookCover() {
-        return storyBookCover;
-    }
-
-    public void setStoryBookCover(String storyBookCover) {
-        this.storyBookCover = storyBookCover;
-    }
-
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("userId", userId);
-        result.put("storyName", storyName);
-        result.put("storyGenre", storyGenre);
-        result.put("storyDescription", storyDescription);
-        result.put("storyBookCover", storyBookCover);
-
-        return result;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

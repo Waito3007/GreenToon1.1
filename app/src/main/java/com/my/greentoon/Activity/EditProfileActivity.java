@@ -44,7 +44,7 @@ Button btUsername,btBack,btImg,btUpload,btEdit;
         btUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfileActivity.this, UploadStoryActivity.class);
+                Intent intent = new Intent(EditProfileActivity.this, UploadToonActivity.class);
                 startActivity(intent);
             }
         });

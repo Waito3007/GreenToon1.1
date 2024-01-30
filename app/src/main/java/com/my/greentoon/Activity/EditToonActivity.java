@@ -1,98 +1,176 @@
 package com.my.greentoon.Activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.my.greentoon.Model.Toon;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.my.greentoon.R;
 
 public class EditToonActivity extends AppCompatActivity {
 
-    private EditText edtStoryName, edtStoryGenre, edtStoryDescription;
-    private Button btnSaveChanges;
+    private static final int PICK_IMAGE_REQUEST_NEW_COVER = 2;
 
-    private FirebaseAuth mAuth;
+    private ImageView imageViewToonCover;
+    private EditText editTextToonName;
+    private EditText editTextToonDesc;
+    private Button btnChooseNewCover;
+    private Button btnUpdateToon;
+    private Button btnDeleteToon;
+
+    private Uri newImageUri;
+    private String toonId;
+
     private DatabaseReference databaseReference;
-
-    private Toon toon;
+    private StorageReference storageReference;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_toon);
 
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Toon");
+        // Initialize Firebase Database and Storage
+        databaseReference = FirebaseDatabase.getInstance().getReference("toons");
+        storageReference = FirebaseStorage.getInstance().getReference("toon_covers");
 
-        edtStoryName = findViewById(R.id.edtStoryName);
-        edtStoryGenre = findViewById(R.id.edtStoryGenre);
-        edtStoryDescription = findViewById(R.id.edtStoryDescription);
-        btnSaveChanges = findViewById(R.id.btnSaveChanges);
+        // Get data from intent
+        Intent intent = getIntent();
+        toonId = intent.getStringExtra("toonId");
 
-        // Retrieve Toon object from Intent
-        toon = (Toon) getIntent().getSerializableExtra("toon");
+        imageViewToonCover = findViewById(R.id.imageViewToonCover);
+        editTextToonName = findViewById(R.id.editTextToonName);
+        editTextToonDesc = findViewById(R.id.editTextToonDesc);
+        btnChooseNewCover = findViewById(R.id.btnChooseNewCover);
+        btnUpdateToon = findViewById(R.id.btnUpdateToon);
+        btnDeleteToon = findViewById(R.id.btnDeleteToon);
 
-        if (toon != null) {
-            // Set existing data to the UI elements
-            edtStoryName.setText(toon.getStoryName());
-            edtStoryGenre.setText(toon.getStoryGenre());
-            edtStoryDescription.setText(toon.getStoryDescription());
-        }
+        // Load existing toon data
+        loadToonData();
 
-        btnSaveChanges.setOnClickListener(new View.OnClickListener() {
+        btnChooseNewCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveChanges();
+                openFileChooserForNewCover();
+            }
+        });
+
+        btnUpdateToon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateToon();
+            }
+        });
+
+        btnDeleteToon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteToon();
             }
         });
     }
 
-    private void saveChanges() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null && toon != null) {
-            String userId = user.getUid();
-            String storyName = edtStoryName.getText().toString().trim();
-            String storyGenre = edtStoryGenre.getText().toString().trim();
-            String storyDescription = edtStoryDescription.getText().toString().trim();
+    private void loadToonData() {
+        databaseReference.child(toonId).get().addOnSuccessListener(snapshot -> {
+            if (snapshot.exists()) {
+                String toonName = snapshot.child("toonName").getValue(String.class);
+                String toonDesc = snapshot.child("toonDes").getValue(String.class);
+                String toonCover = snapshot.child("toonCover").getValue(String.class);
 
-            if (!storyName.isEmpty() && !storyGenre.isEmpty() && !storyDescription.isEmpty()) {
-                // Tạo một đối tượng mới với các thông tin đã chỉnh sửa
-                Toon updatedToon = new Toon(userId, storyName, storyGenre, storyDescription, toon.getStoryBookCover());
+                editTextToonName.setText(toonName);
+                editTextToonDesc.setText(toonDesc);
 
-                // Lấy tham chiếu đến nút con cần cập nhật
-                DatabaseReference toonRef = FirebaseDatabase.getInstance().getReference("Toon").child(userId).child(toon.getStoryName());
-
-                // Cập nhật dữ liệu của nút con hiện tại
-                toonRef.setValue(updatedToon)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(EditToonActivity.this, "Changes saved successfully", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(EditToonActivity.this, "Failed to save changes: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            } else {
-                Toast.makeText(EditToonActivity.this, "Please enter all information", Toast.LENGTH_SHORT).show();
+                // Load existing toon cover image using Glide
+                Glide.with(EditToonActivity.this)
+                        .load(toonCover)
+                        .into(imageViewToonCover);
             }
+        }).addOnFailureListener(e -> {
+            // Handle error
+            Toast.makeText(EditToonActivity.this, "Failed to load toon data", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void openFileChooserForNewCover() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST_NEW_COVER);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST_NEW_COVER && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            newImageUri = data.getData();
+            // Display the new image if desired
+            // imageViewToonCover.setImageURI(newImageUri);
         }
+    }
+
+    private void updateToon() {
+        // Update toon information on Firebase Database
+        String newName = editTextToonName.getText().toString().trim();
+        String newDesc = editTextToonDesc.getText().toString().trim();
+
+        if (newImageUri != null) {
+            // If a new image is chosen, update the new image to Firebase Storage
+            updateToonCover(newImageUri, newName, newDesc);
+        } else {
+            // If no new image, only update other information
+            databaseReference.child(toonId).child("toonName").setValue(newName);
+            databaseReference.child(toonId).child("toonDes").setValue(newDesc);
+
+            Toast.makeText(this, "Toon updated successfully", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    private void updateToonCover(Uri newImageUri, final String newName, final String newDesc) {
+        // Upload the new image to Firebase Storage
+        StorageReference fileReference = storageReference.child(toonId).child(System.currentTimeMillis() + ".jpg");
+
+        fileReference.putFile(newImageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Get the URL of the uploaded image
+                    fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String newImageUrl = uri.toString();
+
+                        // Update toon information with the new image
+                        databaseReference.child(toonId).child("toonCover").setValue(newImageUrl);
+                        databaseReference.child(toonId).child("toonName").setValue(newName);
+                        databaseReference.child(toonId).child("toonDes").setValue(newDesc);
+
+                        Toast.makeText(EditToonActivity.this, "Toon updated successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(EditToonActivity.this, "Upload failed. Please try again.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void deleteToon() {
+        // Delete the toon from Firebase Database
+        databaseReference.child(toonId).removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(EditToonActivity.this, "Toon deleted successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(EditToonActivity.this, "Failed to delete toon. Please try again.", Toast.LENGTH_SHORT).show();
+                });
     }
 }

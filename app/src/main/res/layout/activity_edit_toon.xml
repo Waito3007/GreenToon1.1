@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    tools:context=".Activity.EditToonActivity">
+
+    <EditText
+        android:id="@+id/editTextToonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Toon Name"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/editTextToonDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextToonName"
+        android:layout_marginTop="8dp"
+        android:hint="Toon Description"
+        android:padding="8dp" />
 
     <ImageView
-        android:id="@+id/imgBookCover"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/sliderimg2" />
-
-    <EditText
-        android:id="@+id/edtStoryName"
+        android:id="@+id/imageViewToonCover"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imgBookCover"
-        android:layout_marginTop="16dp"
-        android:hint="Story Name" />
-
-    <EditText
-        android:id="@+id/edtStoryGenre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtStoryName"
+        android:layout_height="200dp"
+        android:layout_below="@id/editTextToonDesc"
         android:layout_marginTop="8dp"
-        android:hint="Story Genre" />
-
-    <EditText
-        android:id="@+id/edtStoryDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtStoryGenre"
-        android:layout_marginTop="8dp"
-        android:hint="Story Description" />
+        android:scaleType="centerCrop" />
 
     <Button
-        android:id="@+id/btnSaveChanges"
-        android:layout_width="match_parent"
+        android:id="@+id/btnChooseNewCover"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtStoryDescription"
+        android:layout_below="@id/imageViewToonCover"
+        android:layout_marginTop="8dp"
+        android:text="Choose New Cover" />
+
+    <Button
+        android:id="@+id/btnUpdateToon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChooseNewCover"
         android:layout_marginTop="16dp"
-        android:text="Save Changes" />
+        android:text="Update Toon" />
+
+    <Button
+        android:id="@+id/btnDeleteToon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnUpdateToon"
+        android:layout_marginTop="8dp"
+        android:text="Delete Toon" />
 
 </RelativeLayout>

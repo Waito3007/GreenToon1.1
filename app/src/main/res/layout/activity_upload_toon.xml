@@ -1,0 +1,46 @@
+<!-- activity_upload_toon.xml -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="Activity.UploadToonActivity">
+
+    <ImageView
+        android:id="@+id/imageViewToonCover"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/sliderimg1"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnChooseImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Image"/>
+
+    <EditText
+        android:id="@+id/editTextToonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Toon Name"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextToonDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Toon Description"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnUploadToon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Toon"/>
+</LinearLayout>
