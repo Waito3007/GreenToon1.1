@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="34">
         <activity
+            android:name=".Activity.ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.EditToonActivity"
             android:exported="false" />
         <activity

@@ -23,7 +23,7 @@ import com.my.greentoon.R;
 
 public class SignUpActivity extends AppCompatActivity {
     private EditText edEmail, edPassword, edConfirmPassword;
-    private Button btSignup,btBack;
+    private Button btSignup, btBack;
 
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
@@ -47,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
                 signUp();
             }
         });
+
         //code back ve trang truoc
         btBack = findViewById(R.id.btback);
         btBack.setOnClickListener(new View.OnClickListener() {
@@ -87,14 +88,16 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
     }
+
     private void sendVerificationEmail() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
             String userEmail = user.getEmail();
-
             // Lưu thông tin người dùng vào Realtime Database
             User userData = new User(userId, userEmail);
+            userData.setAvatarUser("https://firebasestorage.googleapis.com/v0/b/greentoon-937f6.appspot.com/o/avatars%2FGwdz6c6FAjYLKfDC3LlwaWyGWg12.jpg?alt=media&token=29a002c7-f96e-4b4c-8d96-6108ccfa6f68");
+            userData.setNameUser("User");
             databaseReference.child(userId).setValue(userData);
             user.sendEmailVerification()
                     .addOnCompleteListener(new OnCompleteListener<Void>() {

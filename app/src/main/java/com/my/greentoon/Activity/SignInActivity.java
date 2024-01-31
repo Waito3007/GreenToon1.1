@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.my.greentoon.Fragment.ProfileFragment;
 import com.my.greentoon.R;
 
@@ -33,7 +34,9 @@ public class SignInActivity extends AppCompatActivity {
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // Đóng SignInActivity và trở về fragment_profile
+
+                Intent intent = new Intent(SignInActivity.this, ProfileFragment.class);
+                startActivity(intent);
             }
         });
         // chuyen sang dang ki
@@ -67,10 +70,18 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Đăng nhập thành công
-                            Toast.makeText(SignInActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            // Chuyển đến màn hình chính hoặc màn hình cần thiết
-                            startActivity(new Intent(SignInActivity.this, ProfileFragment.class));
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null && user.isEmailVerified()) {
+                                // Đăng nhập thành công và email đã được xác nhận
+                                Toast.makeText(SignInActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                // Chuyển đến Main
+                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish(); // Đóng SignInActivity
+                            } else {
+                                // Đăng nhập thành công nhưng email chưa được xác nhận
+                                Toast.makeText(SignInActivity.this, "Email chưa được xác nhận. Vui lòng kiểm tra email và xác nhận.", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             // Đăng nhập thất bại
                             Toast.makeText(SignInActivity.this, "Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu", Toast.LENGTH_SHORT).show();
@@ -78,4 +89,5 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

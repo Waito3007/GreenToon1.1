@@ -29,6 +29,9 @@ public class User {
     public String getAvatarUser() {
         return avatarUser;
     }
+    public void setAvatarUser(String avatarUser) {
+        this.avatarUser = avatarUser;
+    }
     public String getNameUser() {
         return nameUser;
     }

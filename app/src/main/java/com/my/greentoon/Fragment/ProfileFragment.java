@@ -1,4 +1,5 @@
 package com.my.greentoon.Fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +29,7 @@ import com.my.greentoon.R;
 public class ProfileFragment extends Fragment {
 
     private Button btnLogin;
+    ImageButton imgAvatar;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private ImageButton btnLogout;
@@ -40,7 +43,7 @@ public class ProfileFragment extends Fragment {
 
         btnLogin = view.findViewById(R.id.btLogin);
         btnLogout = view.findViewById(R.id.btLogout);
-
+        imgAvatar = view.findViewById(R.id.imgAvatar);
         btnLogout.setOnClickListener(v -> logoutUser());
         return view;
     }
@@ -48,7 +51,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        updateLoginButtonText();
+        updateProfile();
         btnLogin.setOnClickListener(v -> handleLoginButtonClick());
     }
 
@@ -78,19 +81,36 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void updateLoginButtonText() {
+    private void updateProfile() {
         try {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
                 String userId = currentUser.getUid();
+
                 databaseReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             User userProfile = snapshot.getValue(User.class);
                             if (userProfile != null) {
+                                // Cập nhật nút đăng nhập
                                 String displayName = userProfile.getNameUser();
                                 btnLogin.setText((displayName != null && !displayName.isEmpty()) ? displayName : "Người Dùng");
+
+                                // Cập nhật avatar
+                                String avatarUrl = userProfile.getAvatarUser();
+                                if (avatarUrl != null && !avatarUrl.isEmpty()) {
+                                    // Sử dụng thư viện Glide hoặc Picasso để tải ảnh về imgAvatar
+                                    // Ví dụ sử dụng Glide:
+                                    Glide.with(ProfileFragment.this)
+                                            .load(avatarUrl)
+                                            .placeholder(R.drawable.ic_default_avatar) // Hình ảnh mặc định khi đang tải
+                                            .error(R.drawable.ic_default_avatar) // Hình ảnh khi có lỗi
+                                            .into(imgAvatar);
+                                } else {
+                                    // Nếu không có avatar, hiển thị hình ảnh mặc định
+                                    imgAvatar.setImageResource(R.drawable.ic_default_avatar);
+                                }
                             }
                         }
                     }
@@ -101,11 +121,13 @@ public class ProfileFragment extends Fragment {
                     }
                 });
             } else {
+                // Người dùng chưa đăng nhập, cập nhật nút đăng nhập và avatar về giá trị mặc định
                 btnLogin.setText("Nhấn vào đây để đăng nhập hoặc đăng ký");
+                imgAvatar.setImageResource(R.drawable.ic_launcher_background);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("ProfileFragment", "Error updating login button text: " + e.getMessage());
+            Log.e("ProfileFragment", "Error updating login button text and avatar: " + e.getMessage());
         }
     }
 }
