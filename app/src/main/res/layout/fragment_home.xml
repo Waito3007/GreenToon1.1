@@ -1,81 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!-- fragment_home.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/rootLayout"
+    <Button
+        android:id="@+id/btDexuat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:fontFamily="sans-serif"
+        android:foregroundGravity="center"
+        android:gravity="center|left"
+        android:text="Đề Xuất"
+        android:paddingStart="20sp"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-        <!-- ViewPager2 for image slider -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="148dp" />
 
-        <Button
-            android:id="@+id/btdexuat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:backgroundTint="@color/white"
-            android:text="Đề Xuất" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Truyện phổ biến"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingStart="20sp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"/>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="189dp"
-            android:backgroundTint="@color/white">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPopularToons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"/>
 
-        </androidx.viewpager2.widget.ViewPager2>
-
-        <!-- RecyclerView with GridLayoutManager and CardView for items -->
-
-        <Button
-            android:id="@+id/bttruyenhot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="Truyện Hot" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="512dp"
-            android:background="#FFFFFF"
-            android:backgroundTint="#FFFFFF"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:padding="10dp"
-            android:scrollbars="vertical"
-            android:visibility="visible">
-
-        </androidx.recyclerview.widget.RecyclerView>
-        <Button
-            android:id="@+id/bttruyendafull"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="Truyện đã full chapter" />
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/slider"
-            android:layout_width="match_parent"
-            android:layout_height="189dp"
-            android:backgroundTint="@color/white">
-
-        </androidx.viewpager2.widget.ViewPager2>
-
-        <TextView
-            android:id="@+id/textend"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:text="không còn nội dung bên dưới"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="center"
-            />
-
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>
