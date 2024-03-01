@@ -30,6 +30,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private ImageView imageViewToonCover;
     private TextView textViewToonName;
+    private TextView textViewViewCount;
+
     private TextView textViewToonDes;
     private ListView listViewChapters;
     private List<Chapter> chapterList;
@@ -44,24 +46,28 @@ public class DetailActivity extends AppCompatActivity {
         textViewToonName = findViewById(R.id.textViewToonName);
         textViewToonDes = findViewById(R.id.textViewToonDes);
         listViewChapters = findViewById(R.id.listViewChapters);
-
         String toonId = getIntent().getStringExtra("toonId");
-
+        textViewViewCount =findViewById(R.id.textViewViewCount);
         chapterList = new ArrayList<>();
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        // Lấy dữ liệu của toon từ Firebase Database
         DatabaseReference toonRef = databaseReference.child("toons").child(toonId);
         toonRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Toon toon = dataSnapshot.getValue(Toon.class);
                 if (toon != null) {
+                    // Hiển thị thông tin của toon
                     Picasso.get().load(toon.getToonCover()).into(imageViewToonCover);
                     textViewToonName.setText(toon.getToonName());
                     textViewToonDes.setText(toon.getToonDes());
+
+                    // Hiển thị số lượt xem
+                    textViewViewCount.setText("Số lượt xem: " + toon.getViewCount());
                 }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -69,6 +75,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        // Lấy danh sách chapter thuộc toon từ Firebase Database
         DatabaseReference chaptersRef = databaseReference.child("chapters").child(toonId);
         chaptersRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,16 +98,36 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        // Xử lý sự kiện khi người dùng chọn một chapter để xem
         listViewChapters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Chapter selectedChapter = chapterList.get(position);
-                List<String> imageUrls = selectedChapter.getListImgChapter(); // Lấy danh sách URL của ảnh
-
+                final Chapter selectedChapter = chapterList.get(position);
+                List<String> imageUrls = selectedChapter.getListImgChapter();
                 if (imageUrls != null && !imageUrls.isEmpty()) {
-                    // Chuyển sang ChapterActivity và truyền danh sách URL của các ảnh
+                    // Tăng viewCount của toon lên 1
+                    DatabaseReference toonRef = databaseReference.child("toons").child(toonId);
+                    toonRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Toon toon = dataSnapshot.getValue(Toon.class);
+                            if (toon != null) {
+                                int currentViewCount = toon.getViewCount();
+                                int updatedViewCount = currentViewCount + 1;
+                                toonRef.child("viewCount").setValue(updatedViewCount); // Cập nhật vào Firebase
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(DetailActivity.this, "Failed to update view count: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    // Chuyển đến ChapterActivity và truyền danh sách URL hình ảnh của chapter
                     Intent intent = new Intent(DetailActivity.this, ChapterActivity.class);
                     intent.putStringArrayListExtra("imageUrls", (ArrayList<String>) imageUrls);
+                    intent.putExtra("chapterId", selectedChapter.getChapterId());
                     startActivity(intent);
                 } else {
                     Toast.makeText(DetailActivity.this, "Danh sách ảnh không hợp lệ", Toast.LENGTH_SHORT).show();

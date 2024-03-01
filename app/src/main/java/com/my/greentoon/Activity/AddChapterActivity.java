@@ -164,7 +164,7 @@ public class AddChapterActivity extends AppCompatActivity {
                                 String downloadUrl = uri.toString();
                                 // Thêm URL của hình ảnh vào danh sách
                                 listImgChapter.add(downloadUrl);
-                                // Kiểm tra nếu đã tải lên tất cả các hình ảnh
+                                // Kiểm tra xem đã tải lên tất cả các hình ảnh chưa
                                 if (listImgChapter.size() == imageUris.size()) {
                                     // Tất cả các hình ảnh đã được tải lên, bạn có thể lưu URL vào Firebase Database
                                     saveChapterToDatabase(listImgChapter, chapterName, chapterTitle, selectedToon);
@@ -180,8 +180,17 @@ public class AddChapterActivity extends AppCompatActivity {
     }
 
     private void saveChapterToDatabase(List<String> imageUrls, String chapterName, String chapterTitle, Toon selectedToon) {
-        // Lưu danh sách URL của hình ảnh vào Firebase Database
-        DatabaseReference chapterRef = chaptersRef.child(selectedToon.getUserId()).push();
+        // Lấy toonId của bộ truyện được chọn
+        String toonId = selectedToon.getToonId();
+
+        // Tạo một chapterId duy nhất cho chương
+        String chapterId = chaptersRef.child(toonId).push().getKey();
+
+        // Tạo một tham chiếu đến nút chương mới được tạo
+        DatabaseReference chapterRef = chaptersRef.child(toonId).child(chapterId);
+
+        // Lưu dữ liệu chương vào Firebase Database
+        chapterRef.child("chapterId").setValue(chapterId); // Lưu chapterId
         chapterRef.child("chapterName").setValue(chapterName);
         chapterRef.child("chapterTitle").setValue(chapterTitle);
         chapterRef.child("listImgChapter").setValue(imageUrls)
@@ -198,4 +207,6 @@ public class AddChapterActivity extends AppCompatActivity {
                     Toast.makeText(AddChapterActivity.this, "Failed to add chapter: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
+
 }

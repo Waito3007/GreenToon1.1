@@ -65,7 +65,7 @@ public class ToonListActivity extends AppCompatActivity {
 
                 // Chuyển sang DetailActivity và truyền toonId của toon được chọn
                 Intent intent = new Intent(ToonListActivity.this, DetailActivity.class);
-                intent.putExtra("toonId", selectedToon.getUserId());
+                intent.putExtra("toonId", selectedToon.getToonId());
                 startActivity(intent);
             }
         });

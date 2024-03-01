@@ -7,6 +7,7 @@ public class Chapter {
     private String chapterName;
     private String chapterTitle;
     private List<String> listImgChapter; // Danh sách URL của các hình ảnh
+    private String userId; // ID của người dùng đã xem chapter này
 
     public Chapter() {
         // Constructor mặc định
@@ -49,5 +50,13 @@ public class Chapter {
 
     public void setListImgChapter(List<String> listImgChapter) {
         this.listImgChapter = listImgChapter;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

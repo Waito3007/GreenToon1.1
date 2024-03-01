@@ -21,6 +21,19 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <!-- TextView để hiển thị số lượt xem -->
+    <TextView
+        android:id="@+id/textViewViewCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số lượt xem: "
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+
     <!-- TextView để hiển thị mô tả truyện -->
     <TextView
         android:id="@+id/textViewToonDes"

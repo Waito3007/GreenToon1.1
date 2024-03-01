@@ -3,10 +3,11 @@ package com.my.greentoon.Model;
 import java.util.List;
 
 public class Toon {
-    private String userId;
+    private String toonId; // Thay userId thành toonId
     private String toonCover;
     private String toonName;
     private String toonDes;
+    private int viewCount; // Số lượt xem của toon
     private List<Chapter> chapters; // Danh sách các chapter thuộc toon này
 
     // Constructors, getters, setters
@@ -15,20 +16,30 @@ public class Toon {
         // Default constructor required for calls to DataSnapshot.getValue(Toon.class)
     }
 
-    public Toon(String userId, String toonName, String toonDes) {
-        this.userId = userId;
+    public Toon(String toonId, String toonName, String toonDes) {
+        this.toonId = toonId;
         this.toonName = toonName;
         this.toonDes = toonDes;
     }
 
-    public Toon(String userId, String toonCover, String toonName, String toonDes) {
-        this.userId = userId;
+    public Toon(String toonId, String toonCover, String toonName, String toonDes) {
+        this.toonId = toonId;
         this.toonCover = toonCover;
         this.toonName = toonName;
         this.toonDes = toonDes;
     }
 
-    // Các getters và setters cho thuộc tính chapters
+    // Getter và setter cho viewCount
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    // Getter và setter cho chapters
 
     public List<Chapter> getChapters() {
         return chapters;
@@ -38,18 +49,13 @@ public class Toon {
         this.chapters = chapters;
     }
 
+    // Thay đổi userId thành toonId
+
     public String getToonId() {
-        return userId; // hoặc bất kỳ trường dữ liệu nào thích hợp để đại diện cho toonId
-    }
-    // Các getters và setters cho các thuộc tính khác...
-
-    public String getUserId() {
-        return userId;
+        return toonId; // hoặc bất kỳ trường dữ liệu nào thích hợp để đại diện cho toonId
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    // Getter và setter cho các thuộc tính khác...
 
     public String getToonCover() {
         return toonCover;
