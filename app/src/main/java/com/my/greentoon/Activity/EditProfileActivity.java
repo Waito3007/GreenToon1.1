@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.my.greentoon.R;
 
 public class EditProfileActivity extends AppCompatActivity {
-Button btUsername,btBack,btImg,btUpload,btEdit;
+Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +20,8 @@ Button btUsername,btBack,btImg,btUpload,btEdit;
         btImg = findViewById(R.id.btImg);
         btUpload=findViewById(R.id.btUpload);
         btEdit=findViewById(R.id.btEdit);
-
+        btEmail =findViewById(R.id.btEmail);
+        btUploadChap =findViewById(R.id.btUploadChap);
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,6 +32,13 @@ Button btUsername,btBack,btImg,btUpload,btEdit;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditProfileActivity.this, EditUsernameActivity.class);
+                startActivity(intent);
+            }
+        });
+        btEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this, ToonListActivity.class);
                 startActivity(intent);
             }
         });
@@ -48,10 +56,17 @@ Button btUsername,btBack,btImg,btUpload,btEdit;
                 startActivity(intent);
             }
         });
+        btUploadChap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this, AddChapterActivity.class);
+                startActivity(intent);
+            }
+        });
         btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfileActivity.this,  ToonListActivity.class);
+                Intent intent = new Intent(EditProfileActivity.this,  ToonListEditActivity.class);
                 startActivity(intent);
             }
         });

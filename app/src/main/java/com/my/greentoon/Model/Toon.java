@@ -1,11 +1,13 @@
 package com.my.greentoon.Model;
 
-public class Toon {
+import java.util.List;
 
+public class Toon {
     private String userId;
     private String toonCover;
     private String toonName;
     private String toonDes;
+    private List<Chapter> chapters; // Danh sách các chapter thuộc toon này
 
     // Constructors, getters, setters
 
@@ -26,6 +28,37 @@ public class Toon {
         this.toonDes = toonDes;
     }
 
+    // Các getters và setters cho thuộc tính chapters
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    public String getToonId() {
+        return userId; // hoặc bất kỳ trường dữ liệu nào thích hợp để đại diện cho toonId
+    }
+    // Các getters và setters cho các thuộc tính khác...
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getToonCover() {
+        return toonCover;
+    }
+
+    public void setToonCover(String toonCover) {
+        this.toonCover = toonCover;
+    }
+
     public String getToonName() {
         return toonName;
     }
@@ -40,21 +73,5 @@ public class Toon {
 
     public void setToonDes(String toonDes) {
         this.toonDes = toonDes;
-    }
-
-    public String getToonCover() {
-        return toonCover;
-    }
-
-    public void setToonCover(String toonCover) {
-        this.toonCover = toonCover;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 }

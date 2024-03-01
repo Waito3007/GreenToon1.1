@@ -11,4 +11,5 @@
 
     <!-- Add the missing resource -->
     <string name="toon_cover_description">Toon cover description</string>
+    <string name="title_activity_chapter">ChapterActivity</string>
 </resources>

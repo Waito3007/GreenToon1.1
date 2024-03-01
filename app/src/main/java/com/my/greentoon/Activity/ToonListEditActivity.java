@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,7 @@ import com.my.greentoon.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToonListActivity extends AppCompatActivity {
+public class ToonListEditActivity extends AppCompatActivity {
 
     private ListView listViewToons;
     private List<Toon> toonList;
@@ -31,7 +30,7 @@ public class ToonListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toon_list);
+        setContentView(R.layout.activity_toon_list_edit);
 
         listViewToons = findViewById(R.id.listViewToons);
         toonList = new ArrayList<>();
@@ -46,29 +45,23 @@ public class ToonListActivity extends AppCompatActivity {
                     toonList.add(toon);
                 }
 
-                ToonAdapter adapter = new ToonAdapter(ToonListActivity.this, R.layout.item_toon, toonList);
+                ToonAdapter adapter = new ToonAdapter(ToonListEditActivity.this, R.layout.item_toon, toonList);
                 listViewToons.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ToonListActivity.this, "Failed to load toons: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                // Xử lý lỗi nếu có
             }
         });
 
-        // Xử lý sự kiện khi click vào một toon
         listViewToons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy thông tin của toon được chọn
-                Toon selectedToon = toonList.get(position);
-
-                // Chuyển sang DetailActivity và truyền toonId của toon được chọn
-                Intent intent = new Intent(ToonListActivity.this, DetailActivity.class);
-                intent.putExtra("toonId", selectedToon.getUserId());
+                Intent intent = new Intent(ToonListEditActivity.this, EditToonActivity.class);
+                intent.putExtra("toonId", toonList.get(position).getToonId());
                 startActivity(intent);
             }
         });
-
     }
 }
