@@ -1,95 +1,80 @@
 package com.my.greentoon.Adapter;
-import android.app.Activity;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.my.greentoon.Model.SearchModel;
+import com.bumptech.glide.Glide;
+import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class SearchAdapter extends ArrayAdapter<SearchModel> implements Filterable {
-    Activity context;
-    int Idlayout;
-    ArrayList<SearchModel> mylist;
-    ArrayList<SearchModel> filteredList;
+public class SearchAdapter extends BaseAdapter {
 
+    private Context context;
+    private List<Toon> toonList;
+    private List<Toon> filteredList;
 
-    public SearchAdapter(Activity context, int idlayout, ArrayList<SearchModel> mylist) {
-        super(context, idlayout, mylist);
+    public SearchAdapter(Context context, List<Toon> toonList) {
         this.context = context;
-        Idlayout = idlayout;
-        this.mylist = new ArrayList<>(mylist);
-        this.filteredList = new ArrayList<>(mylist);
+        this.toonList = toonList;
+        this.filteredList = new ArrayList<>(toonList);
     }
 
-
-
-    private static class ViewHolder {
-        ImageView img_item;
-        TextView txt_name;
-    }
-
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ViewHolder holder;
+    public int getCount() {
+        return filteredList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return filteredList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
 
         if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(Idlayout, parent, false);
-
-            holder = new ViewHolder();
-            holder.img_item = convertView.findViewById(R.id.img_item);
-            holder.txt_name = convertView.findViewById(R.id.txt_name);
-
-            convertView.setTag(holder);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_search, parent, false);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        SearchModel myitem = getItem(position);
-        if (myitem != null) {
-            holder.img_item.setImageResource(myitem.getImage());
-            holder.txt_name.setText(myitem.getName());
-        }
+        Toon toon = filteredList.get(position);
+
+        // Hiển thị thông tin của truyện
+        viewHolder.toonName.setText(toon.getToonName());
+        Glide.with(context).load(toon.getToonCover()).into(viewHolder.toonCover);
 
         return convertView;
     }
-    @NonNull
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                filteredList.clear();
 
-                for (SearchModel currentItem : mylist) {
-                    if (currentItem.getName().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(currentItem);
-                    }
-                }
-                FilterResults results = new FilterResults();
-                results.values = filteredList;
-                return results;
-            }
+    public void filterList(List<Toon> filteredList) {
+        this.filteredList = filteredList;
+        notifyDataSetChanged();
+    }
 
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                clear();
-                addAll((ArrayList<SearchModel>) results.values);
-                notifyDataSetChanged();
-            }
-        };
+    private static class ViewHolder {
+        ImageView toonCover;
+        TextView toonName;
+
+        ViewHolder(View view) {
+            toonCover = view.findViewById(R.id.iv_toon_cover);
+            toonName = view.findViewById(R.id.tv_toon_name);
+        }
     }
 }

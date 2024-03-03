@@ -1,72 +1,112 @@
 package com.my.greentoon.Fragment;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.SearchView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.my.greentoon.Activity.DetailActivity;
 import com.my.greentoon.Adapter.SearchAdapter;
-import com.my.greentoon.Model.SearchModel;
+import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
+import java.util.List;
 
 public class SearchFragment extends Fragment {
 
-    int[] img ={R.drawable.truyen1,R.drawable.truyen2,R.drawable.truyen3,R.drawable.truyen4,R.drawable.truyen1,R.drawable.truyen2
-            ,R.drawable.truyen3,R.drawable.truyen1
-    };
-    String[] name ={"truyen 1","truyen 2","truyen3","Truyen4","truyen5","truyen6","truyen7","truyen8"};
+    private SearchView searchView;
+    private GridView gridView;
+    private SearchAdapter searchAdapter;
+    private List<Toon> toonList;
+    private DatabaseReference databaseReference;
 
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
 
-    @SuppressLint("UseRequireInsteadOfGet")
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        searchView = root.findViewById(R.id.search_view);
+        gridView = root.findViewById(R.id.gv);
+        toonList = new ArrayList<>();
+        searchAdapter = new SearchAdapter(getContext(), toonList);
+        gridView.setAdapter(searchAdapter);
 
-        GridView gv = view.findViewById(R.id.gv);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("toons");
 
-        ArrayList<SearchModel> mylist = new ArrayList<>();
-
-        for(int i = 0; i < name.length; i++)
-        {
-            mylist.add(new SearchModel(img[i],name[i]));
-        }
-
-        SearchAdapter myadapter = new SearchAdapter(getActivity(), R.layout.search_item, mylist);
-        gv.setAdapter(myadapter);
-        SearchView sv1 = view.findViewById(R.id.sv1);
-        sv1.setQueryHint("Nhập tên truyện bạn muốn tìm");
-        sv1.setIconifiedByDefault(false);
-        sv1.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        // Listen for search input
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                myadapter.getFilter().filter(query);
-                return true;
+                return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String query) {
-                myadapter.getFilter().filter(query);
+            public boolean onQueryTextChange(String newText) {
+                searchToons(newText);
                 return true;
             }
         });
 
-        gv.setOnItemClickListener((parent, view1, position, id) -> {
-            SearchModel item = myadapter.getItem(position);
-            if (item != null) {
-                Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "click " + item.getName(), Toast.LENGTH_SHORT).show();
+        // Load cartoon list from Firebase
+        loadToonList();
+
+        // Handle item click
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected toon
+                Toon selectedToon = toonList.get(position);
+
+                // Navigate to DetailActivity and pass the selected toon ID
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("toonId", selectedToon.getToonId());
+                startActivity(intent);
             }
         });
-        return view;
+
+        return root;
+    }
+
+    private void loadToonList() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                toonList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Toon toon = snapshot.getValue(Toon.class);
+                    if (toon != null) {
+                        toonList.add(toon);
+                    }
+                }
+                searchAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database error
+            }
+        });
+    }
+
+    private void searchToons(String query) {
+        List<Toon> filteredList = new ArrayList<>();
+        for (Toon toon : toonList) {
+            if (toon.getToonName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(toon);
+            }
+        }
+        searchAdapter.filterList(filteredList);
     }
 }
