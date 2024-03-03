@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.nav_home:
                         fragment = new HomeFragment();
+
                         break;
                     case R.id.nav_search:
                         fragment = new SearchFragment();

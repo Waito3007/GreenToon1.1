@@ -45,7 +45,6 @@ public class ToonListActivity extends AppCompatActivity {
                     Toon toon = toonSnapshot.getValue(Toon.class);
                     toonList.add(toon);
                 }
-
                 ToonAdapter adapter = new ToonAdapter(ToonListActivity.this, R.layout.item_toon, toonList);
                 listViewToons.setAdapter(adapter);
             }
