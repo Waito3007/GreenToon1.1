@@ -67,8 +67,8 @@ public class PopularToonAdapter extends RecyclerView.Adapter<PopularToonAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             toonCoverImageView = itemView.findViewById(R.id.toon_cover);
-            toonNameTextView = itemView.findViewById(R.id.toon_name);
-            toonViewCountTextView = itemView.findViewById(R.id.toon_view_count);
+            toonNameTextView = itemView.findViewById(R.id.tv_toon_name);
+            toonViewCountTextView = itemView.findViewById(R.id.tv_toon_view_count);
         }
     }
 }

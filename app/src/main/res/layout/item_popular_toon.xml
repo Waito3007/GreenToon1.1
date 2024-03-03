@@ -13,18 +13,19 @@
         android:src="@drawable/sliderimg2" />
 
     <TextView
-        android:id="@+id/toon_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_toon_name"
+        android:layout_width="114dp"
+        android:layout_height="38dp"
         android:layout_marginTop="8dp"
-        android:maxLines="1"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:text="Toon Name"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/toon_view_count"
+        android:id="@+id/tv_toon_view_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

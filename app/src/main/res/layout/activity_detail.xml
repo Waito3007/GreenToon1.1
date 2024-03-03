@@ -6,46 +6,74 @@
     android:padding="16dp">
 
     <!-- ImageView để hiển thị ảnh bìa -->
-    <ImageView
-        android:id="@+id/imageViewToonCover"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop" />
 
     <!-- TextView để hiển thị tên truyện -->
+    <LinearLayout
+        android:layout_width="383dp"
+        android:layout_height="294dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageViewToonCover"
+            android:layout_width="222dp"
+            android:layout_height="287dp"
+            android:layout_marginTop="7sp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/textViewViewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Số lượt xem: "
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textViewToonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="34dp"
         android:layout_marginTop="16dp"
-        android:textSize="20sp"
+        android:gravity="center"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <!-- TextView để hiển thị số lượt xem -->
-    <TextView
-        android:id="@+id/textViewViewCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Số lượt xem: "
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
 
 
     <!-- TextView để hiển thị mô tả truyện -->
-    <TextView
-        android:id="@+id/textViewToonDes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
 
     <!-- ListView để hiển thị danh sách các chapter -->
+    <TextView
+        android:id="@+id/textViewDesPage"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Nội Dung truyện"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/textViewToonDes"
+        android:layout_width="385dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="1dp" />
+
+    <TextView
+        android:id="@+id/textViewViewChapterPage"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Danh sách Chap"
+        android:textSize="17sp" />
+
     <ListView
         android:id="@+id/listViewChapters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="14sp"
         android:layout_marginTop="16dp" />
 
 </LinearLayout>

@@ -14,15 +14,15 @@
         android:fontFamily="sans-serif"
         android:foregroundGravity="center"
         android:gravity="center|left"
-        android:text="Đề Xuất"
         android:paddingStart="20sp"
+        android:text="Đề Xuất"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="148dp" />
+        android:layout_height="182dp" />
 
     <TextView
         android:layout_width="match_parent"

@@ -7,17 +7,19 @@ public class Chapter {
     private String chapterName;
     private String chapterTitle;
     private List<String> listImgChapter; // Danh sách URL của các hình ảnh
-    private String userId; // ID của người dùng đã xem chapter này
+    private String toonId; // ID
+    private int numChapter; // Dùng cho việc next hay back chap trong ChapterActivity
 
     public Chapter() {
         // Constructor mặc định
     }
 
-    public Chapter(String chapterId, String chapterName, String chapterTitle, List<String> listImgChapter) {
+    public Chapter(String chapterId, String chapterName, String chapterTitle, List<String> listImgChapter, int numChapter) {
         this.chapterId = chapterId;
         this.chapterName = chapterName;
         this.chapterTitle = chapterTitle;
         this.listImgChapter = listImgChapter;
+        this.numChapter = numChapter;
     }
 
     public String getChapterId() {
@@ -52,11 +54,19 @@ public class Chapter {
         this.listImgChapter = listImgChapter;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getToonId() {
+        return toonId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setToonId(String toonId) {
+        this.toonId = toonId;
+    }
+
+    public int getNumChapter() {
+        return numChapter;
+    }
+
+    public void setNumChapter(int numChapter) {
+        this.numChapter = numChapter;
     }
 }

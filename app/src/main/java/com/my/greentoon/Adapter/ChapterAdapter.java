@@ -29,19 +29,29 @@ public class ChapterAdapter extends ArrayAdapter<Chapter> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        ViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(mResource, parent, false);
-        }
 
-        TextView textViewChapterName = convertView.findViewById(R.id.textViewChapterName);
+            viewHolder = new ViewHolder();
+            viewHolder.textViewChapterName = convertView.findViewById(R.id.textViewChapterName);
+
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
         Chapter chapter = getItem(position);
 
         if (chapter != null) {
-            textViewChapterName.setText(chapter.getChapterName());
+            viewHolder.textViewChapterName.setText(chapter.getChapterName());
         }
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView textViewChapterName;
     }
 }

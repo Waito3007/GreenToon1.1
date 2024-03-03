@@ -7,23 +7,23 @@
         android:id="@+id/spinnerToonList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp" />
+        android:layout_marginTop="16dp"/>
 
     <EditText
         android:id="@+id/editTextChapterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/spinnerToonList"
-        android:hint="Chapter Name"
-        android:layout_margin="16dp"/>
+        android:layout_marginTop="16dp"
+        android:hint="Chapter Name"/>
 
     <EditText
         android:id="@+id/editTextChapterTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextChapterName"
-        android:hint="Chapter Title"
-        android:layout_margin="16dp"/>
+        android:layout_marginTop="16dp"
+        android:hint="Chapter Title"/>
 
     <Button
         android:id="@+id/btnChooseImages"
@@ -31,9 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextChapterTitle"
         android:layout_marginTop="16dp"
-        android:text="Choose Images"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:text="Choose Images"/>
 
     <Button
         android:id="@+id/btnAddChapter"
@@ -41,8 +39,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btnChooseImages"
         android:layout_marginTop="16dp"
-        android:text="Add Chapter"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:text="Add Chapter"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSelectedImages"
+        android:layout_width="match_parent"
+        android:layout_height="489dp"
+        android:layout_below="@id/btnChooseImages"
+        android:layout_marginTop="6dp" />
 
 </RelativeLayout>

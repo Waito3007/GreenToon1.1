@@ -47,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
         textViewToonDes = findViewById(R.id.textViewToonDes);
         listViewChapters = findViewById(R.id.listViewChapters);
         String toonId = getIntent().getStringExtra("toonId");
-        textViewViewCount =findViewById(R.id.textViewViewCount);
+        textViewViewCount = findViewById(R.id.textViewViewCount);
         chapterList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -126,8 +126,9 @@ public class DetailActivity extends AppCompatActivity {
 
                     // Chuyển đến ChapterActivity và truyền danh sách URL hình ảnh của chapter
                     Intent intent = new Intent(DetailActivity.this, ChapterActivity.class);
-                    intent.putStringArrayListExtra("imageUrls", (ArrayList<String>) imageUrls);
-                    intent.putExtra("chapterId", selectedChapter.getChapterId());
+                    intent.putExtra("chapterId", selectedChapter.getChapterId()); // Truyền ID của chapter
+                    intent.putExtra("toonId", selectedChapter.getToonId()); // Truyền ID của toon
+
                     startActivity(intent);
                 } else {
                     Toast.makeText(DetailActivity.this, "Danh sách ảnh không hợp lệ", Toast.LENGTH_SHORT).show();
