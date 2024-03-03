@@ -3,9 +3,12 @@ package com.my.greentoon.Model;
 public class User {
     private String userId;
     private String email;
+
+
     private String password;
     private String avatarUser;
     private String nameUser;
+    private boolean isAdmin; // phan quyen
     public User() {
         // Cần phải có constructor không tham số để Firebase có thể chuyển đổi dữ liệu từ database
     }
@@ -14,12 +17,12 @@ public class User {
         this.userId = userId;
         this.email = email;
         this.password= password;
+
     }
 
     public String getUserId() {
         return userId;
     }
-
     public String getEmail() {
         return email;
     }
@@ -37,6 +40,15 @@ public class User {
     }
     public void setNameUser(String nameUser) {
         this.nameUser = nameUser;
+    }
+
+    //phanquyen
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }
 //toon

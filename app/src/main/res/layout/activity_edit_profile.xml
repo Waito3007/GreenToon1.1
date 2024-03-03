@@ -79,6 +79,7 @@
         android:hint="Đăng Truyện"
         android:padding="12dp"
         android:textColorHint="#858080"
+        android:visibility="gone"
         android:textSize="20sp" />
     <Button
         android:id="@+id/btUploadChap"
@@ -89,6 +90,7 @@
         android:background="@drawable/borderinput"
         android:hint="Đăng Chapter Truyện"
         android:padding="12dp"
+        android:visibility="gone"
         android:textColorHint="#858080"
         android:textSize="20sp" />
     <Button
@@ -101,6 +103,7 @@
         android:hint="Chỉnh sửa"
         android:padding="12dp"
         android:textColorHint="#858080"
+        android:visibility="gone"
         android:textSize="20sp" />
 
 </LinearLayout>
