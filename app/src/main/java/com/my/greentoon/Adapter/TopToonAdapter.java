@@ -1,7 +1,8 @@
 package com.my.greentoon.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +13,53 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.my.greentoon.Activity.DetailActivity;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonViewHolder> {
     private Context context;
     private List<Toon> toonList;
+    private int currentPosition = 0;
+    private Timer timer;
 
     public TopToonAdapter(Context context, List<Toon> toonList) {
         this.context = context;
         this.toonList = toonList;
+        // Bắt đầu chuyển đổi tự động khi Adapter được tạo
+        startAutoScroll();
+    }
+
+    // Hàm này bắt đầu chuyển đổi tự động
+    private void startAutoScroll() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (currentPosition == getItemCount() - 1) {
+                            currentPosition = 0;
+                        } else {
+                            currentPosition++;
+                        }
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        }, 1800, 1800); // Chuyển slide sau mỗi 1.8s
+    }
+
+    // Hàm này dừng chuyển đổi tự động
+    private void stopAutoScroll() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 
     @NonNull
@@ -44,18 +79,8 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
         // Hiển thị tên và mô tả của truyện
         holder.textToonName.setText(toon.getToonName());
         holder.textToonDescription.setText(toon.getToonDes());
-
-        // Xử lý sự kiện khi người dùng nhấn vào mục
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Chuyển sang DetailActivity và truyền toonId
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("toonId", toon.getToonId());
-                context.startActivity(intent);
-            }
-        });
     }
+
     @Override
     public int getItemCount() {
         return toonList.size();
@@ -71,5 +96,12 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
             textToonName = itemView.findViewById(R.id.text_top_toon_name);
             textToonDescription = itemView.findViewById(R.id.text_top_toon_description);
         }
+    }
+
+    // Tạm dừng chuyển đổi tự động khi RecyclerView bị hủy
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        stopAutoScroll();
     }
 }

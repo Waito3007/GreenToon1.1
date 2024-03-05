@@ -29,6 +29,8 @@ import com.my.greentoon.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeFragment extends Fragment {
     private ViewPager2 viewPager;
@@ -38,6 +40,8 @@ public class HomeFragment extends Fragment {
     private List<Toon> toonList;
     private List<Toon> popularToonList;
     private Button btMoretoon;
+    private Timer autoScrollTimer; // Thêm biến Timer để theo dõi việc chuyển đổi tự động
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,6 +72,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         // Set item click listener for the popular toons list
         popularToonAdapter.setOnItemClickListener(new PopularToonAdapter.OnItemClickListener() {
             @Override
@@ -78,7 +83,41 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        // Bắt đầu chuyển đổi tự động khi fragment được tạo
+        startAutoScroll();
+
         return view;
+    }
+
+    // Hàm này bắt đầu chuyển đổi tự động
+    private void startAutoScroll() {
+        autoScrollTimer = new Timer();
+        autoScrollTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Kiểm tra nếu fragment vẫn còn đính kèm vào activity
+                if (isAdded()) {
+                    // Thực hiện chuyển đổi tự động của ViewPager
+                    viewPager.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            int currentItem = viewPager.getCurrentItem();
+                            int nextItem = (currentItem + 1) % toonList.size();
+                            viewPager.setCurrentItem(nextItem);
+                        }
+                    });
+                }
+            }
+        }, 1900, 2100); // Chuyển slide sau mỗi 1.8s
+    }
+
+    // Hàm này dừng chuyển đổi tự động
+    private void stopAutoScroll() {
+        if (autoScrollTimer != null) {
+            autoScrollTimer.cancel();
+            autoScrollTimer = null;
+        }
     }
     private void loadTopToons() {
         DatabaseReference toonsRef = FirebaseDatabase.getInstance().getReference("toons");
@@ -131,5 +170,11 @@ public class HomeFragment extends Fragment {
                 // Handle errors
             }
         });
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Dừng chuyển đổi tự động khi fragment bị hủy
+        stopAutoScroll();
     }
 }
