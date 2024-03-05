@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/backgound"
+    android:background="@drawable/bkglogin"
     android:orientation="vertical"
     app:layout_anchorGravity="center"
     tools:context=".Activity.SignInActivity">
@@ -20,13 +21,30 @@
         android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
         android:textColor="#FFFAFA" />
 
+    <ImageView
+        android:id="@+id/logoLogin"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="50sp"
+        android:layout_marginRight="50sp"
+        android:layout_marginBottom="10sp"
+        android:layout_weight="1"
+        android:paddingLeft="10sp"
+        android:paddingTop="10sp"
+        android:paddingRight="10sp"
+        android:paddingBottom="10sp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logohouhou" />
+
     <TextView
         android:id="@+id/tvLogo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="GreenToon"
-        android:textColor="#F1EEEE"
+        android:textColor="#6FFF75"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -40,7 +58,7 @@
         android:hint="Email"
         android:padding="12dp"
         android:textColor="#FFFFFF"
-        android:textColorHint="#858080"
+        android:textColorHint="@color/white"
         android:textSize="20sp" />
 
     <EditText
@@ -51,10 +69,10 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/borderinput"
         android:hint="Pasword"
+        android:inputType="textPassword"
         android:padding="12dp"
         android:textColor="#FFFFFF"
-        android:inputType="textPassword"
-        android:textColorHint="#858080"
+        android:textColorHint="#FFFFFF"
         android:textSize="20sp" />
 
 
