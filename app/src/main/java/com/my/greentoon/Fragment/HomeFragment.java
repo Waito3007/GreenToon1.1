@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Activity.DetailActivity;
+import com.my.greentoon.Activity.ToonListActivity;
 import com.my.greentoon.Adapter.PopularToonAdapter;
 import com.my.greentoon.Adapter.TopToonAdapter;
 import com.my.greentoon.Model.Toon;
@@ -35,7 +37,7 @@ public class HomeFragment extends Fragment {
     private PopularToonAdapter popularToonAdapter;
     private List<Toon> toonList;
     private List<Toon> popularToonList;
-
+    private Button btMoretoon;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment {
 
         viewPager = view.findViewById(R.id.view_pager);
         recyclerViewPopularToons = view.findViewById(R.id.recyclerViewPopularToons);
+        btMoretoon = view.findViewById(R.id.btMoretoon);
 
         toonList = new ArrayList<>();
         popularToonList = new ArrayList<>();
@@ -58,7 +61,13 @@ public class HomeFragment extends Fragment {
 
         loadTopToons();
         loadPopularToons();
-
+        btMoretoon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ToonListActivity.class);
+                startActivity(intent);
+            }
+        });
         // Set item click listener for the popular toons list
         popularToonAdapter.setOnItemClickListener(new PopularToonAdapter.OnItemClickListener() {
             @Override

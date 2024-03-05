@@ -36,13 +36,15 @@ public class ToonAdapter extends ArrayAdapter<Toon> {
         }
 
         TextView textViewToonName = convertView.findViewById(R.id.textViewToonName);
-        TextView textViewToonDesc = convertView.findViewById(R.id.textViewToonDesc);
+       // TextView textViewToonDesc = convertView.findViewById(R.id.textViewToonDesc);
+       TextView textViewCount = convertView.findViewById(R.id.textViewCount);
         ImageView imageViewToonCover = convertView.findViewById(R.id.imageViewToonCover);
 
         Toon currentToon = toonList.get(position);
 
         textViewToonName.setText(currentToon.getToonName());
-        textViewToonDesc.setText(currentToon.getToonDes());
+       // textViewToonDesc.setText(currentToon.getToonDes());
+       textViewCount.setText("view "+currentToon.getViewCount());
 
         // Sử dụng thư viện Glide để hiển thị ảnh từ URL
         Glide.with(context)

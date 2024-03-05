@@ -23,7 +23,7 @@
             android:id="@+id/btnPreviousChapter"
             android:layout_width="29dp"
             android:layout_height="29dp"
-            android:layout_marginStart="200dp"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="8dp"
 
             android:background="@drawable/baseline_arrow_back_ios_24" />
@@ -44,6 +44,14 @@
             android:layout_height="29dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/baseline_arrow_forward_ios_24" />
+
+        <ImageButton
+            android:id="@+id/btn_home"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_home" />
 
 
     </LinearLayout>

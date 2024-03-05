@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.my.greentoon.Fragment.ProfileFragment;
 import com.my.greentoon.R;
 
 public class SignInActivity extends AppCompatActivity {
@@ -35,7 +34,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(SignInActivity.this, ProfileFragment.class);
+                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

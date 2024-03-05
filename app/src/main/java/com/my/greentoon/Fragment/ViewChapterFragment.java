@@ -1,5 +1,6 @@
 package com.my.greentoon.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.my.greentoon.Activity.ChapterActivity;
 import com.my.greentoon.R;
 
 import java.util.ArrayList;
@@ -28,12 +30,13 @@ import java.util.List;
 public class ViewChapterFragment extends DialogFragment {
 
     private List<Integer> numChapterList;
-    private DatabaseReference databaseReference;
+    private String toonId; // Thêm biến toonId
 
-    public static ViewChapterFragment newInstance(List<Integer> numChapterList) {
+    public static ViewChapterFragment newInstance(List<Integer> numChapterList, String toonId) {
         ViewChapterFragment fragment = new ViewChapterFragment();
         Bundle args = new Bundle();
         args.putIntegerArrayList("numChapterList", (ArrayList<Integer>) numChapterList);
+        args.putString("toonId", toonId); // Gán giá trị toonId
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,9 +44,9 @@ public class ViewChapterFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        databaseReference = FirebaseDatabase.getInstance().getReference();
         if (getArguments() != null) {
             numChapterList = getArguments().getIntegerArrayList("numChapterList");
+            toonId = getArguments().getString("toonId"); // Lấy giá trị toonId
         }
     }
 
@@ -66,18 +69,16 @@ public class ViewChapterFragment extends DialogFragment {
 
     private void loadChaptersFromFirebase() {
         // Lấy reference của chapters từ Firebase Database
-        DatabaseReference chaptersRef = databaseReference.child("chapters");
+        DatabaseReference chaptersRef = FirebaseDatabase.getInstance().getReference().child("chapters").child(toonId);
         chaptersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 numChapterList = new ArrayList<>();
-                for (DataSnapshot toonSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot chapterSnapshot : toonSnapshot.getChildren()) {
-                        // Lấy số chapter và thêm vào danh sách
-                        Integer numChapter = chapterSnapshot.child("numChapter").getValue(Integer.class);
-                        if (numChapter != null) {
-                            numChapterList.add(numChapter);
-                        }
+                for (DataSnapshot chapterSnapshot : dataSnapshot.getChildren()) {
+                    // Lấy số chapter và thêm vào danh sách
+                    Integer numChapter = chapterSnapshot.child("numChapter").getValue(Integer.class);
+                    if (numChapter != null) {
+                        numChapterList.add(numChapter);
                     }
                 }
                 // Sau khi tải dữ liệu xong, cập nhật giao diện
@@ -102,22 +103,62 @@ public class ViewChapterFragment extends DialogFragment {
             linearLayoutChapterList.removeAllViews();
 
             // Tính tổng số chương
-            int totalChapter = 0;
-            for (int numChapter : numChapterList) {
-                totalChapter += 1;
-            }
-
-            // Hiển thị tổng số chương
+            int totalChapter = numChapterList.size();
             countChapter.setText("Tổng số chương: " + totalChapter);
 
             // Hiển thị từng chương
-            for (int numChapter : numChapterList) {
+            for (final Integer numChapter : numChapterList) {
                 TextView textViewChapter = new TextView(getContext());
                 textViewChapter.setText("Chap " + numChapter);
-                textViewChapter.setTextSize(30); // Đặt kích thước font là 30dp
+                textViewChapter.setTextSize(28); // Đặt kích thước font là 30dp
+                textViewChapter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Mở ChapterActivity với chương có số chap là numChapter
+                        openChapterActivity(numChapter);
+                    }
+                });
                 linearLayoutChapterList.addView(textViewChapter);
             }
         }
+    }
+
+    private void openChapterActivity(int selectedChapterNum) {
+        // Tạo tham chiếu đến Chapter cụ thể trong Firebase theo toonId và số chap
+        DatabaseReference chapterRef = FirebaseDatabase.getInstance().getReference()
+                .child("chapters")
+                .child(toonId)
+                .orderByChild("numChapter")
+                .equalTo(selectedChapterNum)
+                .getRef();
+
+        // Thực hiện truy vấn
+        chapterRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Kiểm tra xem có Chapter tương ứng không
+                if (dataSnapshot.exists()) {
+                    // Lặp qua tất cả các Chapter (tuy nhiên chỉ có một Chapter với số chap duy nhất)
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        // Lấy id của Chapter
+                        String chapterId = snapshot.getKey();
+
+                        // Chuyển tới ChapterActivity khi click vào một chương
+                        Intent intent = new Intent(getContext(), ChapterActivity.class);
+                        intent.putExtra("toonId", toonId);
+                        intent.putExtra("chapterId", chapterId);
+                        startActivity(intent);
+                    }
+                } else {
+                    // Xử lý khi không tìm thấy Chapter tương ứng
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Xử lý khi có lỗi xảy ra
+            }
+        });
     }
 
     @Override
@@ -130,7 +171,7 @@ public class ViewChapterFragment extends DialogFragment {
 
         // Tính kích thước cho dialog fragment
         int dialogWidth = screenWidth;
-        int dialogHeight = (2 * screenHeight) / 3;
+        int dialogHeight = (1 * screenHeight) / 3;
 
         // Lấy dialog window
         Window window = getDialog().getWindow();

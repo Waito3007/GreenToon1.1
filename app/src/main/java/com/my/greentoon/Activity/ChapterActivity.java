@@ -2,7 +2,6 @@ package com.my.greentoon.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -30,32 +29,41 @@ public class ChapterActivity extends AppCompatActivity {
 
     private String toonId;
     private String currentChapterId;
-
+    ImageButton btn_home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter);
+        btn_home = findViewById(R.id.btn_home);
 
+        btn_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChapterActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         // Lấy chapterId và toonId từ Intent
         Intent intent = getIntent();
         String chapterId = intent.getStringExtra("chapterId");
         toonId = intent.getStringExtra("toonId");
-
         // Lấy reference của các thành phần giao diện từ layout
         TextView textViewChapterName = findViewById(R.id.textViewChapterName);
         RecyclerView recyclerViewImages = findViewById(R.id.recyclerViewImages);
         ImageButton btnPreviousChapter = findViewById(R.id.btnPreviousChapter);
         ImageButton btnNextChapter = findViewById(R.id.btnNextChapter);
         ImageButton btn_viewchapter = findViewById(R.id.btn_viewchapter);
+
         //Hien thi danh sach chap
         btn_viewchapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Tạo và hiển thị BottomSheetDialog
-                ViewChapterFragment fragment = new ViewChapterFragment();
+                ViewChapterFragment fragment = ViewChapterFragment.newInstance(null, toonId);
                 fragment.show(getSupportFragmentManager(), fragment.getTag());
             }
         });
+
         // Xử lý khi nhấn nút Quay lại chap trước
         btnPreviousChapter.setOnClickListener(view -> onPreviousChapterClick());
 
@@ -77,10 +85,6 @@ public class ChapterActivity extends AppCompatActivity {
 
                     // Hiển thị tên chương vào TextView
                     textViewChapterName.setText(chapterName);
-
-                    // Log danh sách các URL hình ảnh
-                    Log.d("ChapterActivity", "Chapter Name: " + chapterName);
-                    Log.d("ChapterActivity", "Image URLs: " + listImgChapter);
 
                     // Khởi tạo và thiết lập Adapter cho RecyclerView
                     ImageAdapter imageAdapter = new ImageAdapter(listImgChapter);
@@ -159,5 +163,4 @@ public class ChapterActivity extends AppCompatActivity {
             }
         });
     }
-
 }

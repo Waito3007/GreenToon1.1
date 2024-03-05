@@ -136,7 +136,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
         android:background="@drawable/borderinput"
-        android:hint="EditUser"
+        android:hint="EditChapter"
         android:padding="12dp"
         android:textColorHint="#858080"
         android:visibility="gone"
