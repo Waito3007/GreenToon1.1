@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.my.greentoon">
 
     <dist:module dist:instant="true" />
 
@@ -19,11 +20,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="34">
+
+        <activity
+            android:name=".Activity.SplashScreenActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.EditChapterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.DeleteChapterActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.DetailEditUserActivity"
@@ -34,15 +42,7 @@
         <activity
             android:name=".Activity.AdminPageActivity"
             android:exported="false" />
-        <activity
-            android:name=".AdminPage"
-            android:exported="false" />
-        <activity
-            android:name="com.darsh.multipleimageselect.activities.AlbumSelectActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.darsh.multipleimageselect.activities.ImageSelectActivity"
-            android:exported="true" />
+
         <activity
             android:name=".Activity.ChapterActivity"
             android:exported="false"

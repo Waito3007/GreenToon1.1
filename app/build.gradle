@@ -17,8 +17,12 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // Other configurations
+        manifestPlaceholders = [
+                'appPackageName': applicationId,
+                'activityName': '.Activity.SplashScreenActivity' // Ensure SplashScreenActivity is listed as the launcherActivity
+        ]
     }
 
     buildTypes {
