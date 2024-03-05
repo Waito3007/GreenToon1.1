@@ -104,7 +104,7 @@ public class ViewChapterFragment extends DialogFragment {
             // Tính tổng số chương
             int totalChapter = 0;
             for (int numChapter : numChapterList) {
-                totalChapter += numChapter;
+                totalChapter += 1;
             }
 
             // Hiển thị tổng số chương

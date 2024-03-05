@@ -18,12 +18,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
-public class EditProfileActivity extends AppCompatActivity {
-Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btMore;
+public class AdminPageActivity extends AppCompatActivity {
+    Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btEditUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_admin_page);
 
         // Khởi tạo các button và ánh xạ từ layout
         btBack = findViewById(R.id.btBack);
@@ -33,7 +33,7 @@ Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btMore;
         btEdit = findViewById(R.id.btEdit);
         btEmail = findViewById(R.id.btEmail);
         btUploadChap = findViewById(R.id.btUploadChap);
-        btMore = findViewById(R.id.btMore);
+        btEditUser = findViewById(R.id.btEditUser);
 
         // Lấy tham chiếu đến node "users" trên Firebase Realtime Database
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
@@ -48,8 +48,11 @@ Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btMore;
                     if (snapshot.exists()) {
                         User user = snapshot.getValue(User.class);
                         if (user != null && user.isAdmin()) {
-                            // Nếu người dùng là Admin, hiển thị bt
-                            btMore.setVisibility(View.VISIBLE);
+                            // Nếu người dùng là Admin, hiển thị các button
+                            btUpload.setVisibility(View.VISIBLE);
+                            btEdit.setVisibility(View.VISIBLE);
+                            btUploadChap.setVisibility(View.VISIBLE);
+                            btEditUser.setVisibility(View.VISIBLE);
 
                         }
                     }
@@ -70,28 +73,49 @@ Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btMore;
         btUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfileActivity.this, EditUsernameActivity.class);
+                Intent intent = new Intent(AdminPageActivity.this, EditUsernameActivity.class);
                 startActivity(intent);
             }
         });
-//        btEmail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(EditProfileActivity.this, ToonListActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        btEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminPageActivity.this, ToonListActivity.class);
+                startActivity(intent);
+            }
+        });
         btImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfileActivity.this, EditAvatarActivity.class);
+                Intent intent = new Intent(AdminPageActivity.this, EditAvatarActivity.class);
                 startActivity(intent);
             }
         });
-        btMore.setOnClickListener(new View.OnClickListener() {
+        btUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfileActivity.this,  AdminPageActivity.class);
+                Intent intent = new Intent(AdminPageActivity.this, UploadToonActivity.class);
+                startActivity(intent);
+            }
+        });
+        btUploadChap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminPageActivity.this, AddChapterActivity.class);
+                startActivity(intent);
+            }
+        });
+        btEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminPageActivity.this,  ToonListEditActivity.class);
+                startActivity(intent);
+            }
+        });
+        btEditUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminPageActivity.this,  UserListActivity.class);
                 startActivity(intent);
             }
         });

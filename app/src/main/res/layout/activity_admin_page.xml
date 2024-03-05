@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgound"
     android:orientation="vertical"
-    tools:context=".Activity.EditProfileActivity">
+    tools:context=".Activity.AdminPageActivity">
     <Button
         android:id="@+id/btBack"
         android:layout_width="match_parent"
@@ -113,6 +113,18 @@
         android:layout_marginTop="6dp"
         android:background="@drawable/borderinput"
         android:hint="Admin"
+        android:padding="12dp"
+        android:textColorHint="#858080"
+        android:visibility="gone"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/btEditUser"
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/borderinput"
+        android:hint="EditUser"
         android:padding="12dp"
         android:textColorHint="#858080"
         android:visibility="gone"

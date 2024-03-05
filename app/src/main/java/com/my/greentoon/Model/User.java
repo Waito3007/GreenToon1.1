@@ -12,7 +12,9 @@ public class User {
     public User() {
         // Cần phải có constructor không tham số để Firebase có thể chuyển đổi dữ liệu từ database
     }
-
+    public String toString() {
+        return nameUser; // Trả về tên người dùng khi gọi toString()
+    }
     public User(String userId, String email) {
         this.userId = userId;
         this.email = email;
