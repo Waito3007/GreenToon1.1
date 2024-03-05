@@ -42,4 +42,15 @@
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"/>
 
+    <Button
+        android:id="@+id/btMoretoon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20sp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:text="Xem nhiều truyện hơn"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
 </LinearLayout>

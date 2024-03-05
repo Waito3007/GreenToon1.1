@@ -13,7 +13,7 @@ public class Chapter {
     public Chapter() {
         // Constructor mặc định
     }
-
+    public String toString() {return "Chap " + numChapter;}
     public Chapter(String chapterId, String chapterName, String chapterTitle, List<String> listImgChapter, int numChapter) {
         this.chapterId = chapterId;
         this.chapterName = chapterName;

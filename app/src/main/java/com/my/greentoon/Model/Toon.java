@@ -30,6 +30,9 @@ public class Toon {
     }
 
     // Getter và setter cho viewCount
+    public String toString() {
+        return toonName; // Trả về tên truyện khi gọi toString()
+    }
 
     public int getViewCount() {
         return viewCount;

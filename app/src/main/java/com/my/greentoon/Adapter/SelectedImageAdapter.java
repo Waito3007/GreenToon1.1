@@ -43,6 +43,20 @@ public class SelectedImageAdapter extends RecyclerView.Adapter<SelectedImageAdap
         return imageUris.size();
     }
 
+    public void addImage(Uri uri) {
+        imageUris.add(uri);
+        notifyItemInserted(imageUris.size() - 1);
+    }
+
+    public void removeImage(int position) {
+        imageUris.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public List<Uri> getImageUris() {
+        return imageUris;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageViewSelectedImage;
 

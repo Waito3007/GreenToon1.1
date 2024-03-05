@@ -19,7 +19,7 @@ import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
 public class AdminPageActivity extends AppCompatActivity {
-    Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btEditUser;
+    Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btEditUser,btEditChapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +34,7 @@ public class AdminPageActivity extends AppCompatActivity {
         btEmail = findViewById(R.id.btEmail);
         btUploadChap = findViewById(R.id.btUploadChap);
         btEditUser = findViewById(R.id.btEditUser);
+        btEditChapter = findViewById(R.id.btEditChapter);
 
         // Lấy tham chiếu đến node "users" trên Firebase Realtime Database
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
@@ -53,6 +54,7 @@ public class AdminPageActivity extends AppCompatActivity {
                             btEdit.setVisibility(View.VISIBLE);
                             btUploadChap.setVisibility(View.VISIBLE);
                             btEditUser.setVisibility(View.VISIBLE);
+                            btEditChapter.setVisibility(View.VISIBLE);
 
                         }
                     }
@@ -116,6 +118,12 @@ public class AdminPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminPageActivity.this,  UserListActivity.class);
+                startActivity(intent);
+            }
+        });btEditChapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminPageActivity.this,  EditChapterActivity.class);
                 startActivity(intent);
             }
         });

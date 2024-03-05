@@ -51,6 +51,9 @@ public class ChapterAdapter extends ArrayAdapter<Chapter> {
         return convertView;
     }
 
+    public interface OnChapterClickListener {
+    }
+
     private static class ViewHolder {
         TextView textViewChapterName;
     }

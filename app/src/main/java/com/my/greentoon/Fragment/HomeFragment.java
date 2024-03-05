@@ -69,10 +69,8 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return view;
     }
-
     private void loadTopToons() {
         DatabaseReference toonsRef = FirebaseDatabase.getInstance().getReference("toons");
         Query query = toonsRef.orderByChild("viewCount").limitToLast(4);
