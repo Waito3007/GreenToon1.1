@@ -56,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
                     // Nếu chưa bật xác nhận admin, đăng ký tài khoản người dùng
                     signUpUser();
                 }
+                //mAuth.signOut();
             }
         });
 
@@ -108,6 +109,7 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             sendVerificationEmail();
+                            mAuth.signOut();
                         } else {
                             try {
                                 throw task.getException();
@@ -175,6 +177,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                             hideLoading();
                         }
+                        mAuth.signOut();
                     }
                 });
     }

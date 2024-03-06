@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class ToonListActivity extends AppCompatActivity {
     private ListView listViewToons;
     private List<Toon> toonList;
     private DatabaseReference databaseReference;
-
+    Button btBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class ToonListActivity extends AppCompatActivity {
         listViewToons = findViewById(R.id.listViewToons);
         toonList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("toons");
-
+        btBack = findViewById(R.id.btBack);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -54,7 +55,13 @@ public class ToonListActivity extends AppCompatActivity {
                 Toast.makeText(ToonListActivity.this, "Failed to load toons: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ToonListActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         // Xử lý sự kiện khi click vào một toon
         listViewToons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

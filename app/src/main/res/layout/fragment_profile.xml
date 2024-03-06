@@ -35,7 +35,7 @@
                 android:layout_height="144dp"
                 android:layout_marginTop="120dp"
                 android:background="@drawable/round_coners"
-                android:src="@drawable/ic_default_avatar"
+                android:src="@drawable/logohouhou"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

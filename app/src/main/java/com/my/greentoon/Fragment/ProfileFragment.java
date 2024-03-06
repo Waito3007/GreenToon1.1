@@ -76,17 +76,20 @@ public class ProfileFragment extends Fragment {
         Intent intent = new Intent(getActivity(), SignInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             getActivity().finish();
         }
     }
-
     private void updateProfile() {
         try {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
                 String userId = currentUser.getUid();
 
+                // Kiểm tra xem email đã được xác nhận hay chưa
+                boolean isEmailVerified = currentUser.isEmailVerified();
+
+                // Bổ sung thêm điều kiện kiểm tra email đã xác nhận hay chưa
                 databaseReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -131,3 +134,4 @@ public class ProfileFragment extends Fragment {
         }
     }
 }
+

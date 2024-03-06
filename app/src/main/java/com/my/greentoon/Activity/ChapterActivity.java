@@ -39,7 +39,8 @@ public class ChapterActivity extends AppCompatActivity {
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChapterActivity.this, MainActivity.class);
+                Intent intent = new Intent(ChapterActivity.this, DetailActivity.class);
+                toonId = intent.getStringExtra("toonId");
                 startActivity(intent);
             }
         });
