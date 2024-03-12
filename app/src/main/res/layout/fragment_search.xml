@@ -8,9 +8,12 @@
     <!-- AutoCompleteTextView for search -->
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextViewSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter search term"
+        android:layout_width="367dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:drawableRight="@drawable/ic_search"
+        android:hint="Nhập vào để tìm truyện bạn muốn."
         android:inputType="text" />
 
     <!-- List View to display search results -->

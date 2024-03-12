@@ -7,14 +7,23 @@
 
     <!-- ImageView để hiển thị ảnh bìa -->
     <!-- TextView để hiển thị tên truyện -->
+
     <Button
         android:id="@+id/btBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="352dp"
+        android:layout_height="25dp"
         android:layout_marginLeft="20dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
         android:textColor="#FFFAFA" />
+
+    <TextView
+        android:id="@+id/textViewToonName"
+        android:layout_width="381dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="380dp"
@@ -24,8 +33,7 @@
         <ImageView
             android:id="@+id/imageViewToonCover"
             android:layout_width="167dp"
-            android:layout_height="217dp"
-            android:layout_marginTop="7sp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -40,21 +48,12 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Số lượt xem: "
+                android:drawableLeft="@drawable/ic_hot"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textViewToonName"
-        android:layout_width="325dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
     <!-- TextView để hiển thị số lượt xem -->
 
@@ -62,17 +61,21 @@
     <!-- TextView để hiển thị mô tả truyện -->
 
     <!-- ListView để hiển thị danh sách các chapter -->
+
     <TextView
         android:id="@+id/textViewDesPage"
         android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Nội Dung truyện"
+        android:layout_marginBottom="10dp"
+        android:text="NỘI DUNG"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="17sp" />
 
     <ScrollView
-        android:layout_width="389dp"
-        android:layout_height="103dp">
+        android:layout_width="373dp"
+        android:layout_height="85dp">
 
         <TextView
             android:id="@+id/textViewToonDes"
@@ -83,17 +86,18 @@
 
     <TextView
         android:id="@+id/textViewViewChapterPage"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
+        android:layout_width="207dp"
+        android:layout_height="38dp"
         android:layout_marginTop="20dp"
-        android:text="Danh sách Chap"
+        android:textStyle="bold"
+        android:text="DANH SÁCH CHƯƠNG"
+        android:textColor="@color/black"
         android:textSize="17sp" />
 
     <ListView
         android:id="@+id/listViewChapters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="16dp" />
+        android:textSize="14sp" />
 
 </LinearLayout>

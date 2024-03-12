@@ -147,7 +147,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle errors
+                // lỗi
             }
         });
     }
@@ -166,8 +166,8 @@ public class HomeFragment extends Fragment {
                     }
                 }
 
-                // Add 4 random toons to the popular list
-                int count = Math.min(4, allToons.size());
+                // Random truyện
+                int count = Math.min(9, allToons.size());
                 for (int i = 0; i < count; i++) {
                     popularToonList.add(allToons.get(i));
                 }

@@ -1,5 +1,6 @@
 package com.my.greentoon.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,20 +25,24 @@ public class EditAvatarActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private ImageView imgAvatar;
-    private Button btChangeAvatar, btSave;
+    private Button btChangeAvatar, btSave,btBack;
 
     private FirebaseAuth mAuth;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
-
+    private ProgressDialog progressDialog;
     private Uri selectedImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_avatar);
-
+        // Khởi tạo ProgressDialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang cập nhật ảnh...");
+        progressDialog.setCancelable(false);
+        // Khởi tạo ProgressDialog end
         mAuth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -46,6 +51,7 @@ public class EditAvatarActivity extends AppCompatActivity {
         imgAvatar = findViewById(R.id.imgAvatar);
         btChangeAvatar = findViewById(R.id.btChangeAvatar);
         btSave = findViewById(R.id.btSave);
+        btBack = findViewById(R.id.btBack);
 
         btChangeAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +64,12 @@ public class EditAvatarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveAvatar();
+            }
+        });
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -76,6 +88,8 @@ public class EditAvatarActivity extends AppCompatActivity {
 
             // Nếu có chọn ảnh mới, upload ảnh lên Firebase Storage và cập nhật đường dẫn vào Realtime Database
             if (selectedImageUri != null) {
+                // Hiển thị vòng loading trước khi upload ảnh
+                progressDialog.show();
                 uploadImage(selectedImageUri, userId);
             } else {
                 // Nếu không có ảnh mới, có thể thực hiện các bước khác (nếu cần)
@@ -99,10 +113,13 @@ public class EditAvatarActivity extends AppCompatActivity {
                         imgAvatar.setImageURI(imageUri);
 
                         Toast.makeText(EditAvatarActivity.this, "Lưu ảnh thành công", Toast.LENGTH_SHORT).show();
+                        // Ẩn vòng loading sau khi cập nhật xong
+                        progressDialog.dismiss();
                     });
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(EditAvatarActivity.this, "Lỗi khi lưu ảnh", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 });
     }
 

@@ -45,7 +45,7 @@ public class ToonAdapter extends ArrayAdapter<Toon> {
         textViewToonName.setText(currentToon.getToonName());
        // textViewToonDesc.setText(currentToon.getToonDes());
         String count = String.valueOf(currentToon.getViewCount());
-       textViewCount.setText("view "+count);
+       textViewCount.setText(count);
 
         // Sử dụng thư viện Glide để hiển thị ảnh từ URL
         Glide.with(context)

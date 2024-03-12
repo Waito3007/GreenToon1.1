@@ -28,7 +28,7 @@
         android:text="GreenToon"
         android:textColor="#F1EEEE"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/edEmail"
@@ -41,7 +41,8 @@
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#858080"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/edPassword"
@@ -55,7 +56,8 @@
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#858080"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/edConfirmPassword"
@@ -69,7 +71,8 @@
         android:padding="12dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#858080"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:imeOptions="actionDone"/>
 
     <CheckBox
         android:id="@+id/cbProtocol"
