@@ -8,6 +8,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,13 +19,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="34">
-
+        <activity
+            android:name=".Activity.FeatureActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.SplashScreenActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,7 +44,6 @@
         <activity
             android:name=".Activity.AdminPageActivity"
             android:exported="false" />
-
         <activity
             android:name=".Activity.ChapterActivity"
             android:exported="false"

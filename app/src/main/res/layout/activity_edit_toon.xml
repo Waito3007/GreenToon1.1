@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.EditToonActivity">
 
     <EditText
@@ -17,7 +18,6 @@
         android:id="@+id/editTextToonDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextToonName"
         android:layout_marginTop="8dp"
         android:hint="Toon Description"
         android:padding="8dp" />
@@ -26,7 +26,6 @@
         android:id="@+id/imageViewToonCover"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@id/editTextToonDesc"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop" />
 
@@ -34,15 +33,25 @@
         android:id="@+id/btnChooseNewCover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageViewToonCover"
         android:layout_marginTop="8dp"
         android:text="Choose New Cover" />
+
+    <ScrollView
+        android:layout_width="385dp"
+        android:layout_height="184dp">
+
+        <LinearLayout
+            android:id="@+id/tagContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical" />
+    </ScrollView>
 
     <Button
         android:id="@+id/btnUpdateToon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnChooseNewCover"
         android:layout_marginTop="16dp"
         android:text="Update Toon" />
 
@@ -50,8 +59,9 @@
         android:id="@+id/btnDeleteToon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnUpdateToon"
         android:layout_marginTop="8dp"
         android:text="Delete Toon" />
 
-</RelativeLayout>
+    <!-- Danh sách thể loại -->
+
+</LinearLayout>

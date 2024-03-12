@@ -1,17 +1,17 @@
 package com.my.greentoon.Model;
 
 import java.util.List;
+import java.util.Map;
 
 public class Toon {
-    private String toonId; // Thay userId thành toonId
+    private String toonId;
     private String toonCover;
     private String toonName;
     private String toonDes;
-    private int viewCount; // Số lượt xem của toon
-    private List<Chapter> chapters; // Danh sách các chapter thuộc toon này
-
-    // Constructors, getters, setters
-
+    private int viewCount;
+    private List<Chapter> chapters;
+    private Map<String, Boolean> genres; // Danh sách các thể loại của bộ truyện
+    public String toString() {return "" + toonName;}
     public Toon() {
         // Default constructor required for calls to DataSnapshot.getValue(Toon.class)
     }
@@ -29,36 +29,13 @@ public class Toon {
         this.toonDes = toonDes;
     }
 
-    // Getter và setter cho viewCount
-    public String toString() {
-        return toonName; // Trả về tên truyện khi gọi toString()
-    }
-
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    // Getter và setter cho chapters
-
-    public List<Chapter> getChapters() {
-        return chapters;
-    }
-
-    public void setChapters(List<Chapter> chapters) {
-        this.chapters = chapters;
-    }
-
-    // Thay đổi userId thành toonId
-
     public String getToonId() {
-        return toonId; // hoặc bất kỳ trường dữ liệu nào thích hợp để đại diện cho toonId
+        return toonId;
     }
 
-    // Getter và setter cho các thuộc tính khác...
+    public void setToonId(String toonId) {
+        this.toonId = toonId;
+    }
 
     public String getToonCover() {
         return toonCover;
@@ -82,5 +59,29 @@ public class Toon {
 
     public void setToonDes(String toonDes) {
         this.toonDes = toonDes;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    public Map<String, Boolean> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Map<String, Boolean> genres) {
+        this.genres = genres;
     }
 }

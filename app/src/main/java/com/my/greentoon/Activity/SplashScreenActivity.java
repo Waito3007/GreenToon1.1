@@ -22,7 +22,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 // Chuyển sang màn hình chính của ứng dụng
                 Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         }, 2000); // Thời gian hiển thị splash screen, ở đây là 2000 milliseconds (2 giây)
     }

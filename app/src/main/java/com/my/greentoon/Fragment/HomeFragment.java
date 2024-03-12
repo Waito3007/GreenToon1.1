@@ -72,8 +72,16 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        // Set item click listener for the popular toons list
+        topToonAdapter.setOnItemClickListener(new TopToonAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Toon toon) {
+                // Handle item click, navigate to detail activity
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("toonId", toon.getToonId());
+                startActivity(intent);
+            }
+        });
+        //
         popularToonAdapter.setOnItemClickListener(new PopularToonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Toon toon) {
@@ -102,9 +110,11 @@ public class HomeFragment extends Fragment {
                     viewPager.post(new Runnable() {
                         @Override
                         public void run() {
-                            int currentItem = viewPager.getCurrentItem();
-                            int nextItem = (currentItem + 1) % toonList.size();
-                            viewPager.setCurrentItem(nextItem);
+                            if (!toonList.isEmpty()) {
+                                int currentItem = viewPager.getCurrentItem();
+                                int nextItem = (currentItem + 1) % toonList.size();
+                                viewPager.setCurrentItem(nextItem);
+                            }
                         }
                     });
                 }

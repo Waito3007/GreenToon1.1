@@ -38,6 +38,19 @@
         android:hint="Toon Description"
         android:layout_marginTop="8dp"/>
 
+    <!-- Tag container to display selected genres -->
+    <ScrollView
+        android:layout_width="385dp"
+        android:layout_height="184dp">
+
+        <LinearLayout
+            android:id="@+id/tagContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical" />
+    </ScrollView>
+
     <Button
         android:id="@+id/btnUploadToon"
         android:layout_width="match_parent"

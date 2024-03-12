@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Adapter.ToonAdapter;
+import com.my.greentoon.Fragment.SearchFragment;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
@@ -28,16 +30,30 @@ public class ToonListActivity extends AppCompatActivity {
     private ListView listViewToons;
     private List<Toon> toonList;
     private DatabaseReference databaseReference;
-    Button btBack;
+    private Button btBack;
+    private ImageButton btSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toon_list);
-
         listViewToons = findViewById(R.id.listViewToons);
         toonList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("toons");
         btBack = findViewById(R.id.btBack);
+        btSearch = findViewById(R.id.btSearch);
+
+        // Bổ sung sự kiện khi click vào nút btSearch
+        btSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Mở chức năng tìm kiếm (SearchFragment)
+                // Thay "SearchFragment" bằng tên fragment hoặc activity chứa chức năng tìm kiếm
+                Intent intent = new Intent(ToonListActivity.this, SearchFragment.class);
+                startActivity(intent);
+            }
+        });
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -55,13 +71,7 @@ public class ToonListActivity extends AppCompatActivity {
                 Toast.makeText(ToonListActivity.this, "Failed to load toons: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        btBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ToonListActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+
         // Xử lý sự kiện khi click vào một toon
         listViewToons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,5 +86,14 @@ public class ToonListActivity extends AppCompatActivity {
             }
         });
 
+        // Xử lý sự kiện khi click vào nút btBack
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Trở về MainActivity
+                Intent intent = new Intent(ToonListActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

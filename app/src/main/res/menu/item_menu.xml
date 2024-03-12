@@ -6,13 +6,15 @@
         android:title="Trang Chủ"
         android:icon="@drawable/ic_home"/>
 
-    <item android:id="@+id/nav_search"
-        android:title="Tìm Kiếm"
-        android:icon="@drawable/ic_search"/>
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search"
+        android:title="Tìm Kiếm" />
 
-    <item android:id="@+id/nav_like"
-        android:title="theo Dõi"
-        android:icon="@drawable/ic_like"/>
+    <item
+        android:id="@+id/nav_like"
+        android:icon="@drawable/ic_like"
+        android:title="theo giỏi" />
 
     <item
         android:id="@+id/nav_user"
