@@ -126,7 +126,7 @@ public class ProfileFragment extends Fragment {
             } else {
                 // Người dùng chưa đăng nhập, cập nhật nút đăng nhập và avatar về giá trị mặc định
                 btnLogin.setText("Nhấn vào đây để đăng nhập hoặc đăng ký");
-                imgAvatar.setImageResource(R.drawable.ic_launcher_background);
+                imgAvatar.setImageResource(R.drawable.logohouhou);
             }
         } catch (Exception e) {
             e.printStackTrace();
