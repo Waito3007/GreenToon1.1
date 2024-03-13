@@ -184,7 +184,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Dừng chuyển đổi tự động khi fragment bị hủy
         stopAutoScroll();
     }
 }
