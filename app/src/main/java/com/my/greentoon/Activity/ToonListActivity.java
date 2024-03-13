@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,10 +48,17 @@ public class ToonListActivity extends AppCompatActivity {
         btSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Mở chức năng tìm kiếm (SearchFragment)
-                // Thay "SearchFragment" bằng tên fragment hoặc activity chứa chức năng tìm kiếm
-                Intent intent = new Intent(ToonListActivity.this, SearchFragment.class);
-                startActivity(intent);
+                // Tạo một instance của SearchFragment
+                SearchFragment searchFragment = new SearchFragment();
+
+                // Bắt đầu một FragmentTransaction
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                // Thêm SearchFragment vào activity và thay thế fragment hiện tại (nếu có)
+                transaction.replace(R.id.fragment_container, searchFragment);
+
+                // Thực hiện FragmentTransaction
+                transaction.commit();
             }
         });
 

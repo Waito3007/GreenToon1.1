@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -23,9 +24,9 @@
 
         <ImageButton
             android:id="@+id/btSearch"
-            android:layout_width="wrap_content"
+            android:layout_width="94dp"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@null"
             app:srcCompat="@drawable/ic_search" />
 
     </LinearLayout>
@@ -39,7 +40,7 @@
         android:dividerHeight="1dp"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        android:padding="16dp" >
+        android:padding="16dp">
 
     </ListView>
 
