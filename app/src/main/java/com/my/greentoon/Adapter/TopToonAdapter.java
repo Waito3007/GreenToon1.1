@@ -25,7 +25,6 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
     private List<Toon> toonList;
     private int currentPosition = 0;
     private Timer timer;
-    private OnItemClickListener listener;
 
     public TopToonAdapter(Context context, List<Toon> toonList) {
         this.context = context;
@@ -80,17 +79,6 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
         // Hiển thị tên và mô tả của truyện
         holder.textToonName.setText(toon.getToonName());
         holder.textToonDescription.setText(toon.getToonDes());
-
-        // Gán sự kiện click vào itemView của ViewHolder
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Kiểm tra xem người nghe sự kiện có được thiết lập không và gọi phương thức onItemClick tương ứng
-                if (listener != null) {
-                    listener.onItemClick(toon);
-                }
-            }
-        });
     }
 
     @Override
@@ -115,15 +103,5 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onDetachedFromRecyclerView(recyclerView);
         stopAutoScroll();
-    }
-
-    // Phương thức này dùng để gán một đối tượng OnItemClickListener
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
-    // Interface OnItemClickListener, cần được triển khai bởi bất kỳ lớp nào muốn lắng nghe sự kiện
-    public interface OnItemClickListener {
-        void onItemClick(Toon toon);
     }
 }

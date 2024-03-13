@@ -14,11 +14,11 @@
 
     <TextView
         android:id="@+id/tv_toon_name"
-        android:layout_width="113dp"
-        android:layout_height="43dp"
+        android:layout_width="114dp"
+        android:layout_height="38dp"
         android:layout_marginTop="8dp"
-        android:ellipsize="end"
         android:maxLines="2"
+        android:ellipsize="end"
         android:text="Toon Name"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -29,9 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:drawableLeft="@drawable/ic_hot"
-        android:gravity="center|start"
-        android:text="0"
+        android:text="0 views"
         android:textColor="@color/black"
         android:textSize="12sp" />
 </LinearLayout>

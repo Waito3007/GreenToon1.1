@@ -33,4 +33,12 @@
         </LinearLayout>
     </ScrollView>
 
+    <ImageButton
+        android:layout_marginTop="25dp"
+        android:id="@+id/imageButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:src="@drawable/ic_search" />
+
 </LinearLayout>

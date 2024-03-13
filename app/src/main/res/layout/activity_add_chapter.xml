@@ -1,52 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <Spinner
+        android:id="@+id/spinnerToonList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
 
-        <Spinner
-            android:id="@+id/spinnerToonList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+    <EditText
+        android:id="@+id/editTextChapterName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerToonList"
+        android:layout_marginTop="16dp"
+        android:hint="Chapter Name"/>
 
-        <EditText
-            android:id="@+id/editTextChapterName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Chapter Name" />
+    <EditText
+        android:id="@+id/editTextChapterTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextChapterName"
+        android:layout_marginTop="16dp"
+        android:hint="Chapter Title"/>
 
-        <EditText
-            android:id="@+id/editTextChapterTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Chapter Title" />
+    <Button
+        android:id="@+id/btnChooseImages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextChapterTitle"
+        android:layout_marginTop="16dp"
+        android:text="Choose Images"/>
 
-        <Button
-            android:id="@+id/btnChooseImages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Choose Images" />
+    <Button
+        android:id="@+id/btnAddChapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChooseImages"
+        android:layout_marginTop="16dp"
+        android:text="Add Chapter"/>
 
-        <Button
-            android:id="@+id/btnAddChapter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Add Chapter" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSelectedImages"
+        android:layout_width="match_parent"
+        android:layout_height="489dp"
+        android:layout_below="@id/btnChooseImages"
+        android:layout_marginTop="6dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewSelectedImages"
-            android:layout_width="match_parent"
-            android:layout_height="489dp"
-            android:layout_marginTop="6dp" />
-    </LinearLayout>
-
-</ScrollView>
+</RelativeLayout>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,13 +36,12 @@ public class DetailActivity extends AppCompatActivity {
     private ListView listViewChapters;
     private List<Chapter> chapterList;
     private DatabaseReference databaseReference;
-    Button btBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        // Khởi tạo các button và ánh xạ từ layout
-        btBack = findViewById(R.id.btBack);
+
         imageViewToonCover = findViewById(R.id.imageViewToonCover);
         textViewToonName = findViewById(R.id.textViewToonName);
         textViewToonDes = findViewById(R.id.textViewToonDes);
@@ -76,13 +74,7 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(DetailActivity.this, "Failed to load toon details: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        btBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DetailActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+
         // Lấy danh sách chapter thuộc toon từ Firebase Database
         DatabaseReference chaptersRef = databaseReference.child("chapters").child(toonId);
         chaptersRef.addValueEventListener(new ValueEventListener() {

@@ -6,13 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.GridView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Activity.DetailActivity;
-import com.my.greentoon.Adapter.ToonAdapter;
+import com.my.greentoon.Adapter.SearchAdapter;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
@@ -30,122 +27,86 @@ import java.util.List;
 
 public class SearchFragment extends Fragment {
 
-    private AutoCompleteTextView autoCompleteTextViewSearch;
-    private ListView listViewSearchResults;
-
+    private SearchView searchView;
+    private GridView gridView;
+    private SearchAdapter searchAdapter;
+    private List<Toon> toonList;
     private DatabaseReference databaseReference;
-    private List<Toon> searchResults;
-    private ToonAdapter searchAdapter;
 
-    private List<String> allToonNames;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
 
-    public SearchFragment() {
-        // Required empty public constructor
-    }
+        searchView = root.findViewById(R.id.search_view);
+        gridView = root.findViewById(R.id.gv);
+        toonList = new ArrayList<>();
+        searchAdapter = new SearchAdapter(getContext(), toonList);
+        gridView.setAdapter(searchAdapter);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("toons");
 
-        autoCompleteTextViewSearch = rootView.findViewById(R.id.autoCompleteTextViewSearch);
-        listViewSearchResults = rootView.findViewById(R.id.listViewSearchResults);
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("toons");
-        searchResults = new ArrayList<>();
-
-        allToonNames = new ArrayList<>();
-
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Thiết lập AutoCompleteTextView và ListView
-        setupAutoCompleteTextView();
-        setupListView();
-
-        // Hiển thị toàn bộ danh sách toon khi fragment được tạo
-        displayAllToons();
-    }
-
-    private void setupAutoCompleteTextView() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, allToonNames);
-        autoCompleteTextViewSearch.setAdapter(adapter);
-
-        autoCompleteTextViewSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Listen for search input
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedToonName = (String) parent.getItemAtPosition(position);
-                searchToons(selectedToonName);
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchToons(newText);
+                return true;
             }
         });
-    }
 
-    private void setupListView() {
-        searchAdapter = new ToonAdapter(getContext(), R.layout.item_toon, searchResults);
-        listViewSearchResults.setAdapter(searchAdapter);
+        // Load cartoon list from Firebase
+        loadToonList();
 
-        // Xử lý sự kiện khi người dùng nhấp vào một mục trong danh sách kết quả tìm kiếm
-        listViewSearchResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Handle item click
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy thông tin của toon được chọn
-                Toon selectedToon = searchResults.get(position);
+                // Get the selected toon
+                Toon selectedToon = toonList.get(position);
 
-                // Chuyển sang DetailActivity và truyền toonId của toon được chọn
+                // Navigate to DetailActivity and pass the selected toon ID
                 Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra("toonId", selectedToon.getToonId());
                 startActivity(intent);
             }
         });
+
+        return root;
     }
 
-    private void displayAllToons() {
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void loadToonList() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                allToonNames.clear();
-                searchResults.clear();
-                for (DataSnapshot toonSnapshot : dataSnapshot.getChildren()) {
-                    Toon toon = toonSnapshot.getValue(Toon.class);
+                toonList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Toon toon = snapshot.getValue(Toon.class);
                     if (toon != null) {
-                        allToonNames.add(toon.getToonName());
-                        searchResults.add(toon);
+                        toonList.add(toon);
                     }
                 }
-                // Cập nhật adapter để hiển thị toàn bộ danh sách toon
                 searchAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "Failed to load toons: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                // Handle database error
             }
         });
     }
 
-    private void searchToons(final String searchTerm) {
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                searchResults.clear();
-                for (DataSnapshot toonSnapshot : dataSnapshot.getChildren()) {
-                    Toon toon = toonSnapshot.getValue(Toon.class);
-                    if (toon != null && toon.getToonName() != null && toon.getToonName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                        searchResults.add(toon);
-                    }
-                }
-                // Cập nhật adapter để hiển thị danh sách toon đã được lọc
-                searchAdapter.notifyDataSetChanged();
+    private void searchToons(String query) {
+        List<Toon> filteredList = new ArrayList<>();
+        for (Toon toon : toonList) {
+            if (toon.getToonName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(toon);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "Failed to search: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        }
+        searchAdapter.filterList(filteredList);
     }
 }

@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.my.greentoon.Fragment.CategoryFragment;
-import com.my.greentoon.Fragment.SearchFragment;
 import com.my.greentoon.Fragment.HomeFragment;
 import com.my.greentoon.Fragment.ProfileFragment;
+import com.my.greentoon.Fragment.SearchFragment;
 import com.my.greentoon.R;
 
 
@@ -41,10 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.nav_home:
                         fragment = new HomeFragment();
+
                         break;
                     case R.id.nav_search:
                         fragment = new SearchFragment();
                         break;
+
                     case R.id.nav_user:
                         fragment = new ProfileFragment();
                         break;

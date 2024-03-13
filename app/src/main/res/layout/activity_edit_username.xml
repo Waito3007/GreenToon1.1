@@ -47,7 +47,6 @@
         android:background="@drawable/borderinput"
         android:hint="Nhập tên tài khoản bạn muốn đổi"
         android:padding="12dp"
-        android:textColor="#FFFFFF"
         android:textColorHint="#858080"
         android:textSize="20sp" />
 

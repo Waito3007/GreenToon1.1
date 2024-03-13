@@ -80,7 +80,6 @@ public class SignInActivity extends AppCompatActivity {
                             } else {
                                 // Đăng nhập thành công nhưng email chưa được xác nhận
                                 Toast.makeText(SignInActivity.this, "Email chưa được xác nhận. Vui lòng kiểm tra email và xác nhận.", Toast.LENGTH_SHORT).show();
-                                mAuth.signOut();
                             }
                         } else {
                             // Đăng nhập thất bại

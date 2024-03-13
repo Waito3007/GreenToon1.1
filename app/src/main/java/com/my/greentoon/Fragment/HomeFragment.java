@@ -72,16 +72,8 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        topToonAdapter.setOnItemClickListener(new TopToonAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Toon toon) {
-                // Handle item click, navigate to detail activity
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("toonId", toon.getToonId());
-                startActivity(intent);
-            }
-        });
-        //
+
+        // Set item click listener for the popular toons list
         popularToonAdapter.setOnItemClickListener(new PopularToonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Toon toon) {
@@ -110,11 +102,9 @@ public class HomeFragment extends Fragment {
                     viewPager.post(new Runnable() {
                         @Override
                         public void run() {
-                            if (!toonList.isEmpty()) {
-                                int currentItem = viewPager.getCurrentItem();
-                                int nextItem = (currentItem + 1) % toonList.size();
-                                viewPager.setCurrentItem(nextItem);
-                            }
+                            int currentItem = viewPager.getCurrentItem();
+                            int nextItem = (currentItem + 1) % toonList.size();
+                            viewPager.setCurrentItem(nextItem);
                         }
                     });
                 }
@@ -147,7 +137,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // lỗi
+                // Handle errors
             }
         });
     }
@@ -166,8 +156,8 @@ public class HomeFragment extends Fragment {
                     }
                 }
 
-                // Random truyện
-                int count = Math.min(9, allToons.size());
+                // Add 4 random toons to the popular list
+                int count = Math.min(4, allToons.size());
                 for (int i = 0; i < count; i++) {
                     popularToonList.add(allToons.get(i));
                 }
@@ -184,6 +174,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        // Dừng chuyển đổi tự động khi fragment bị hủy
         stopAutoScroll();
     }
 }
