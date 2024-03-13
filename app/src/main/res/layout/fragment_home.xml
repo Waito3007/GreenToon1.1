@@ -22,17 +22,18 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="182dp" />
+        android:layout_height="270dp" />
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Truyện phổ biến"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:background="@null"
+        android:gravity="center|left"
         android:paddingStart="20sp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"/>
+        android:text="Truyện phổ biến"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPopularToons"

@@ -1,23 +1,36 @@
 package com.my.greentoon.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.my.greentoon.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EditToonActivity extends AppCompatActivity {
 
@@ -35,6 +48,8 @@ public class EditToonActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
+    private List<String> selectedGenres = new ArrayList<>();
+    private LinearLayout tagContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +70,11 @@ public class EditToonActivity extends AppCompatActivity {
         btnChooseNewCover = findViewById(R.id.btnChooseNewCover);
         btnUpdateToon = findViewById(R.id.btnUpdateToon);
         btnDeleteToon = findViewById(R.id.btnDeleteToon);
+        tagContainer = findViewById(R.id.tagContainer);
 
         // Load existing toon data
         loadToonData();
+        loadToonTags();
 
         btnChooseNewCover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +119,23 @@ public class EditToonActivity extends AppCompatActivity {
         });
     }
 
+    private void loadToonTags() {
+        databaseReference.child(toonId).child("genres").get().addOnSuccessListener(snapshot -> {
+            if (snapshot.exists()) {
+                for (DataSnapshot genreSnapshot : snapshot.getChildren()) {
+                    String genre = genreSnapshot.getKey();
+                    // Hiển thị thể loại đã chọn
+                    addTag(genre);
+                    // Đánh dấu thể loại đã chọn
+                    selectedGenres.add(genre);
+                }
+            }
+        }).addOnFailureListener(e -> {
+            // Handle error
+            Toast.makeText(EditToonActivity.this, "Failed to load toon tags", Toast.LENGTH_SHORT).show();
+        });
+    }
+
     private void openFileChooserForNewCover() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -132,9 +166,7 @@ public class EditToonActivity extends AppCompatActivity {
             // If no new image, only update other information
             databaseReference.child(toonId).child("toonName").setValue(newName);
             databaseReference.child(toonId).child("toonDes").setValue(newDesc);
-
-            Toast.makeText(this, "Toon updated successfully", Toast.LENGTH_SHORT).show();
-            finish();
+            updateToonTags(); // Update toon tags
         }
     }
 
@@ -152,13 +184,29 @@ public class EditToonActivity extends AppCompatActivity {
                         databaseReference.child(toonId).child("toonCover").setValue(newImageUrl);
                         databaseReference.child(toonId).child("toonName").setValue(newName);
                         databaseReference.child(toonId).child("toonDes").setValue(newDesc);
-
-                        Toast.makeText(EditToonActivity.this, "Toon updated successfully", Toast.LENGTH_SHORT).show();
-                        finish();
+                        updateToonTags(); // Update toon tags
                     });
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(EditToonActivity.this, "Upload failed. Please try again.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void updateToonTags() {
+        Map<String, Object> genresMap = new HashMap<>();
+        for (String genre : selectedGenres) {
+            genresMap.put(genre, true);
+        }
+
+        // Cập nhật thể loại của toon
+        databaseReference.child(toonId).child("genres").updateChildren(genresMap)
+                .addOnSuccessListener(aVoid -> {
+                    // Thành công
+                    Toast.makeText(EditToonActivity.this, "Toon tags updated successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý lỗi
+                    Toast.makeText(EditToonActivity.this, "Failed to update toon tags", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -171,6 +219,58 @@ public class EditToonActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(EditToonActivity.this, "Failed to delete toon. Please try again.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    // Method to add a tag to the tagContainer
+    private void addTag(final String tag) {
+        final TextView textView = new TextView(this);
+        textView.setText(tag);
+        textView.setTextColor(Color.WHITE);
+        textView.setBackgroundResource(R.drawable.bgtag); // Set default background drawable for tag
+        textView.setPadding(16, 8, 16, 8);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMargins(8, 8, 8, 8);
+        textView.setLayoutParams(layoutParams);
+        tagContainer.addView(textView);
+
+        // Set OnClickListener for the tag
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Check if the tag is already selected
+                if (selectedGenres.contains(tag)) {
+                    // If selected, remove it from the list and UI
+                    selectedGenres.remove(tag);
+                    textView.setBackgroundColor(Color.BLACK);
+                    updateTagStatus(tag, false); // Update the tag status in database
+                } else {
+                    // If not selected, add it to the list and UI
+                    selectedGenres.add(tag);
+                    textView.setBackgroundColor(Color.BLUE); // Set background color to blue
+                    updateTagStatus(tag, true); // Update the tag status in database
+                }
+            }
+        });
+    }
+
+    // Method to update the status of a tag in the database
+    private void updateTagStatus(String tag, boolean status) {
+        databaseReference.child(toonId).child("genres").child(tag).setValue(status)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Tag status updated successfully
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Failed to update tag status
+                    }
                 });
     }
 }

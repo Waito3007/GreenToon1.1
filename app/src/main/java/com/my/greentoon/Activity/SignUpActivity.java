@@ -56,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
                     // Nếu chưa bật xác nhận admin, đăng ký tài khoản người dùng
                     signUpUser();
                 }
+                //mAuth.signOut();
             }
         });
 
@@ -95,6 +96,14 @@ public class SignUpActivity extends AppCompatActivity {
         String password = edPassword.getText().toString().trim();
         String confirmPassword = edConfirmPassword.getText().toString().trim();
 
+        // Kiểm tra mật khẩu có ít nhất 8 kí tự và chứa kí tự đặc biệt hay không
+        if (!isPasswordValid(password)) {
+            Toast.makeText(SignUpActivity.this, "Mật khẩu phải có ít nhất 8 kí tự và chứa kí tự đặc biệt", Toast.LENGTH_SHORT).show();
+            // Ẩn vòng loading nếu có lỗi xảy ra
+            hideLoading();
+            return;
+        }
+
         if (!password.equals(confirmPassword)) {
             Toast.makeText(SignUpActivity.this, "Mật khẩu và xác nhận mật khẩu không khớp", Toast.LENGTH_SHORT).show();
             // Ẩn vòng loading nếu có lỗi xảy ra
@@ -108,6 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             sendVerificationEmail();
+                            mAuth.signOut();
                         } else {
                             try {
                                 throw task.getException();
@@ -175,6 +185,7 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                             hideLoading();
                         }
+                        mAuth.signOut();
                     }
                 });
     }
@@ -205,7 +216,10 @@ public class SignUpActivity extends AppCompatActivity {
                     });
         }
     }
-
+    private boolean isPasswordValid(String password) {
+        // Kiểm tra mật khẩu có ít nhất 8 kí tự và chứa kí tự đặc biệt hay không
+        return password.length() >= 8 && !password.matches("[a-zA-Z0-9 ]*");
+    }
     private void showLoading() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Đang đăng ký...");

@@ -23,16 +23,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Activity.EditProfileActivity;
 import com.my.greentoon.Activity.SignInActivity;
+import com.my.greentoon.Activity.SignUpActivity;
 import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
 public class ProfileFragment extends Fragment {
 
-    private Button btnLogin;
-    ImageButton imgAvatar;
+    private Button btLogin,btSignup,btName;
+    private ImageButton imgAvatar,imgbsetting;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
-    private ImageButton btnLogout;
+    private ImageButton btLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,51 +42,52 @@ public class ProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
-        btnLogin = view.findViewById(R.id.btLogin);
-        btnLogout = view.findViewById(R.id.btLogout);
+        btLogin = view.findViewById(R.id.btLogin);
+        imgbsetting = view.findViewById(R.id.imgbsetting);
+        btSignup = view.findViewById(R.id.btSignup);
+        btName = view.findViewById(R.id.btName);
+        btLogout = view.findViewById(R.id.btLogout);
         imgAvatar = view.findViewById(R.id.imgAvatar);
-        btnLogout.setOnClickListener(v -> logoutUser());
+        btLogout.setOnClickListener(v -> logoutUser());
         return view;
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         updateProfile();
-        btnLogin.setOnClickListener(v -> handleLoginButtonClick());
+        btLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SignInActivity.class);
+            startActivity(intent);
+        });
+        btSignup.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SignUpActivity.class);
+            startActivity(intent);
+        });
+        imgbsetting.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+            startActivity(intent);
+        });
     }
 
-    private void handleLoginButtonClick() {
-        try {
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if (currentUser != null) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(getActivity(), SignInActivity.class);
-                startActivity(intent);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("ProfileFragment", "Error handling login button click: " + e.getMessage());
-        }
-    }
+
 
     private void logoutUser() {
         mAuth.signOut();
         Intent intent = new Intent(getActivity(), SignInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             getActivity().finish();
         }
     }
-
     private void updateProfile() {
         try {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
                 String userId = currentUser.getUid();
+
+                // Kiểm tra xem email đã được xác nhận hay chưa
+                boolean isEmailVerified = currentUser.isEmailVerified();
 
                 databaseReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -93,15 +95,21 @@ public class ProfileFragment extends Fragment {
                         if (snapshot.exists()) {
                             User userProfile = snapshot.getValue(User.class);
                             if (userProfile != null) {
-                                // Cập nhật nút đăng nhập
+                                // Hiển thị button và avatar khi đã đăng nhập
+                                btLogin.setVisibility(View.GONE);
+                                btSignup.setVisibility(View.GONE);
+                                btName.setVisibility(View.VISIBLE);
+                                imgAvatar.setVisibility(View.VISIBLE);
+                                btLogout.setVisibility(View.VISIBLE);
+                                imgbsetting.setVisibility(View.VISIBLE);
+                                // Cập nhật tên người dùng
                                 String displayName = userProfile.getNameUser();
-                                btnLogin.setText((displayName != null && !displayName.isEmpty()) ? displayName : "Người Dùng");
+                                btName.setText((displayName != null && !displayName.isEmpty()) ? displayName : "Người Dùng");
 
                                 // Cập nhật avatar
                                 String avatarUrl = userProfile.getAvatarUser();
                                 if (avatarUrl != null && !avatarUrl.isEmpty()) {
                                     // Sử dụng thư viện Glide hoặc Picasso để tải ảnh về imgAvatar
-                                    // Ví dụ sử dụng Glide:
                                     Glide.with(ProfileFragment.this)
                                             .load(avatarUrl)
                                             .placeholder(R.drawable.ic_default_avatar) // Hình ảnh mặc định khi đang tải
@@ -121,13 +129,18 @@ public class ProfileFragment extends Fragment {
                     }
                 });
             } else {
-                // Người dùng chưa đăng nhập, cập nhật nút đăng nhập và avatar về giá trị mặc định
-                btnLogin.setText("Nhấn vào đây để đăng nhập hoặc đăng ký");
-                imgAvatar.setImageResource(R.drawable.ic_launcher_background);
+                // Người dùng chưa đăng nhập, hiển thị button đăng nhập
+                btLogin.setVisibility(View.VISIBLE);
+                btSignup.setVisibility(View.VISIBLE);
+                btName.setVisibility(View.GONE);
+                imgAvatar.setVisibility(View.GONE); // GONE nếu ẩn avatar khi chưa đăng nhập
+                imgAvatar.setImageResource(R.drawable.logohouhou);
             }
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("ProfileFragment", "Error updating login button text and avatar: " + e.getMessage());
         }
     }
+
 }
+

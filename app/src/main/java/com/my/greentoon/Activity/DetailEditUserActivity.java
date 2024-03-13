@@ -130,10 +130,10 @@ public class DetailEditUserActivity extends AppCompatActivity {
             // Cập nhật isAdmin trong database
             databaseReference.child("admin").setValue(isAdmin);
             if (isAdmin){
-                Toast.makeText(this, "Người dùng" + user.getNameUser()+"đã trở thành Admin", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "đã trở thành Admin", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(this, "Người dùng" + user.getNameUser()+"đã trở thành User", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "đã trở thành User", Toast.LENGTH_SHORT).show();
             }
         }
     }

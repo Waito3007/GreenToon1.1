@@ -1,25 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_search.xml -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="376dp"
-        android:layout_height="71dp"
-        android:layout_margin="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp" />
+    <!-- AutoCompleteTextView for search -->
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextViewSearch"
+        android:layout_width="367dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:drawableRight="@drawable/ic_search"
+        android:hint="Nhập vào để tìm truyện bạn muốn."
+        android:inputType="text" />
 
-    <GridView
-        android:id="@+id/gv"
+    <!-- List View to display search results -->
+    <ListView
+        android:id="@+id/listViewSearchResults"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="1"
-        android:padding="16dp"
-        android:verticalSpacing="16dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
 
 </LinearLayout>
