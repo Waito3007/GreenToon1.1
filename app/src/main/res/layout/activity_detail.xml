@@ -21,7 +21,10 @@
         android:id="@+id/textViewToonName"
         android:layout_width="381dp"
         android:layout_height="60dp"
-        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="left"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -81,6 +84,7 @@
             android:id="@+id/textViewToonDes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="1dp" />
     </ScrollView>
 

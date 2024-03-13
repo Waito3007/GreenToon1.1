@@ -19,21 +19,19 @@ import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
 public class EditProfileActivity extends AppCompatActivity {
-Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btMore;
+Button btUsername,btBack,btImg,btEmail,btMore,BtChangePas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
         // Khởi tạo các button và ánh xạ từ layout
-        btBack = findViewById(R.id.btBack);
+        btBack = findViewById(R.id.btback);
         btUsername = findViewById(R.id.btUsername);
         btImg = findViewById(R.id.btImg);
-        btUpload = findViewById(R.id.btUpload);
-        btEdit = findViewById(R.id.btEdit);
         btEmail = findViewById(R.id.btEmail);
-        btUploadChap = findViewById(R.id.btUploadChap);
         btMore = findViewById(R.id.btMore);
+        BtChangePas = findViewById(R.id.BtChangePas);
 
         // Lấy tham chiếu đến node "users" trên Firebase Realtime Database
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
@@ -74,13 +72,6 @@ Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btMore;
                 startActivity(intent);
             }
         });
-//        btEmail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(EditProfileActivity.this, ToonListActivity.class);
-//                startActivity(intent);
-//            }
-//        });
         btImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +83,13 @@ Button btUsername,btBack,btImg,btUpload,btEdit,btEmail,btUploadChap,btMore;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditProfileActivity.this,  AdminPageActivity.class);
+                startActivity(intent);
+            }
+        });
+        BtChangePas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this,  ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });

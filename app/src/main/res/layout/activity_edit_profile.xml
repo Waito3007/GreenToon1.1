@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".Activity.EditProfileActivity">
     <Button
-        android:id="@+id/btBack"
+        android:id="@+id/btback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -70,40 +70,15 @@
         android:textColorHint="#858080"
         android:textSize="20sp" />
     <Button
-        android:id="@+id/btUpload"
+        android:id="@+id/BtChangePas"
         android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
         android:background="@drawable/borderinput"
-        android:hint="Đăng Truyện"
+        android:hint="Chỉnh sửa Mật Khẩu"
         android:padding="12dp"
         android:textColorHint="#858080"
-        android:visibility="gone"
-        android:textSize="20sp" />
-    <Button
-        android:id="@+id/btUploadChap"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Đăng Chapter Truyện"
-        android:padding="12dp"
-        android:visibility="gone"
-        android:textColorHint="#858080"
-        android:textSize="20sp" />
-    <Button
-        android:id="@+id/btEdit"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa"
-        android:padding="12dp"
-        android:textColorHint="#858080"
-        android:visibility="gone"
         android:textSize="20sp" />
     <Button
         android:id="@+id/btMore"

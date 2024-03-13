@@ -1,66 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <Spinner
-        android:id="@+id/spinnerToonList"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/spinnerChapterList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerToonList"
-        android:layout_marginBottom="16dp"
-         />
+        <Spinner
+            android:id="@+id/spinnerToonList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/editTextChapterName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerChapterList"
-        android:layout_marginBottom="16dp"
-        android:hint="Nhập tên Chap" />
+        <Spinner
+            android:id="@+id/spinnerChapterList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/editTextChapterTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextChapterName"
-        android:layout_marginBottom="16dp"
-        android:hint="Nhập tittle" />
+        <EditText
+            android:id="@+id/editTextChapterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Nhập tên Chap" />
 
-    <EditText
-        android:id="@+id/editTextNumChapter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextChapterTitle"
-        android:layout_marginBottom="16dp"
-        android:hint="Nhập num chap" />
+        <EditText
+            android:id="@+id/editTextChapterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Nhập tittle" />
 
-    <Button
-        android:id="@+id/btnEditChapter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextNumChapter"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentEnd="true"
-        android:text="Chỉnh sửa" />
+        <EditText
+            android:id="@+id/editTextNumChapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Nhập num chap" />
 
-    <Button
-        android:id="@+id/btnDeleteChapter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextNumChapter"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentStart="true"
-        android:text="Xóa" />
+        <Button
+            android:id="@+id/btnEditChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Chỉnh sửa" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnDeleteChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Xóa" />
+    </LinearLayout>
+
+</ScrollView>
