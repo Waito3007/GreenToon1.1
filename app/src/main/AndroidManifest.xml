@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="34">
         <activity
+            android:name=".Activity.WatchListActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.FeatureActivity"
             android:exported="false" />
         <activity

@@ -19,7 +19,7 @@
             <Button
                 android:id="@+id/btback"
                 android:layout_width="41dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginLeft="20dp"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
@@ -28,7 +28,8 @@
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
                 android:text="Truyện đang theo dõi"
                 android:textSize="24sp" />
         </LinearLayout>
