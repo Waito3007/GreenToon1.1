@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -193,19 +194,26 @@ public class EditChapterActivity extends AppCompatActivity {
             return;
         }
 
-        // Remove chapter from the database
-        DatabaseReference chapterRef = chaptersRef.child(selectedChapter.getToonId()).child(selectedChapter.getChapterId());
-        chapterRef.removeValue();
+        String toonId = selectedChapter.getToonId();
 
-        // Show toast message for successful deletion
-        Toast.makeText(this, "Xóa Chap Thành Công", Toast.LENGTH_SHORT).show();
+        // Xóa tất cả các Chapter của truyện
+        chaptersRef.child(toonId).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                if (error == null) {
+                    // Xóa thành công, hiển thị thông báo
+                    Toast.makeText(EditChapterActivity.this, "Xóa Tất Cả Chap Của Truyện Thành Công", Toast.LENGTH_SHORT).show();
 
-        // Reload chapters after deleting
-        loadChapters(selectedChapter.getToonId());
+                    // Cập nhật giao diện
+                    loadChapters(toonId);
+                } else {
+                    // Xảy ra lỗi, hiển thị thông báo lỗi
+                    Toast.makeText(EditChapterActivity.this, "Xóa Chap Thất Bại: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-        // Finish the current activity and start a new instance
-        finish();
-        startActivity(getIntent());
+        // Sau khi xóa, không cần thiết phải finish và restart activity nữa, vì đã cập nhật giao diện
     }
 
 }
