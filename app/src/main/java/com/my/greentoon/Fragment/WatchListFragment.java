@@ -22,12 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Adapter.ToonAdapter;
 import com.my.greentoon.Model.FollowedToon;
 import com.my.greentoon.Model.Toon;
-import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class WatchListFragment extends Fragment {
 

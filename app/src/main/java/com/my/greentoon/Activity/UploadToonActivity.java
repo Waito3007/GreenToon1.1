@@ -16,10 +16,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.my.greentoon.Model.FollowedToon;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
@@ -45,12 +48,14 @@ public class UploadToonActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_toon);
 
+        mAuth = FirebaseAuth.getInstance();
         // Initialize Firebase Database and Storage
         databaseReference = FirebaseDatabase.getInstance().getReference("toons");
         storageReference = FirebaseStorage.getInstance().getReference("toon_covers");
@@ -138,6 +143,8 @@ public class UploadToonActivity extends AppCompatActivity {
                             newToonRef.setValue(newToon).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(UploadToonActivity.this, "Toon uploaded successfully", Toast.LENGTH_SHORT).show();
+                                    // Thêm truyện vào danh sách đã theo dõi của người dùng
+                                    addToFollowedList(toonId);
                                     finish();
                                 } else {
                                     Toast.makeText(UploadToonActivity.this, "Failed to upload toon", Toast.LENGTH_SHORT).show();
@@ -153,7 +160,22 @@ public class UploadToonActivity extends AppCompatActivity {
         }
     }
 
-
+    private void addToFollowedList(String toonId) {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference followedToonRef = FirebaseDatabase.getInstance().getReference().child("followed_toons");
+            FollowedToon followedToon = new FollowedToon(userId, toonId, true); // Đánh dấu truyện là yêu thích khi thêm vào
+            followedToonRef.push().setValue(followedToon)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(UploadToonActivity.this, "Truyện đã được thêm vào danh sách yêu thích của bạn", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(UploadToonActivity.this, "Đã xảy ra lỗi khi thêm truyện vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
 
     // Hàm addtag
     private void addTag(final String tag) {

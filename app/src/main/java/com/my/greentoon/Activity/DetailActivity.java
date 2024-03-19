@@ -130,8 +130,37 @@ public class DetailActivity extends AppCompatActivity {
         listViewChapters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Chapter selectedChapter = chapterList.get(position);
-                // Handle item click here, navigate to chapter detail activity or perform other actions
+                final Chapter selectedChapter = chapterList.get(position);
+                List<String> imageUrls = selectedChapter.getListImgChapter();
+                if (imageUrls != null && !imageUrls.isEmpty()) {
+                    // Tăng viewCount của toon lên 1
+                    DatabaseReference toonRef = databaseReference.child("toons").child(toonId);
+                    toonRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Toon toon = dataSnapshot.getValue(Toon.class);
+                            if (toon != null) {
+                                int currentViewCount = toon.getViewCount();
+                                int updatedViewCount = currentViewCount + 1;
+                                toonRef.child("viewCount").setValue(updatedViewCount); // Cập nhật vào Firebase
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(DetailActivity.this, "Failed to update view count: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    // Chuyển đến ChapterActivity và truyền danh sách URL hình ảnh của chapter
+                    Intent intent = new Intent(DetailActivity.this, ChapterActivity.class);
+                    intent.putExtra("chapterId", selectedChapter.getChapterId()); // Truyền ID của chapter
+                    intent.putExtra("toonId", selectedChapter.getToonId()); // Truyền ID của toon
+
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(DetailActivity.this, "Danh sách ảnh không hợp lệ", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

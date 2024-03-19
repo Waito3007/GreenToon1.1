@@ -16,7 +16,7 @@ import com.my.greentoon.Fragment.HomeFragment;
 import com.my.greentoon.Fragment.ProfileFragment;
 import com.my.greentoon.Fragment.ProfileFragmenthsi;
 import com.my.greentoon.Fragment.SearchFragment;
-import com.my.greentoon.Fragment.WatchlistFragment;
+import com.my.greentoon.Fragment.WatchListFragment;
 import com.my.greentoon.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.nav_follow:
-                        fragment = new WatchlistFragment();
+                        fragment = new WatchListFragment();
                         break;
                 }
 

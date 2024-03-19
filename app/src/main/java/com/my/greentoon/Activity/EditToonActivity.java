@@ -21,8 +21,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.my.greentoon.R;
@@ -211,16 +213,44 @@ public class EditToonActivity extends AppCompatActivity {
     }
 
     private void deleteToon() {
-        // Delete the toon from Firebase Database
+        // Xóa tất cả các chapter trước khi xóa truyện
+        DatabaseReference chaptersRef = FirebaseDatabase.getInstance().getReference("chapters").child(toonId);
+        chaptersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Duyệt qua danh sách các chapter và xóa chúng
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String chapterId = snapshot.getKey();
+                    if (chapterId != null) {
+                        DatabaseReference chapterRef = chaptersRef.child(chapterId);
+                        chapterRef.removeValue().addOnFailureListener(e -> {
+                            Toast.makeText(EditToonActivity.this, "Failed to delete chapter: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                }
+                // Sau khi tất cả các chapter đã được xóa, xóa truyện
+                deleteToonFromDatabase();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(EditToonActivity.this, "Failed to delete chapters: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void deleteToonFromDatabase() {
+        // Xóa truyện từ Firebase Database
         databaseReference.child(toonId).removeValue()
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(EditToonActivity.this, "Toon deleted successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditToonActivity.this, "Toon and its chapters deleted successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(EditToonActivity.this, "Failed to delete toon. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditToonActivity.this, "Failed to delete toon and its chapters: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
 
     // Method to add a tag to the tagContainer
     private void addTag(final String tag) {
