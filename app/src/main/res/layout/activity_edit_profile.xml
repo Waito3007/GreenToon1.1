@@ -24,7 +24,6 @@
         android:textColor="#F1EEEE"
         android:textSize="30sp"
         android:textStyle="bold" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
@@ -35,7 +34,6 @@
         android:layout_marginTop="28dp"
         android:textStyle="bold"
         android:text="Tài Khoản" />
-
     <Button
         android:id="@+id/btUsername"
         android:layout_width="341dp"
@@ -44,17 +42,6 @@
         android:layout_marginTop="46dp"
         android:background="@drawable/borderinput"
         android:hint="Chỉnh sửa tên tài khoản"
-        android:padding="12dp"
-        android:textColorHint="#858080"
-        android:textSize="20sp" />
-    <Button
-        android:id="@+id/btEmail"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa Email"
         android:padding="12dp"
         android:textColorHint="#858080"
         android:textSize="20sp" />

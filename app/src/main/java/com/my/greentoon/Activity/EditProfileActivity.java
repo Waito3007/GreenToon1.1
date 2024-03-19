@@ -29,7 +29,6 @@ Button btUsername,btBack,btImg,btEmail,btMore,BtChangePas;
         btBack = findViewById(R.id.btback);
         btUsername = findViewById(R.id.btUsername);
         btImg = findViewById(R.id.btImg);
-        btEmail = findViewById(R.id.btEmail);
         btMore = findViewById(R.id.btMore);
         BtChangePas = findViewById(R.id.BtChangePas);
 
@@ -52,7 +51,6 @@ Button btUsername,btBack,btImg,btEmail,btMore,BtChangePas;
                         }
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     // Xử lý lỗi nếu có

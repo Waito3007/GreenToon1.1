@@ -9,23 +9,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.my.greentoon.Fragment.WatchlistFragment;
-import com.my.greentoon.Fragment.SearchFragment;
 import com.my.greentoon.Fragment.HomeFragment;
 import com.my.greentoon.Fragment.ProfileFragment;
+import com.my.greentoon.Fragment.ProfileFragmenthsi;
+import com.my.greentoon.Fragment.SearchFragment;
+import com.my.greentoon.Fragment.WatchlistFragment;
 import com.my.greentoon.R;
 
-
 public class MainActivity extends AppCompatActivity {
+
     DatabaseReference mDatabase;
     BottomNavigationView navigationView;
+    FirebaseAuth mAuth; // Thêm đối tượng FirebaseAuth
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        mAuth = FirebaseAuth.getInstance(); // Khởi tạo FirebaseAuth
 
         navigationView = findViewById(R.id.bottom_navigation);
 
@@ -46,9 +52,15 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new SearchFragment();
                         break;
                     case R.id.nav_user:
-                        fragment = new ProfileFragment();
+                        // Kiểm tra xem người dùng đã đăng nhập hay chưa
+                        FirebaseUser currentUser = mAuth.getCurrentUser();
+                        if(currentUser != null) {
+                            fragment = new ProfileFragmenthsi(); // Người dùng đã đăng nhập
+                        } else {
+                            fragment = new ProfileFragment(); // Người dùng chưa đăng nhập
+                        }
                         break;
-                    case R.id.nav_like:
+                    case R.id.nav_follow:
                         fragment = new WatchlistFragment();
                         break;
                 }
@@ -60,5 +72,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }
