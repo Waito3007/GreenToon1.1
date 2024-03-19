@@ -94,7 +94,6 @@ public class SearchFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy thông tin của toon được chọn
                 Toon selectedToon = searchResults.get(position);
-
                 // Chuyển sang DetailActivity và truyền toonId của toon được chọn
                 Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra("toonId", selectedToon.getToonId());

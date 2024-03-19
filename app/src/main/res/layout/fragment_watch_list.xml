@@ -1,30 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<!-- fragment_watch_list.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.my.greentoon.Fragment.WatchListFragment">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/listViewWatchList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:divider="@null"
+        android:dividerHeight="0dp" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginStart="20dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Truyện đang theo dõi"
-            android:textSize="24sp" />
-
-        <ListView
-            android:id="@+id/listViewToons"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical" />
-
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>
