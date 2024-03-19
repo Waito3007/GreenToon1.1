@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
-import com.my.greentoon.Fragment.CategoryFragment;
+import com.my.greentoon.Fragment.WatchlistFragment;
 import com.my.greentoon.Fragment.SearchFragment;
 import com.my.greentoon.Fragment.HomeFragment;
 import com.my.greentoon.Fragment.ProfileFragment;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ProfileFragment();
                         break;
                     case R.id.nav_like:
-                        fragment = new CategoryFragment();
+                        fragment = new WatchlistFragment();
                         break;
                 }
 
