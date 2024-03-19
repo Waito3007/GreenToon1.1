@@ -20,7 +20,10 @@
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="34">
         <activity
-            android:name=".Activity.WatchListActivity"
+            android:name=".Activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ForgotPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.FeatureActivity"

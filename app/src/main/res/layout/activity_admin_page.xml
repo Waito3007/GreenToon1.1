@@ -26,7 +26,6 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -34,41 +33,7 @@
         android:gravity="center"
         android:layout_marginTop="28dp"
         android:textStyle="bold"
-        android:text="Tài Khoản" />
-
-    <Button
-        android:id="@+id/btUsername"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="46dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa tên tài khoản"
-        android:padding="12dp"
-        android:textColorHint="#858080"
-        android:textSize="20sp" />
-    <Button
-        android:id="@+id/btEmail"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa Email"
-        android:padding="12dp"
-        android:textColorHint="#858080"
-        android:textSize="20sp" />
-    <Button
-        android:id="@+id/btImg"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa Avatar"
-        android:padding="12dp"
-        android:textColorHint="#858080"
-        android:textSize="20sp" />
+        android:text="Admin" />
     <Button
         android:id="@+id/btUpload"
         android:layout_width="341dp"
@@ -77,6 +42,18 @@
         android:layout_marginTop="6dp"
         android:background="@drawable/borderinput"
         android:hint="Đăng Truyện"
+        android:padding="12dp"
+        android:textColorHint="#858080"
+        android:visibility="gone"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/btEdit"
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/borderinput"
+        android:hint="Chỉnh sửa truyện"
         android:padding="12dp"
         android:textColorHint="#858080"
         android:visibility="gone"
@@ -93,18 +70,7 @@
         android:visibility="gone"
         android:textColorHint="#858080"
         android:textSize="20sp" />
-    <Button
-        android:id="@+id/btEdit"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa"
-        android:padding="12dp"
-        android:textColorHint="#858080"
-        android:visibility="gone"
-        android:textSize="20sp" />
+
     <Button
         android:id="@+id/btMore"
         android:layout_width="341dp"

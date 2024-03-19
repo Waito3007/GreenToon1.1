@@ -31,7 +31,6 @@ public class AdminPageActivity extends AppCompatActivity {
         btImg = findViewById(R.id.btImg);
         btUpload = findViewById(R.id.btUpload);
         btEdit = findViewById(R.id.btEdit);
-        btEmail = findViewById(R.id.btEmail);
         btUploadChap = findViewById(R.id.btUploadChap);
         btEditUser = findViewById(R.id.btEditUser);
         btEditChapter = findViewById(R.id.btEditChapter);
@@ -70,27 +69,6 @@ public class AdminPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-        btUsername.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminPageActivity.this, EditUsernameActivity.class);
-                startActivity(intent);
-            }
-        });
-        btEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminPageActivity.this, ToonListActivity.class);
-                startActivity(intent);
-            }
-        });
-        btImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminPageActivity.this, EditAvatarActivity.class);
-                startActivity(intent);
             }
         });
         btUpload.setOnClickListener(new View.OnClickListener() {

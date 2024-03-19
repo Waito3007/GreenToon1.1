@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,7 @@ public class ToonListEditActivity extends AppCompatActivity {
     private ListView listViewToons;
     private List<Toon> toonList;
     private DatabaseReference databaseReference;
+    private EditText editTextSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,18 @@ public class ToonListEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_toon_list_edit);
 
         listViewToons = findViewById(R.id.listViewToons);
+        editTextSearch = findViewById(R.id.editTextSearch);
         toonList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("toons");
+
+        Button btnSearch = findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchText = editTextSearch.getText().toString().trim();
+                searchToons(searchText);
+            }
+        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,5 +76,17 @@ public class ToonListEditActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void searchToons(String searchText) {
+        List<Toon> filteredList = new ArrayList<>();
+        for (Toon toon : toonList) {
+            if (toon.getToonName().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(toon);
+            }
+        }
+        // Cập nhật danh sách truyện hiển thị trên ListView
+        ToonAdapter adapter = new ToonAdapter(ToonListEditActivity.this, R.layout.item_toon, filteredList);
+        listViewToons.setAdapter(adapter);
     }
 }

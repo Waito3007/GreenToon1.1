@@ -20,7 +20,7 @@ import com.my.greentoon.R;
 public class SignInActivity extends AppCompatActivity {
 //khai bao
     EditText edEmail,edPassword; // ed dang nhap signin
-    Button btLogin; //bt dang nhap signin
+    Button btLogin,btForget; //bt dang nhap signin
     Button btSignup,btBack;//bt chuyen trang
     FirebaseAuth mAuth; //pthuc cua firebase
     @Override
@@ -30,6 +30,7 @@ public class SignInActivity extends AppCompatActivity {
         // Tìm bt có id là btback va btsignup
         btBack = findViewById(R.id.btback);
         btSignup = findViewById(R.id.btSignup);
+        btForget = findViewById(R.id.btForget);
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +44,13 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+        btForget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });
