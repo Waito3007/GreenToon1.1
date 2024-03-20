@@ -101,7 +101,7 @@
         android:drawablePadding="8dp"/>
 
     <TextView
-        android:id="@+id/tvcontact"
+        android:id="@+id/tvfeature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -110,7 +110,7 @@
         android:drawableLeft="@drawable/ic_profile"
         android:drawablePadding="8dp"
         android:padding="12dp"
-        android:text="Liên hệ"
+        android:text="Tính năng nâng cao"
         android:textColor="#000000"
         android:textSize="20sp" />
 
@@ -125,7 +125,7 @@
         android:drawablePadding="8dp"
         android:padding="12dp"
 
-        android:text="Nạp Xu"
+        android:text="Nâng lên Premium"
         android:textColor="#000000"
         android:textSize="20sp" />
 </LinearLayout>

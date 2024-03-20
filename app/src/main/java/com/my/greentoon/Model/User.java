@@ -3,8 +3,6 @@ package com.my.greentoon.Model;
 public class User {
     private String userId;
     private String email;
-
-
     private String password;
     private String avatarUser;
     private String nameUser;

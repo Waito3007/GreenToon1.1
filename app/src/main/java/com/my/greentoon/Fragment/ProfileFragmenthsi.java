@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,18 +23,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Activity.EditProfileActivity;
+import com.my.greentoon.Activity.FeatureActivity;
 import com.my.greentoon.Activity.SignInActivity;
 import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
 public class ProfileFragmenthsi extends Fragment {
-
     private Button btName;
     private ImageButton imgAvatar,imgbsetting;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private ImageButton btLogout;
-
+    private TextView tvfeature;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_fragmenthsi, container, false);
@@ -45,6 +46,7 @@ public class ProfileFragmenthsi extends Fragment {
         btName = view.findViewById(R.id.btName);
         btLogout = view.findViewById(R.id.btLogout);
         imgAvatar = view.findViewById(R.id.imgAvatar);
+        tvfeature = view.findViewById(R.id.tvfeature);
         btLogout.setOnClickListener(v -> logoutUser());
         return view;
     }
@@ -56,10 +58,11 @@ public class ProfileFragmenthsi extends Fragment {
             Intent intent = new Intent(getActivity(), EditProfileActivity.class);
             startActivity(intent);
         });
+        tvfeature.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FeatureActivity.class);
+            startActivity(intent);
+        });
     }
-
-
-
     private void logoutUser() {
         mAuth.signOut();
         Intent intent = new Intent(getActivity(), SignInActivity.class);
@@ -74,10 +77,8 @@ public class ProfileFragmenthsi extends Fragment {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
                 String userId = currentUser.getUid();
-
                 // Kiểm tra xem email đã được xác nhận hay chưa
                 boolean isEmailVerified = currentUser.isEmailVerified();
-
                 databaseReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,7 +110,6 @@ public class ProfileFragmenthsi extends Fragment {
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Log.e("ProfileFragment", "Error fetching user data: " + error.getMessage());
@@ -126,6 +126,5 @@ public class ProfileFragmenthsi extends Fragment {
             Log.e("ProfileFragment", "Error updating login button text and avatar: " + e.getMessage());
         }
     }
-
 }
 
