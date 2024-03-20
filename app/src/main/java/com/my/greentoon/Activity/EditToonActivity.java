@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.bumptech.glide.Glide;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -78,6 +80,7 @@ public class EditToonActivity extends AppCompatActivity {
         loadToonData();
         loadToonTags();
 
+
         btnChooseNewCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +120,7 @@ public class EditToonActivity extends AppCompatActivity {
             }
         }).addOnFailureListener(e -> {
             // Handle error
-            Toast.makeText(EditToonActivity.this, "Failed to load toon data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditToonActivity.this, "Tải truyện không thành công", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -134,7 +137,7 @@ public class EditToonActivity extends AppCompatActivity {
             }
         }).addOnFailureListener(e -> {
             // Handle error
-            Toast.makeText(EditToonActivity.this, "Failed to load toon tags", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditToonActivity.this, "Tải tag thể loại không thành công", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -190,7 +193,7 @@ public class EditToonActivity extends AppCompatActivity {
                     });
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(EditToonActivity.this, "Upload failed. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditToonActivity.this, "Cập nhật thất bại. Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -204,11 +207,11 @@ public class EditToonActivity extends AppCompatActivity {
         databaseReference.child(toonId).child("genres").updateChildren(genresMap)
                 .addOnSuccessListener(aVoid -> {
                     // Thành công
-                    Toast.makeText(EditToonActivity.this, "Toon tags updated successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditToonActivity.this, "Cập nhật truyện thành công", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
                     // Xử lý lỗi
-                    Toast.makeText(EditToonActivity.this, "Failed to update toon tags", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditToonActivity.this, "Cập nhật truyện thất bại", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -224,7 +227,7 @@ public class EditToonActivity extends AppCompatActivity {
                     if (chapterId != null) {
                         DatabaseReference chapterRef = chaptersRef.child(chapterId);
                         chapterRef.removeValue().addOnFailureListener(e -> {
-                            Toast.makeText(EditToonActivity.this, "Failed to delete chapter: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditToonActivity.this, "Thất bại khi xóa truyện: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         });
                     }
                 }
@@ -234,7 +237,7 @@ public class EditToonActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(EditToonActivity.this, "Failed to delete chapters: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditToonActivity.this, "Thất bại khi xóa chap: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -243,11 +246,11 @@ public class EditToonActivity extends AppCompatActivity {
         // Xóa truyện từ Firebase Database
         databaseReference.child(toonId).removeValue()
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(EditToonActivity.this, "Toon and its chapters deleted successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditToonActivity.this, "Xóa truyện thành công.", Toast.LENGTH_SHORT).show();
                     finish();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(EditToonActivity.this, "Failed to delete toon and its chapters: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditToonActivity.this, "Thất bại khi xóa truyện: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
