@@ -5,46 +5,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context="Activity.UploadToonActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageViewToonCover"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/sliderimg1" />
-
         <Button
-            android:id="@+id/btnChooseImage"
+            android:id="@+id/btBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choose Image" />
+            android:layout_marginLeft="20dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+            android:textColor="#FFFAFA" />
 
-        <EditText
-            android:id="@+id/editTextToonName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Toon Name" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextToonDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="Toon Description" />
+            <ImageView
+                android:id="@+id/imageViewToonCover"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sliderimg1" />
+
+            <Button
+                android:id="@+id/btnChooseImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"
+                android:background="@drawable/corner_button_black"
+                android:backgroundTint="#111111"
+                android:text="Chọn Bìa truyện"
+                android:textAlignment="gravity"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/editTextToonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:hint="Toon Name" />
+
+            <EditText
+                android:id="@+id/editTextToonDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:hint="Toon Description" />
+        </LinearLayout>
 
         <ScrollView
-            android:layout_width="385dp"
-            android:layout_height="184dp">
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
             <LinearLayout
                 android:id="@+id/tagContainer"
@@ -58,7 +88,17 @@
             android:id="@+id/btnUploadToon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Toon" />
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="100dp"
+            android:background="@drawable/corner_button_black"
+            android:backgroundTint="#111111"
+            android:text="Đăng Truyện"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#FBFBFB"
+            android:textSize="24sp"
+            android:textStyle="normal" />
     </LinearLayout>
 
     <!-- Tag container to display selected genres -->
