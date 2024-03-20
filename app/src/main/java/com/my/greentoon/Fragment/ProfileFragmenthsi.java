@@ -70,6 +70,7 @@ public class ProfileFragmenthsi extends Fragment {
         }
     }
     private void updateProfile() {
+
         try {
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {
@@ -101,7 +102,9 @@ public class ProfileFragmenthsi extends Fragment {
                                             .load(avatarUrl)
                                             .placeholder(R.drawable.ic_default_avatar) // Hình ảnh mặc định khi đang tải
                                             .error(R.drawable.ic_default_avatar) // Hình ảnh khi có lỗi
+                                            .circleCrop() // Áp dụng góc cong để tạo hình tròn
                                             .into(imgAvatar);
+
                                 } else {
                                     // Nếu không có avatar, hiển thị hình ảnh mặc định
                                     imgAvatar.setImageResource(R.drawable.ic_default_avatar);
