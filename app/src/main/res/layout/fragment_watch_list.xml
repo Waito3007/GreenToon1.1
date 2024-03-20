@@ -5,11 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+
+        android:fontFamily="sans-serif-black"
+        android:includeFontPadding="true"
+        android:text="Truyện đang theo dõi"
+        android:textSize="24dp" />
+
     <ListView
         android:id="@+id/listViewWatchList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:dividerHeight="0dp" />
+        android:dividerHeight="0dp"
+        android:scrollbars="vertical"/>
 
 </LinearLayout>
