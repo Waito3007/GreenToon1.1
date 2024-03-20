@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="10dp" /> <!-- Đây là giá trị bo tròn, bạn có thể điều chỉnh theo nhu cầu -->
+    <solid android:color="#FFFFFF" /> <!-- Màu nền của EditText -->
+</shape>
