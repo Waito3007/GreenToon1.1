@@ -1,0 +1,57 @@
+<!-- fragment_story_genre.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Button for Action genre -->
+    <Button
+        android:id="@+id/btnAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Action"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/genre_button_background"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Button for Drama genre -->
+    <Button
+        android:id="@+id/btnDrama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Drama"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/genre_button_background"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Button for Fantasy genre -->
+    <Button
+        android:id="@+id/btnFantasy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fantasy"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/genre_button_background"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Add buttons for other genres here -->
+
+    <!-- RecyclerView to display toons -->
+    <ListView
+        android:id="@+id/listViewToons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
