@@ -24,10 +24,10 @@
 
         <ImageButton
             android:id="@+id/imgAvatar"
-            android:layout_width="139dp"
-            android:layout_height="126dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:layout_marginTop="136dp"
-            android:background="@drawable/round_coners"
+            android:background="@drawable/rounded_corner_vector"
             android:scaleType="centerCrop"
             android:src="@drawable/logohouhou"
             app:layout_constraintEnd_toEndOf="parent"
