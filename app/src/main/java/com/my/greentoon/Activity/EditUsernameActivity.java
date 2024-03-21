@@ -1,5 +1,6 @@
 package com.my.greentoon.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -84,7 +85,8 @@ public class EditUsernameActivity extends AppCompatActivity {
             databaseReference.child(userId).child("nameUser").setValue(newUsername);
 
             Toast.makeText(EditUsernameActivity.this, "Cập nhật tên người dùng thành công", Toast.LENGTH_SHORT).show();
-            finish();
+            Intent intent = new Intent(EditUsernameActivity.this, EditProfileActivity.class);
+            startActivity(intent);
         }
     }
 }
