@@ -24,11 +24,12 @@
         android:id="@+id/tvGreentoon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:gravity="center"
         android:text="GreenToon"
         android:textColor="#F1EEEE"
         android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edEmail"
