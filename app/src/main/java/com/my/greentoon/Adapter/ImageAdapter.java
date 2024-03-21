@@ -33,7 +33,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         String imageUrl = imageUrls.get(imageUrls.size() - position - 1); // Lấy ảnh từ cuối lên đầu
         Glide.with(holder.itemView.getContext())
                 .load(imageUrl)
-                .placeholder(R.drawable.sliderimg3) // Placeholder image, if needed
+                .placeholder(R.drawable.loading_img) // Placeholder image, if needed
                 .into(holder.imageView);
     }
 

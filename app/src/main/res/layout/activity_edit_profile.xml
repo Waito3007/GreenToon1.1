@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="GreenToon"
+        android:text="Cài Đặt"
         android:textColor="#F1EEEE"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -74,7 +74,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
         android:background="@drawable/borderinput"
-        android:hint="Admin"
+        android:hint="Quản Trị Viên"
         android:padding="12dp"
         android:textColorHint="#858080"
         android:visibility="gone"
