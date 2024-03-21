@@ -27,8 +27,6 @@ public class AdminPageActivity extends AppCompatActivity {
 
         // Khởi tạo các button và ánh xạ từ layout
         btBack = findViewById(R.id.btBack);
-        btUsername = findViewById(R.id.btUsername);
-        btImg = findViewById(R.id.btImg);
         btUpload = findViewById(R.id.btUpload);
         btEdit = findViewById(R.id.btEdit);
         btUploadChap = findViewById(R.id.btUploadChap);
@@ -39,8 +37,6 @@ public class AdminPageActivity extends AppCompatActivity {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-
-
             String userId = currentUser.getUid();
             usersRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
