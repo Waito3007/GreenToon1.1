@@ -13,7 +13,6 @@ public class Toon {
     private Map<String, Boolean> genres; // Danh sách các thể loại của bộ truyện
     public String toString() {return "" + toonName;}
     public Toon() {
-        // Default constructor required for calls to DataSnapshot.getValue(Toon.class)
     }
 
     public Toon(String toonId, String toonName, String toonDes) {

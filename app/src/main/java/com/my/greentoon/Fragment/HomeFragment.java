@@ -92,9 +92,10 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Bắt đầu tắt chuyển đổi tự động khi fragment được tạo
+       // stopAutoScroll();
         // Bắt đầu chuyển đổi tự động khi fragment được tạo
-        startAutoScroll();
-
+        //startAutoScroll();
         return view;
     }
 

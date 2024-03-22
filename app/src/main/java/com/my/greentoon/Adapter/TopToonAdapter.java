@@ -1,8 +1,6 @@
 package com.my.greentoon.Adapter;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,50 +15,15 @@ import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonViewHolder> {
     private Context context;
     private List<Toon> toonList;
-    private int currentPosition = 0;
-    private Timer timer;
     private OnItemClickListener listener;
 
     public TopToonAdapter(Context context, List<Toon> toonList) {
         this.context = context;
         this.toonList = toonList;
-        // Bắt đầu chuyển đổi tự động khi Adapter được tạo
-        startAutoScroll();
-    }
-
-    // Hàm này bắt đầu chuyển đổi tự động
-    private void startAutoScroll() {
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (currentPosition == getItemCount() - 1) {
-                            currentPosition = 0;
-                        } else {
-                            currentPosition++;
-                        }
-                        notifyDataSetChanged();
-                    }
-                });
-            }
-        }, 1800, 1800); // Chuyển slide sau mỗi 1.8s
-    }
-
-    // Hàm này dừng chuyển đổi tự động
-    private void stopAutoScroll() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
     }
 
     @NonNull
@@ -72,22 +35,26 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
 
     @Override
     public void onBindViewHolder(@NonNull TopToonViewHolder holder, int position) {
-        Toon toon = toonList.get(position);
+        int currentItem = position % getItemCount();
+        int prevItem = (position - 1 + getItemCount()) % getItemCount();
+        int nextItem = (position + 1) % getItemCount();
 
-        // Load ảnh bìa của truyện
-        Glide.with(context).load(toon.getToonCover()).into(holder.imageViewToonCover);
+        Toon currentToon = toonList.get(currentItem);
+        Toon prevToon = toonList.get(prevItem);
+        Toon nextToon = toonList.get(nextItem);
 
-        // Hiển thị tên và mô tả của truyện
-        holder.textToonName.setText(toon.getToonName());
-        holder.textToonDescription.setText(toon.getToonDes());
+        Glide.with(context).load(currentToon.getToonCover()).into(holder.imageTopToonCover);
+        Glide.with(context).load(prevToon.getToonCover()).into(holder.imagePrevToonCover);
+        Glide.with(context).load(nextToon.getToonCover()).into(holder.imageNextToonCover);
 
-        // Gán sự kiện click vào itemView của ViewHolder
+        holder.textToonName.setText(currentToon.getToonName());
+        holder.textToonDescription.setText(currentToon.getToonDes());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Kiểm tra xem người nghe sự kiện có được thiết lập không và gọi phương thức onItemClick tương ứng
                 if (listener != null) {
-                    listener.onItemClick(toon);
+                    listener.onItemClick(currentToon);
                 }
             }
         });
@@ -99,30 +66,23 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
     }
 
     public class TopToonViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageViewToonCover;
+        ImageView imagePrevToonCover, imageTopToonCover, imageNextToonCover;
         TextView textToonName, textToonDescription;
 
         public TopToonViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewToonCover = itemView.findViewById(R.id.image_top_toon_cover);
+            imagePrevToonCover = itemView.findViewById(R.id.image_prev_toon_cover);
+            imageTopToonCover = itemView.findViewById(R.id.image_top_toon_cover);
+            imageNextToonCover = itemView.findViewById(R.id.image_next_toon_cover);
             textToonName = itemView.findViewById(R.id.text_top_toon_name);
             textToonDescription = itemView.findViewById(R.id.text_top_toon_description);
         }
     }
 
-    // Tạm dừng chuyển đổi tự động khi RecyclerView bị hủy
-    @Override
-    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        stopAutoScroll();
-    }
-
-    // Phương thức này dùng để gán một đối tượng OnItemClickListener
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    // Interface OnItemClickListener, cần được triển khai bởi bất kỳ lớp nào muốn lắng nghe sự kiện
     public interface OnItemClickListener {
         void onItemClick(Toon toon);
     }
