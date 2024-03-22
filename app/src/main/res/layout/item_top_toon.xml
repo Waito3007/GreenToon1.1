@@ -1,11 +1,45 @@
-<!-- item_top_toon.xml -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="293dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/image_prev_toon_cover"
+            android:layout_width="100dp"
+            android:layout_height="144dp"
+            android:alpha="0.3" />
+
+        <ImageView
+            android:id="@+id/image_top_toon_cover"
+
+            android:layout_width="151dp"
+            android:layout_height="199dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/image_next_toon_cover"
+            android:layout_width="100dp"
+            android:layout_height="144dp"
+            android:alpha="0.3" />
+
+        <TextView
+            android:id="@+id/text_top_toon_description"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_marginTop="220dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
     <TextView
         android:id="@+id/text_top_toon_name"
         android:layout_width="416dp"
@@ -13,35 +47,9 @@
         android:layout_marginTop="4dp"
         android:background="@color/white"
         android:gravity="center"
-        android:textColor="@color/black"
         android:text="Trống"
+        android:textColor="@color/black"
         android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/image_top_toon_cover"
-        android:layout_width="388dp"
-        android:layout_height="322dp"
-        android:layout_marginTop="48dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_top_toon_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
