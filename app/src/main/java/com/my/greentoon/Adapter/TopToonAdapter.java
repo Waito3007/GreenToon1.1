@@ -1,6 +1,8 @@
 package com.my.greentoon.Adapter;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
@@ -43,9 +50,10 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
         Toon prevToon = toonList.get(prevItem);
         Toon nextToon = toonList.get(nextItem);
 
-        Glide.with(context).load(currentToon.getToonCover()).into(holder.imageTopToonCover);
-        Glide.with(context).load(prevToon.getToonCover()).into(holder.imagePrevToonCover);
-        Glide.with(context).load(nextToon.getToonCover()).into(holder.imageNextToonCover);
+        // Bo góc ảnh và hiển thị ảnh bằng Glide
+        loadRoundedImage(currentToon.getToonCover(), holder.imageTopToonCover);
+        loadRoundedImage(prevToon.getToonCover(), holder.imagePrevToonCover);
+        loadRoundedImage(nextToon.getToonCover(), holder.imageNextToonCover);
 
         holder.textToonName.setText(currentToon.getToonName());
         holder.textToonDescription.setText(currentToon.getToonDes());
@@ -86,4 +94,25 @@ public class TopToonAdapter extends RecyclerView.Adapter<TopToonAdapter.TopToonV
     public interface OnItemClickListener {
         void onItemClick(Toon toon);
     }
+
+    // Phương thức này sử dụng Glide để tải ảnh và bo góc cho ImageView
+    private void loadRoundedImage(String imageUrl, ImageView imageView) {
+        Glide.with(context)
+                .load(imageUrl)
+                .into(new CustomTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        // Bo góc ảnh
+                        RoundedBitmapDrawable roundedDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), ((BitmapDrawable) resource).getBitmap());
+                        roundedDrawable.setCornerRadius(16); // Đặt bán kính bo góc
+                        imageView.setImageDrawable(roundedDrawable);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // Không cần xử lý
+                    }
+                });
+    }
+
 }

@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private PopularToonAdapter popularToonAdapter;
     private List<Toon> toonList;
     private List<Toon> popularToonList;
-    private Button btMoretoon;
+    private Button btMoretoon,btNext,btPrev;
     private Timer autoScrollTimer; // Thêm biến Timer để theo dõi việc chuyển đổi tự động
 
     @Nullable
@@ -50,21 +50,35 @@ public class HomeFragment extends Fragment {
         viewPager = view.findViewById(R.id.view_pager);
         recyclerViewPopularToons = view.findViewById(R.id.recyclerViewPopularToons);
         btMoretoon = view.findViewById(R.id.btMoretoon);
-
+        btPrev = view.findViewById(R.id.btPrev);
+        btNext = view.findViewById(R.id.btNext);
         toonList = new ArrayList<>();
         popularToonList = new ArrayList<>();
-
-        // Initialize adapter for the top slideshow
+        //slider
         topToonAdapter = new TopToonAdapter(getContext(), toonList);
         viewPager.setAdapter(topToonAdapter);
 
-        // Initialize adapter for the popular toons list below the slideshow
+        // slider
         popularToonAdapter = new PopularToonAdapter(popularToonList);
         recyclerViewPopularToons.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerViewPopularToons.setAdapter(popularToonAdapter);
-
         loadTopToons();
         loadPopularToons();
+        btNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int nextItem = (viewPager.getCurrentItem() + 1) % toonList.size();
+                viewPager.setCurrentItem(nextItem, true); // Chuyển tới slider tiếp theo với animation
+            }
+        });
+
+        btPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int prevItem = (viewPager.getCurrentItem() - 1 + toonList.size()) % toonList.size();
+                viewPager.setCurrentItem(prevItem, true); // Trở về slider trước với animation
+            }
+        });
         btMoretoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
