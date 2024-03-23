@@ -58,17 +58,10 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                     if (user != null) {
                         // Hiển thị thông tin của người đăng bài
                         holder.textViewUserName.setText(user.getNameUser());
-                        // Load hình ảnh và áp dụng circleCrop để tạo hình tròn
-                        Glide.with(context)
-                                .load(user.getAvatarUser())
-                                .circleCrop()
-                                .placeholder(R.drawable.ic_default_avatar) // Hình ảnh mặc định khi đang tải
-                                .error(R.drawable.ic_default_avatar) // Hình ảnh khi có lỗi
-                                .into(holder.imageViewUserAvatar);
+                        Glide.with(context).load(user.getAvatarUser()).into(holder.imageViewUserAvatar);
                     }
                 }
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

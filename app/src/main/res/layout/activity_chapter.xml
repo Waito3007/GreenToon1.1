@@ -45,14 +45,6 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/baseline_arrow_forward_ios_24" />
 
-        <ImageButton
-            android:id="@+id/btn_home"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_home" />
-
 
     </LinearLayout>
 

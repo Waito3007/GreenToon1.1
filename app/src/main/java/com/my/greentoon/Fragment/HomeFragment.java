@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -21,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Activity.DetailActivity;
-import com.my.greentoon.Activity.ToonListActivity;
 import com.my.greentoon.Adapter.PopularToonAdapter;
 import com.my.greentoon.Adapter.TopToonAdapter;
 import com.my.greentoon.Model.Toon;
@@ -82,8 +82,15 @@ public class HomeFragment extends Fragment {
         btMoretoon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ToonListActivity.class);
-                startActivity(intent);
+                // Khởi tạo fragment SearchFragment
+                SearchFragment searchFragment = new SearchFragment();
+
+                // Thay thế HomeFragment bằng SearchFragment
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, searchFragment) // R.id.fragment_container là id của container fragment trong layout của activity
+                        .addToBackStack(null) // Nếu bạn muốn quay lại HomeFragment khi nhấn nút Back, hãy thêm vào back stack
+                        .commit();
             }
         });
         topToonAdapter.setOnItemClickListener(new TopToonAdapter.OnItemClickListener() {

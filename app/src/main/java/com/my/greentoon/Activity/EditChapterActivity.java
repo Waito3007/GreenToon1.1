@@ -195,25 +195,25 @@ public class EditChapterActivity extends AppCompatActivity {
         }
 
         String toonId = selectedChapter.getToonId();
+        String chapterId = selectedChapter.getChapterId();
 
-        // Xóa tất cả các Chapter của truyện
-        chaptersRef.child(toonId).removeValue(new DatabaseReference.CompletionListener() {
+        // Xóa chapter được chọn
+        DatabaseReference chapterRef = chaptersRef.child(toonId).child(chapterId);
+        chapterRef.removeValue(new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error == null) {
                     // Xóa thành công, hiển thị thông báo
-                    Toast.makeText(EditChapterActivity.this, "Xóa Tất Cả Chap Của Truyện Thành Công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditChapterActivity.this, "Đã xóa chap thành công", Toast.LENGTH_SHORT).show();
 
                     // Cập nhật giao diện
                     loadChapters(toonId);
                 } else {
                     // Xảy ra lỗi, hiển thị thông báo lỗi
-                    Toast.makeText(EditChapterActivity.this, "Xóa Chap Thất Bại: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditChapterActivity.this, "Xóa chap thất bại: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-        // Sau khi xóa, không cần thiết phải finish và restart activity nữa, vì đã cập nhật giao diện
     }
 
 }

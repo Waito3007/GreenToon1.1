@@ -66,13 +66,7 @@ public class PlatformFragment extends Fragment {
                         currentUser = snapshot.getValue(User.class);
                         if (currentUser != null) {
                             textViewUserName.setText(currentUser.getNameUser());
-                            // Load hình ảnh và áp dụng circleCrop để tạo hình tròn
-                            Glide.with(requireContext())
-                                    .load(currentUser.getAvatarUser())
-                                    .circleCrop()
-                                    .placeholder(R.drawable.ic_default_avatar) // Hình ảnh mặc định khi đang tải
-                                    .error(R.drawable.ic_default_avatar) // Hình ảnh khi có lỗi
-                                    .into(imageViewUserAvatar);
+                            Glide.with(getContext()).load(currentUser.getAvatarUser()).into(imageViewUserAvatar);
                             // Tạo adapter sau khi nhận được thông tin người dùng
                             setupRecyclerView();
                         }

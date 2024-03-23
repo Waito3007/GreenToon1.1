@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Adapter.ImageAdapter;
-import com.my.greentoon.Fragment.ViewChapterFragment;
 import com.my.greentoon.Model.Chapter;
 import com.my.greentoon.R;
 
@@ -29,21 +28,10 @@ public class ChapterActivity extends AppCompatActivity {
 
     private String toonId;
     private String currentChapterId;
-    ImageButton btn_home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter);
-        btn_home = findViewById(R.id.btn_home);
-
-        btn_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChapterActivity.this, DetailActivity.class);
-                intent.putExtra("toonId", toonId);
-                startActivity(intent);
-            }
-        });
         // Lấy chapterId và toonId từ Intent
         Intent intent = getIntent();
         String chapterId = intent.getStringExtra("chapterId");
@@ -55,13 +43,13 @@ public class ChapterActivity extends AppCompatActivity {
         ImageButton btnNextChapter = findViewById(R.id.btnNextChapter);
         ImageButton btn_viewchapter = findViewById(R.id.btn_viewchapter);
 
-        //Hien thi danh sach chap
+        // Ve trang detail de chon chap
         btn_viewchapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạo và hiển thị BottomSheetDialog
-                ViewChapterFragment fragment = ViewChapterFragment.newInstance(null, toonId);
-                fragment.show(getSupportFragmentManager(), fragment.getTag());
+                Intent intent = new Intent(ChapterActivity.this, DetailActivity.class);
+                intent.putExtra("toonId", toonId);
+                startActivity(intent);
             }
         });
 
