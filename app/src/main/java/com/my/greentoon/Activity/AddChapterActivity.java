@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,6 +45,7 @@ public class AddChapterActivity extends AppCompatActivity {
     private EditText editTextChapterTitle;
     private Button btnChooseImages;
     private Button btnAddChapter;
+    private EditText editTextSearchToon; // Thêm EditText cho việc tìm kiếm Toon
 
     private List<Toon> toonList;
     private DatabaseReference chaptersRef;
@@ -53,6 +56,7 @@ public class AddChapterActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewSelectedImages;
     private SelectedImageAdapter selectedImageAdapter;
+    private ArrayAdapter<Toon> adapter; // Chuyển adapter thành biến toàn cục để truy cập từ phương thức khác
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +68,45 @@ public class AddChapterActivity extends AppCompatActivity {
         editTextChapterTitle = findViewById(R.id.editTextChapterTitle);
         btnChooseImages = findViewById(R.id.btnChooseImages);
         btnAddChapter = findViewById(R.id.btnAddChapter);
-
         recyclerViewSelectedImages = findViewById(R.id.recyclerViewSelectedImages);
+        editTextSearchToon = findViewById(R.id.editTextSearchToon); // Ánh xạ EditText tìm kiếm Toon
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Adding Chapter...");
         progressDialog.setCancelable(false);
-
         chaptersRef = FirebaseDatabase.getInstance().getReference("chapters");
-
         toonList = new ArrayList<>();
 
-        final ArrayAdapter<Toon> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, toonList);
+        // Khởi tạo adapter và ánh xạ với Spinner
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, toonList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerToonList.setAdapter(adapter);
 
+        // Xử lý sự kiện tìm kiếm Toon khi nhập văn bản vào EditText
+        editTextSearchToon.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchText = s.toString().toLowerCase();
+                List<Toon> filteredToonList = new ArrayList<>();
+                for (Toon toon : toonList) {
+                    if (toon.getToonName().toLowerCase().contains(searchText)) {
+                        filteredToonList.add(toon);
+                    }
+                }
+                adapter.clear();
+                adapter.addAll(filteredToonList);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+
+        // Lắng nghe sự kiện khi chọn một Toon từ Spinner
         spinnerToonList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -89,10 +117,10 @@ public class AddChapterActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+        // Lấy danh sách Toon từ Firebase và cập nhật Spinner
         DatabaseReference toonsRef = FirebaseDatabase.getInstance().getReference("toons");
         toonsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -112,6 +140,7 @@ public class AddChapterActivity extends AppCompatActivity {
             }
         });
 
+        // Xử lý sự kiện chọn hình ảnh
         btnChooseImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +148,7 @@ public class AddChapterActivity extends AppCompatActivity {
             }
         });
 
+        // Xử lý sự kiện thêm Chapter
         btnAddChapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,13 +156,16 @@ public class AddChapterActivity extends AppCompatActivity {
             }
         });
 
+        // Cài đặt RecyclerView cho danh sách hình ảnh được chọn
         recyclerViewSelectedImages.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         selectedImageAdapter = new SelectedImageAdapter(this, imageUris);
         recyclerViewSelectedImages.setAdapter(selectedImageAdapter);
 
+        // Cài đặt ItemTouchHelper cho RecyclerView để xử lý sự kiện kéo thả
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull
+            RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
                 Collections.swap(imageUris, fromPosition, toPosition);
@@ -165,12 +198,12 @@ public class AddChapterActivity extends AppCompatActivity {
                 int count = data.getClipData().getItemCount();
                 for (int i = 0; i < count; i++) {
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    // Thêm ảnh vào đầu danh sách để hiển thị ảnh được chọn trước đầu tiên
+                    // Add the image to the beginning of the list to display the selected image first
                     imageUris.add(0, imageUri);
                 }
             } else if (data.getData() != null) {
                 Uri imageUri = data.getData();
-                // Thêm ảnh vào đầu danh sách để hiển thị ảnh được chọn trước đầu tiên
+                // Add the image to the beginning of the list to display the selected image first
                 imageUris.add(0, imageUri);
             }
             Toast.makeText(this, "Images selected: " + imageUris.size(), Toast.LENGTH_SHORT).show();
@@ -191,46 +224,44 @@ public class AddChapterActivity extends AppCompatActivity {
     }
 
     private void uploadImages(List<Uri> imageUris, String chapterName, String chapterTitle, Toon selectedToon) {
-        progressDialog.show(); // Hiển thị dialog loading khi bắt đầu tải lên
+        progressDialog.show(); // Display the loading dialog when starting to upload
 
-        // Đếm số lượng hình ảnh đã tải lên thành công
+        // Count the number of successfully uploaded images
         AtomicInteger uploadedCount = new AtomicInteger(0);
 
-        // Duyệt qua danh sách ảnh và tải lên mỗi ảnh theo thứ tự được chọn
+        // Iterate through the list of images and upload each image in the selected order
         for (int i = 0; i < imageUris.size(); i++) {
             Uri imageUri = imageUris.get(i);
-            // Tạo một tham chiếu đến hình ảnh trong Firebase Storage
+            // Create a reference to the image in Firebase Storage
             StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images").child(imageUri.getLastPathSegment());
 
-            // Tải hình ảnh lên Firebase Storage
+            // Upload the image to Firebase Storage
             storageRef.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> {
-                        // Lấy URL của hình ảnh đã được tải lên
+                        // Get the URL of the uploaded image
                         storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                            // Sau khi tải lên thành công, bạn có thể sử dụng URI để lưu vào Firebase Realtime Database hoặc Cloud Firestore
+                            // After successfully uploading, you can use the URI to save to Firebase Realtime Database or Cloud Firestore
                             String downloadUrl = uri.toString();
-                            // Thêm URL của hình ảnh vào danh sách
+                            // Add the URL of the image to the list
                             listImgChapter.add(downloadUrl);
 
-                            // Tăng biến đếm số lượng hình ảnh đã tải lên thành công
+                            // Increase the count of successfully uploaded images
                             int count = uploadedCount.incrementAndGet();
-                            // Kiểm tra xem đã tải lên tất cả các hình ảnh chưa
+                            // Check if all images have been uploaded
                             if (count == imageUris.size()) {
-                                // Tất cả các hình ảnh đã được tải lên, bạn có thể lưu URL vào Firebase Database
+                                // All images have been uploaded, you can save the URLs to the Firebase Database
                                 saveChapterToDatabase(listImgChapter, chapterName, chapterTitle, selectedToon);
-                                // Sau khi tất cả các hình ảnh đã được tải lên, tắt dialog loading
+                                // After all images have been uploaded, dismiss the loading dialog
                                 progressDialog.dismiss();
                             }
                         });
                     })
                     .addOnFailureListener(e -> {
-                        // Xử lý trường hợp tải lên thất bại
+                        // Handle the case of upload failure
                         Toast.makeText(AddChapterActivity.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         }
     }
-
-
 
     private void saveChapterToDatabase(List<String> imageUrls, String chapterName, String chapterTitle, Toon selectedToon) {
         String toonId = selectedToon.getToonId();

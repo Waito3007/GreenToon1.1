@@ -9,6 +9,7 @@ public class Chapter {
     private List<String> listImgChapter; // Danh sách URL của các hình ảnh
     private String toonId; // ID
     private int numChapter; // Dùng cho việc next hay back chap trong ChapterActivity
+    private String datetimeupchap;
 
     public Chapter() {
         // Constructor mặc định
@@ -68,5 +69,12 @@ public class Chapter {
 
     public void setNumChapter(int numChapter) {
         this.numChapter = numChapter;
+    }
+    public String getDatetimeupchap() {
+        return datetimeupchap;
+    }
+
+    public void setDatetimeupchap(String datetimeupchap) {
+        this.datetimeupchap = datetimeupchap;
     }
 }

@@ -1,88 +1,101 @@
 <!-- fragment_home.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:backgroundTint="#FDFDFD"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btDexuat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/white"
-        android:fontFamily="sans-serif"
-        android:foregroundGravity="center"
-        android:gravity="center|left"
-        android:paddingStart="20sp"
-        android:text="Đề Xuất"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <!-- Button "Đề Xuất" -->
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="285dp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <Button
-            android:id="@+id/btPrev"
-            android:layout_width="40dp"
-            android:layout_height="31dp"
-            android:background="@drawable/ic_btprevsl"
-            android:gravity="left"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/btDexuat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:fontFamily="sans-serif"
+            android:foregroundGravity="center"
+            android:gravity="center|left"
+            android:paddingStart="20sp"
+            android:text="Đề Xuất"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="285dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Button "Previous" -->
+            <Button
+                android:id="@+id/btPrev"
+                android:layout_width="40dp"
+                android:layout_height="31dp"
+                android:background="@drawable/ic_btprevsl"
+                android:gravity="left"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Button "Next" -->
+            <Button
+                android:id="@+id/btNext"
+                android:layout_width="40dp"
+                android:layout_height="31dp"
+                android:background="@drawable/ic_btnextsl"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.85"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/btNext"
-            android:layout_width="40dp"
-            android:layout_height="31dp"
-            android:background="@drawable/ic_btnextsl"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="center|left"
+            android:paddingStart="20sp"
+            android:text="Truyện phổ biến"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="center|left"
-        android:paddingStart="20sp"
-        android:text="Truyện phổ biến"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPopularToons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewPopularToons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="16dp"/>
+        <Button
+            android:id="@+id/btMoretoon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingStart="20sp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:text="Xem nhiều truyện hơn"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btMoretoon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:paddingStart="20sp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:text="Xem nhiều truyện hơn"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
-</LinearLayout>
+</FrameLayout>
