@@ -47,12 +47,23 @@ public class StoryGenreFragment extends Fragment {
         Button btnAction = root.findViewById(R.id.btnAction);
         Button btnDrama = root.findViewById(R.id.btnDrama);
         Button btnFantasy = root.findViewById(R.id.btnFantasy);
+        Button btnChuyensinh = root.findViewById(R.id.btnChuyensinh);
+        Button btnManhwa = root.findViewById(R.id.btnManhwa);
+        Button btnNgontinh = root.findViewById(R.id.btnNgontinh);
+        Button btnTrinhtham = root.findViewById(R.id.btnTrinhtham);
+        Button btnTutien = root.findViewById(R.id.btnTutien);
         // Add buttons for other genres here
 
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadToonsByGenre("Action");
+            }
+        });
+        btnChuyensinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadToonsByGenre("Chuyển Sinh");
             }
         });
 
@@ -69,7 +80,30 @@ public class StoryGenreFragment extends Fragment {
                 loadToonsByGenre("Fantasy");
             }
         });
-        // Add onClickListeners for other genre buttons here
+        btnManhwa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadToonsByGenre("Manhwa");
+            }
+        });
+        btnNgontinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadToonsByGenre("Ngôn Tình");
+            }
+        });
+        btnTrinhtham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadToonsByGenre("Trinh thám");
+            }
+        });
+        btnTutien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadToonsByGenre("Tu Tiên");
+            }
+        });
 
         return root;
     }
