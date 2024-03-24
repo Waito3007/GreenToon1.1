@@ -1,58 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <!-- TextView để hiển thị tên chương -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageButton
-            android:id="@+id/btn_viewchapter"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_menu" />
-
-        <ImageButton
-            android:id="@+id/btnPreviousChapter"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="8dp"
-
-            android:background="@drawable/baseline_arrow_back_ios_24" />
-
-        <TextView
-            android:id="@+id/textViewChapterName"
-            android:layout_width="89dp"
-            android:layout_height="43dp"
-            android:foregroundGravity="center_vertical|center"
-            android:gravity="center"
-            android:text="Chap 1"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
-
-        <ImageButton
-            android:id="@+id/btnNextChapter"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/baseline_arrow_forward_ios_24" />
-
-
-    </LinearLayout>
 
     <!-- RecyclerView để hiển thị danh sách ảnh -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewImages"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/textViewChapterName"
+                android:layout_width="69dp"
+                android:layout_height="35dp"
+                android:foregroundGravity="center_vertical|center"
+                android:gravity="center"
+                android:text="Chap 1"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_viewchapter"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/ic_menu"
+                android:foregroundGravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnNextChapter"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/baseline_arrow_forward_ios_24"
+                android:foregroundGravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnShowComments"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/ic_comment"
+                android:foregroundGravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnPreviousChapter"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/baseline_arrow_back_ios_24"
+                android:foregroundGravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewImages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+</FrameLayout>

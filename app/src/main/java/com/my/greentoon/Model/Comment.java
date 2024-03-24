@@ -1,19 +1,44 @@
 package com.my.greentoon.Model;
 
 public class Comment {
-    private String contentId; // ID của nội dung (truyện hoặc chương)
-    private String userId; // ID của người dùng đã bình luận
-    private String commentText; // Nội dung bình luận
+    private String commentId;
+    private String userId;
+    private String commentText;
 
     public Comment() {
-        // Constructor mặc định
+        // Required empty public constructor
     }
-
-    public Comment(String contentId, String userId, String commentText) {
-        this.contentId = contentId;
+    public Comment(String userId, String commentText) {
+        this.userId = userId;
+        this.commentText = commentText;
+    }
+    public Comment(String commentId, String userId, String commentText) {
+        this.commentId = commentId;
         this.userId = userId;
         this.commentText = commentText;
     }
 
-    // Getters và setters
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCommentText() {
+        return commentText;
+    }
+
+    public void setCommentText(String commentText) {
+        this.commentText = commentText;
+    }
 }
