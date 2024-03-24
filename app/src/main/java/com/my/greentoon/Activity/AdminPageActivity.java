@@ -97,7 +97,7 @@ public class AdminPageActivity extends AppCompatActivity {
         });btEditChapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminPageActivity.this,  EditChapterActivity.class);
+                Intent intent = new Intent(AdminPageActivity.this,  ToonListEditChapterActivity.class);
                 startActivity(intent);
             }
         });

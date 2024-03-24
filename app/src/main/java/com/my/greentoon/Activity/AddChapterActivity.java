@@ -210,7 +210,6 @@
                 selectedImageAdapter.notifyDataSetChanged();
             }
         }
-
         private void addChapter() {
             String chapterName = editTextChapterName.getText().toString().trim();
             String chapterTitle = editTextChapterTitle.getText().toString().trim();
@@ -222,19 +221,15 @@
                 Toast.makeText(this, "Please fill all fields and choose images", Toast.LENGTH_SHORT).show();
             }
         }
-
         private void uploadImages(List<Uri> imageUris, String chapterName, String chapterTitle, Toon selectedToon) {
             progressDialog.show(); // Display the loading dialog when starting to upload
-
             // Count the number of successfully uploaded images
             AtomicInteger uploadedCount = new AtomicInteger(0);
-
             // Iterate through the list of images and upload each image in the selected order
             for (int i = 0; i < imageUris.size(); i++) {
                 Uri imageUri = imageUris.get(i);
                 // Create a reference to the image in Firebase Storage
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images").child(imageUri.getLastPathSegment());
-
                 // Upload the image to Firebase Storage
                 storageRef.putFile(imageUri)
                         .addOnSuccessListener(taskSnapshot -> {
@@ -244,7 +239,6 @@
                                 String downloadUrl = uri.toString();
                                 // Add the URL of the image to the list
                                 listImgChapter.add(downloadUrl);
-
                                 // Increase the count of successfully uploaded images
                                 int count = uploadedCount.incrementAndGet();
                                 // Check if all images have been uploaded
@@ -262,7 +256,6 @@
                         });
             }
         }
-
         private void saveChapterToDatabase(List<String> imageUrls, String chapterName, String chapterTitle, Toon selectedToon) {
             String toonId = selectedToon.getToonId();
 

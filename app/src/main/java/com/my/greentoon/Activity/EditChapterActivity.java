@@ -1,6 +1,10 @@
 package com.my.greentoon.Activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,70 +17,78 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.my.greentoon.Model.Chapter;
-import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EditChapterActivity extends AppCompatActivity {
 
-    private Spinner spinnerToonList;
     private Spinner spinnerChapterList;
     private EditText editTextChapterName;
     private EditText editTextChapterTitle;
-    private EditText editTextNumChapter;
-    private Button btnEditChapter;
-    private Button btnDeleteChapter;
+    private Button btnUpdateChapter;
+    private Button btnChooseImages;
 
     private DatabaseReference chaptersRef;
-    private List<Toon> toonList;
     private List<Chapter> chapterList;
-    private ArrayAdapter<Chapter> chapterAdapter;
+    private ArrayAdapter<Chapter> adapter;
+    private ProgressDialog progressDialog;
+
+    private List<Uri> imageUris = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_chapter);
 
-        spinnerToonList = findViewById(R.id.spinnerToonList);
         spinnerChapterList = findViewById(R.id.spinnerChapterList);
         editTextChapterName = findViewById(R.id.editTextChapterName);
         editTextChapterTitle = findViewById(R.id.editTextChapterTitle);
-        editTextNumChapter = findViewById(R.id.editTextNumChapter);
-        btnEditChapter = findViewById(R.id.btnEditChapter);
-        btnDeleteChapter = findViewById(R.id.btnDeleteChapter);
-
-        chaptersRef = FirebaseDatabase.getInstance().getReference("chapters");
-        toonList = new ArrayList<>();
+        btnUpdateChapter = findViewById(R.id.btnUpdateChapter);
+        btnChooseImages = findViewById(R.id.btnChooseImages);
+        chaptersRef = FirebaseDatabase.getInstance().getReference().child("chapters");
         chapterList = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, chapterList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerChapterList.setAdapter(adapter);
 
-        ArrayAdapter<Toon> toonAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, toonList);
-        toonAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerToonList.setAdapter(toonAdapter);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Updating Chapter...");
+        progressDialog.setCancelable(false);
 
-        chapterAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, chapterList);
-        chapterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerChapterList.setAdapter(chapterAdapter);
+        Intent intent = getIntent();
+        if (intent.hasExtra("toonId")) {
+            String toonId = intent.getStringExtra("toonId");
+            loadChapters(toonId);
+        }
 
-        spinnerToonList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        btnChooseImages.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toon selectedToon = (Toon) parent.getItemAtPosition(position);
-                if (selectedToon != null) {
-                    loadChapters(selectedToon.getToonId());
-                }
+            public void onClick(View v) {
+                chooseImages();
+            }
+        });
+
+        btnUpdateChapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateChapter();
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
         });
 
         spinnerChapterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,59 +96,21 @@ public class EditChapterActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Chapter selectedChapter = (Chapter) parent.getItemAtPosition(position);
                 if (selectedChapter != null) {
-                    displayChapterInfo(selectedChapter);
+                    editTextChapterName.setText(selectedChapter.getChapterName());
+                    editTextChapterTitle.setText(selectedChapter.getChapterTitle());
+                    imageUris.clear();
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
-        btnEditChapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editChapter();
-            }
-        });
-
-        btnDeleteChapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteChapter();
-            }
-        });
-
-        loadToons();
-    }
-
-    private void loadToons() {
-        DatabaseReference toonsRef = FirebaseDatabase.getInstance().getReference("toons");
-        toonsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Toon toon = snapshot.getValue(Toon.class);
-                    if (toon != null) {
-                        toonList.add(toon);
-                    }
-                }
-                ArrayAdapter<Toon> adapter = (ArrayAdapter<Toon>) spinnerToonList.getAdapter();
-                if (adapter != null) {
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(EditChapterActivity.this, "Failed to load toons: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void loadChapters(String toonId) {
-        DatabaseReference toonChapterRef = chaptersRef.child(toonId);
-        toonChapterRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        chaptersRef.child(toonId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 chapterList.clear();
@@ -146,7 +120,7 @@ public class EditChapterActivity extends AppCompatActivity {
                         chapterList.add(chapter);
                     }
                 }
-                chapterAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -156,64 +130,152 @@ public class EditChapterActivity extends AppCompatActivity {
         });
     }
 
-    private void displayChapterInfo(Chapter chapter) {
-        editTextChapterName.setText(chapter.getChapterName());
-        editTextChapterTitle.setText(chapter.getChapterTitle());
-        editTextNumChapter.setText(String.valueOf(chapter.getNumChapter()));
+    private void chooseImages() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(Intent.createChooser(intent, "Select Images"), 1);
     }
 
-    private void editChapter() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            if (data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();
+                for (int i = 0; i < count; i++) {
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    imageUris.add(imageUri);
+                }
+            } else if (data.getData() != null) {
+                Uri imageUri = data.getData();
+                imageUris.add(imageUri);
+            }
+        }
+    }
+
+    // Trong phương thức updateChapter()
+    private void updateChapter() {
+        String chapterName = editTextChapterName.getText().toString().trim();
+        String chapterTitle = editTextChapterTitle.getText().toString().trim();
+
         Chapter selectedChapter = (Chapter) spinnerChapterList.getSelectedItem();
         if (selectedChapter == null) {
             Toast.makeText(this, "Please select a chapter", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String chapterName = editTextChapterName.getText().toString().trim();
-        String chapterTitle = editTextChapterTitle.getText().toString().trim();
-        int numChapter = Integer.parseInt(editTextNumChapter.getText().toString());
+        String chapterId = selectedChapter.getChapterId();
+        String toonId = selectedChapter.getToonId();
 
-        // Update chapter information in the database
-        DatabaseReference chapterRef = chaptersRef.child(selectedChapter.getToonId()).child(selectedChapter.getChapterId());
-        chapterRef.child("chapterName").setValue(chapterName);
-        chapterRef.child("chapterTitle").setValue(chapterTitle);
-        chapterRef.child("numChapter").setValue(numChapter);
-
-        Toast.makeText(this, "Đã Chỉnh Sửa Chapter đã chọn", Toast.LENGTH_SHORT).show();
-        loadChapters(selectedChapter.getToonId());
-
-        // Finish the current activity and start a new instance
-        finish();
-        startActivity(getIntent());
-    }
-
-    private void deleteChapter() {
-        Chapter selectedChapter = (Chapter) spinnerChapterList.getSelectedItem();
-        if (selectedChapter == null) {
-            Toast.makeText(this, "Hãy chọn chap", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(chapterName) && TextUtils.isEmpty(chapterTitle) && imageUris.isEmpty()) {
+            Toast.makeText(this, "Please make some changes to update", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String toonId = selectedChapter.getToonId();
-        String chapterId = selectedChapter.getChapterId();
+        progressDialog.show();
 
-        // Xóa chapter được chọn
-        DatabaseReference chapterRef = chaptersRef.child(toonId).child(chapterId);
-        chapterRef.removeValue(new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                if (error == null) {
-                    // Xóa thành công, hiển thị thông báo
-                    Toast.makeText(EditChapterActivity.this, "Đã xóa chap thành công", Toast.LENGTH_SHORT).show();
+        Map<String, Object> updateMap = new HashMap<>();
+        if (!TextUtils.isEmpty(chapterName)) {
+            updateMap.put("chapterName", chapterName);
+        }
+        if (!TextUtils.isEmpty(chapterTitle)) {
+            updateMap.put("chapterTitle", chapterTitle);
+        }
 
-                    // Cập nhật giao diện
-                    loadChapters(toonId);
-                } else {
-                    // Xảy ra lỗi, hiển thị thông báo lỗi
-                    Toast.makeText(EditChapterActivity.this, "Xóa chap thất bại: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+        if (!imageUris.isEmpty()) {
+            uploadImagesToStorage(imageUris, new OnImagesUploadedListener() {
+                @Override
+                public void onImagesUploaded(List<String> imageUrls) {
+                    updateMap.put("listImgChapter", imageUrls);
+
+                    // Tiến hành cập nhật chương sau khi ảnh đã được tải lên Storage
+                    chaptersRef.child(toonId).child(chapterId).updateChildren(updateMap)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(EditChapterActivity.this, "Chapter updated successfully", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(EditChapterActivity.this, "Failed to update chapter: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 }
-            }
-        });
+
+                @Override
+                public void onUploadFailed(String errorMessage) {
+                    progressDialog.dismiss();
+                    Toast.makeText(EditChapterActivity.this, "Failed to upload images: " + errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Không có ảnh mới, chỉ cần cập nhật thông tin chương
+            chaptersRef.child(toonId).child(chapterId).updateChildren(updateMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            progressDialog.dismiss();
+                            Toast.makeText(EditChapterActivity.this, "Chapter updated successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(EditChapterActivity.this, "Failed to update chapter: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    // Phương thức tải ảnh lên Firebase Storage
+    private void uploadImagesToStorage(List<Uri> imageUris, OnImagesUploadedListener listener) {
+        List<String> imageUrls = new ArrayList<>();
+        final int[] uploadedCount = {0};
+
+        for (Uri imageUri : imageUris) {
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + imageUri.getLastPathSegment());
+            UploadTask uploadTask = storageRef.putFile(imageUri);
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // Lấy URL của ảnh đã tải lên thành công
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String imageUrl = uri.toString();
+                            imageUrls.add(imageUrl);
+                            uploadedCount[0]++;
+
+                            // Kiểm tra nếu tất cả ảnh đã được tải lên
+                            if (uploadedCount[0] == imageUris.size()) {
+                                listener.onImagesUploaded(imageUrls);
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    listener.onUploadFailed(e.getMessage());
+                }
+            });
+        }
+    }
+
+    // Interface để lắng nghe việc tải ảnh lên Storage
+    interface OnImagesUploadedListener {
+        void onImagesUploaded(List<String> imageUrls);
+        void onUploadFailed(String errorMessage);
     }
 
 }
