@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
         topToonAdapter.setOnItemClickListener(new TopToonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Toon toon) {
-                // Handle item click, navigate to detail activity
+                // Khi click chuyển sang Detail
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra("toonId", toon.getToonId());
                 startActivity(intent);
@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment {
         popularToonAdapter.setOnItemClickListener(new PopularToonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Toon toon) {
-                // Handle item click, navigate to detail activity
+                // Khi click chuyển sang Detail
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra("toonId", toon.getToonId());
                 startActivity(intent);
@@ -153,7 +153,7 @@ public class HomeFragment extends Fragment {
     }
     private void loadTopToons() {
         DatabaseReference toonsRef = FirebaseDatabase.getInstance().getReference("toons");
-        Query query = toonsRef.orderByChild("viewCount").limitToLast(4);
+        Query query = toonsRef.orderByChild("viewCount").limitToLast(10);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

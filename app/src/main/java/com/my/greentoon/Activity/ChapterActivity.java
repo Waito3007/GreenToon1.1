@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Adapter.ImageAdapter;
+import com.my.greentoon.Fragment.CommentFragment;
 import com.my.greentoon.Model.Chapter;
 import com.my.greentoon.R;
 
@@ -28,20 +30,39 @@ public class ChapterActivity extends AppCompatActivity {
 
     private String toonId;
     private String currentChapterId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chapter);
-        // Lấy chapterId và toonId từ Intent
+
+        // Get toonId from Intent
+        Intent intent = getIntent();
+        toonId = intent.getStringExtra("toonId");
+
+        if (toonId != null) {
+            // Continue with activity initialization
+            initializeActivity();
+        } else {
+            // Handle case where toonId is missing
+            Toast.makeText(this, "Missing toonId", Toast.LENGTH_SHORT).show();
+            finish(); // Close the activity
+        }
+    }
+
+    private void initializeActivity() {
+        // Rest of your onCreate method here
+        // Lấy chapterId từ Intent
         Intent intent = getIntent();
         String chapterId = intent.getStringExtra("chapterId");
-        toonId = intent.getStringExtra("toonId");
+
         // Lấy reference của các thành phần giao diện từ layout
         TextView textViewChapterName = findViewById(R.id.textViewChapterName);
         RecyclerView recyclerViewImages = findViewById(R.id.recyclerViewImages);
         ImageButton btnPreviousChapter = findViewById(R.id.btnPreviousChapter);
         ImageButton btnNextChapter = findViewById(R.id.btnNextChapter);
         ImageButton btn_viewchapter = findViewById(R.id.btn_viewchapter);
+        ImageButton btnShowComments = findViewById(R.id.btnShowComments);
 
         // Ve trang detail de chon chap
         btn_viewchapter.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +71,13 @@ public class ChapterActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChapterActivity.this, DetailActivity.class);
                 intent.putExtra("toonId", toonId);
                 startActivity(intent);
+            }
+        });
+        btnShowComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Hiển thị CommentFragment khi người dùng nhấn vào nút
+                showCommentFragment();
             }
         });
 
@@ -88,6 +116,20 @@ public class ChapterActivity extends AppCompatActivity {
                 Toast.makeText(ChapterActivity.this, "Failed to load chapter: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    // Phương thức để hiển thị CommentFragment
+    private void showCommentFragment() {
+        // Tạo một instance mới của CommentFragment
+        CommentFragment commentFragment = new CommentFragment();
+        // Chuyển qua FragmentManager để bắt đầu một giao dịch Fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        // Thay thế fragment hiện tại bằng CommentFragment
+        transaction.replace(R.id.fragment_container, commentFragment);
+        // Thêm transaction vào back stack để cho phép người dùng quay lại fragment trước đó (nếu cần)
+        transaction.addToBackStack(null);
+        // Kết thúc
+        transaction.commit();
     }
 
     public void onPreviousChapterClick() {

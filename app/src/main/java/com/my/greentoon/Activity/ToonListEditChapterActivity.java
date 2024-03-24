@@ -26,7 +26,7 @@ import com.my.greentoon.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToonListActivity extends AppCompatActivity {
+public class ToonListEditChapterActivity extends AppCompatActivity {
 
     private ListView listViewToons;
     private List<Toon> toonList;
@@ -70,13 +70,13 @@ public class ToonListActivity extends AppCompatActivity {
                     Toon toon = toonSnapshot.getValue(Toon.class);
                     toonList.add(toon);
                 }
-                ToonAdapter adapter = new ToonAdapter(ToonListActivity.this, R.layout.item_toon, toonList);
+                ToonAdapter adapter = new ToonAdapter(ToonListEditChapterActivity.this, R.layout.item_toon, toonList);
                 listViewToons.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ToonListActivity.this, "Failed to load toons: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ToonListEditChapterActivity.this, "Failed to load toons: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -84,22 +84,22 @@ public class ToonListActivity extends AppCompatActivity {
         listViewToons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy thông tin của toon được chọn
+                // Lấy toon được chọn từ danh sách
                 Toon selectedToon = toonList.get(position);
-
-                // Chuyển sang DetailActivity và truyền toonId của toon được chọn
-                Intent intent = new Intent(ToonListActivity.this, DetailActivity.class);
+                // Tạo một Intent để chuyển tới EditChapterActivity
+                Intent intent = new Intent(ToonListEditChapterActivity.this, EditChapterActivity.class);
+                // Truyền ID của toon được chọn qua Intent
                 intent.putExtra("toonId", selectedToon.getToonId());
+                // Khởi chạy EditChapterActivity với Intent đã tạo
                 startActivity(intent);
             }
         });
-
         // Xử lý sự kiện khi click vào nút btBack
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Trở về MainActivity
-                Intent intent = new Intent(ToonListActivity.this, MainActivity.class);
+                Intent intent = new Intent(ToonListEditChapterActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

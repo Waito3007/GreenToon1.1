@@ -36,14 +36,14 @@ public class ToonAdapter extends ArrayAdapter<Toon> {
         }
 
         TextView textViewToonName = convertView.findViewById(R.id.textViewToonName);
-       // TextView textViewToonDesc = convertView.findViewById(R.id.textViewToonDesc);
-       TextView textViewCount = convertView.findViewById(R.id.textViewCount);
+        TextView textViewToonDesc = convertView.findViewById(R.id.textViewToonDesc);
+        TextView textViewCount = convertView.findViewById(R.id.textViewCount);
         ImageView imageViewToonCover = convertView.findViewById(R.id.imageViewToonCover);
 
         Toon currentToon = toonList.get(position);
 
         textViewToonName.setText(currentToon.getToonName());
-       // textViewToonDesc.setText(currentToon.getToonDes());
+        textViewToonDesc.setText(currentToon.getToonDes());
         String count = String.valueOf(currentToon.getViewCount());
        textViewCount.setText(count);
 

@@ -68,7 +68,7 @@
             android:name=".Activity.ToonListEditActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ToonListActivity"
+            android:name=".Activity.ToonListEditChapterActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.UploadToonActivity"
