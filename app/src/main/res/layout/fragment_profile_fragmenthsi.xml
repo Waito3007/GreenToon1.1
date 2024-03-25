@@ -85,7 +85,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <TextView
         android:id="@+id/tvfollow"
         android:layout_width="wrap_content"

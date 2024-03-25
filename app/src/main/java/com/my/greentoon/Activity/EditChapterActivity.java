@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +30,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.my.greentoon.Model.Chapter;
+import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +51,7 @@ public class EditChapterActivity extends AppCompatActivity {
     private List<Chapter> chapterList;
     private ArrayAdapter<Chapter> adapter;
     private ProgressDialog progressDialog;
-
+    private Toon selectedToon;
     private List<Uri> imageUris = new ArrayList<>();
 
     @Override
@@ -71,9 +75,31 @@ public class EditChapterActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
 
         Intent intent = getIntent();
-        if (intent.hasExtra("toonId")) {
+        if (intent != null && intent.hasExtra("toonId")) {
             String toonId = intent.getStringExtra("toonId");
             loadChapters(toonId);
+            DatabaseReference toonRef = FirebaseDatabase.getInstance().getReference("toons").child(toonId);
+            toonRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    selectedToon = dataSnapshot.getValue(Toon.class);
+                    // hien thi view anh bia va name truyen trong layout
+                    if (dataSnapshot.exists()) {
+                        String toonName = dataSnapshot.child("toonName").getValue(String.class);
+                        String toonCover=dataSnapshot.child("toonCover").getValue(String.class);
+                        // Hiển thị len
+                        TextView tvtoonName = findViewById(R.id.tvtoonName);
+                        tvtoonName.setText(toonName);
+                        ImageView imgtoonCover = findViewById(R.id.imgtoonCover);
+                        Picasso.get().load(toonCover).into(imgtoonCover);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(EditChapterActivity.this, "Failed to load selected toon: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         btnChooseImages.setOnClickListener(new View.OnClickListener() {

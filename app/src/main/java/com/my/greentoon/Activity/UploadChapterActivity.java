@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 import com.my.greentoon.Model.Chapter;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +76,16 @@ public class UploadChapterActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     selectedToon = dataSnapshot.getValue(Toon.class);
+                    // hien thi view anh bia va name truyen trong layout
+                    if (dataSnapshot.exists()) {
+                        String toonName = dataSnapshot.child("toonName").getValue(String.class);
+                        String toonCover=dataSnapshot.child("toonCover").getValue(String.class);
+                        // Hiển thị len
+                        TextView tvtoonName = findViewById(R.id.tvtoonName);
+                        tvtoonName.setText(toonName);
+                        ImageView imgtoonCover = findViewById(R.id.imgtoonCover);
+                        Picasso.get().load(toonCover).into(imgtoonCover);
+                    }
                 }
 
                 @Override
@@ -101,7 +114,6 @@ public class UploadChapterActivity extends AppCompatActivity {
             }
         });
     }
-
     private void chooseImages() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -138,7 +150,6 @@ public class UploadChapterActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill all fields and choose images", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void uploadImages(List<Uri> imageUris, String chapterName, String chapterTitle, Toon selectedToon) {
         progressDialog.show();
         AtomicInteger uploadedCount = new AtomicInteger(0);
