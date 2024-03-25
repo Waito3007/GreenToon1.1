@@ -65,7 +65,6 @@ public class PlatformFragment extends Fragment {
                     if (snapshot.exists()) {
                         currentUser = snapshot.getValue(User.class);
                         if (currentUser != null) {
-                            textViewUserName.setText(currentUser.getNameUser());
                             // Load hình ảnh và áp dụng circleCrop để tạo hình tròn
                             Glide.with(requireContext())
                                     .load(currentUser.getAvatarUser())
