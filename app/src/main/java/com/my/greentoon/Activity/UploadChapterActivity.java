@@ -38,6 +38,7 @@ public class UploadChapterActivity extends AppCompatActivity {
     private Button btnChooseImages;
     private Button btnUploadChapter;
 
+    private Button btnBack;
     private List<Uri> imageUris = new ArrayList<>();
     private List<String> listImgChapter = new ArrayList<>();
 
@@ -51,11 +52,12 @@ public class UploadChapterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_chapter);
 
-        spinnerToonList = findViewById(R.id.spinnerToonList);
+
         editTextChapterName = findViewById(R.id.editTextChapterName);
         editTextChapterTitle = findViewById(R.id.editTextChapterTitle);
         btnChooseImages = findViewById(R.id.btnChooseImages);
         btnUploadChapter = findViewById(R.id.btnUploadChapter);
+        btnBack = findViewById(R.id.btBack);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Uploading Chapter...");
@@ -79,7 +81,12 @@ public class UploadChapterActivity extends AppCompatActivity {
                 }
             });
         }
-
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btnChooseImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

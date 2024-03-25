@@ -98,9 +98,7 @@ public class ToonListEditChapterActivity extends AppCompatActivity {
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Trở về MainActivity
-                Intent intent = new Intent(ToonListEditChapterActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

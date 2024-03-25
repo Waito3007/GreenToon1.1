@@ -1,45 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/spinnerToonList"
+    <Button
+        android:id="@+id/btBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginStart="20dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+        android:textColor="#FFFAFA" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm Tập Truyện"
+        android:padding="20dp"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="#111111"
+        android:textSize="32sp"/>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên Chap"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:textSize="22sp"
+        android:textColor="#111111"/>
 
     <EditText
         android:id="@+id/editTextChapterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerToonList"
-        android:layout_marginTop="16dp"
-        android:hint="Chapter Name" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edittext_rounded_corner"
+        android:backgroundTint="#F4E1E1"
+        android:hint="Tên Tập Truyện" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chú Thích Chap"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:textSize="22sp"
+        android:textColor="#111111"
+        />
 
     <EditText
         android:id="@+id/editTextChapterTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextChapterName"
-        android:layout_marginTop="16dp"
-        android:hint="Chapter Title" />
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edittext_rounded_corner"
+        android:backgroundTint="#F4E1E1"
+        android:hint="Chú Thích Tập Truyện" />
 
-    <Button
-        android:id="@+id/btnChooseImages"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextChapterTitle"
-        android:layout_marginTop="16dp"
-        android:text="Choose Images" />
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnUploadChapter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnChooseImages"
-        android:layout_marginTop="16dp"
-        android:text="Upload Chapter" />
+        <Button
+            android:id="@+id/btnChooseImages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/corner_button_black"
+            android:backgroundTint="#57945C"
+            android:padding="10dp"
+            android:text="Chọn Ảnh"
+            android:textAllCaps="false"
+            android:textColor="#FBFBFB"
+            android:textStyle="normal" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnUploadChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/corner_button_black"
+            android:backgroundTint="#57945C"
+            android:padding="10dp"
+            android:text="Đăng Tập Truyện"
+            android:textAllCaps="false"
+            android:textColor="#FBFBFB"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+</LinearLayout>

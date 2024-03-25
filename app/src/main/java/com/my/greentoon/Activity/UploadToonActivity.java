@@ -41,6 +41,9 @@ public class UploadToonActivity extends AppCompatActivity {
     private EditText editTextToonDesc;
     private Button btnChooseImage;
     private Button btnUploadToon;
+
+    private Button btBack;
+
     private LinearLayout tagContainer;
     private List<String> selectedGenres = new ArrayList<>();
     private List<String> allGenres = Arrays.asList("Action", "Drama", "Fantasy", "Chuyển Sinh", "Ngôn Tình", "Trinh thám", "Tu Tiên", "Manhwa");
@@ -60,6 +63,7 @@ public class UploadToonActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("toons");
         storageReference = FirebaseStorage.getInstance().getReference("toon_covers");
 
+        btBack = findViewById(R.id.btBack);
         imageViewToonCover = findViewById(R.id.imageViewToonCover);
         editTextToonName = findViewById(R.id.editTextToonName);
         editTextToonDesc = findViewById(R.id.editTextToonDesc);
@@ -71,6 +75,13 @@ public class UploadToonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openFileChooser();
+            }
+        });
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -176,6 +187,7 @@ public class UploadToonActivity extends AppCompatActivity {
                     });
         }
     }
+
 
     // Hàm addtag
     private void addTag(final String tag) {
