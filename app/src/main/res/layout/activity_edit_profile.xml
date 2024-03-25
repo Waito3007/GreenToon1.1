@@ -36,47 +36,58 @@
         android:text="Tài Khoản" />
     <Button
         android:id="@+id/btUsername"
-        android:layout_width="341dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="46dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa tên tài khoản"
+        android:hint="Đổi Tên Người Dùng"
+        android:background="@drawable/corner_button_black"
+        android:backgroundTint="#F1F1F1"
         android:padding="12dp"
-        android:textColorHint="#858080"
-        android:textSize="20sp" />
+        android:textColorHint="#111111"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
     <Button
         android:id="@+id/btImg"
-        android:layout_width="341dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa Avatar"
+        android:hint="Đổi Ảnh Đại Diện"
+        android:background="@drawable/corner_button_black"
+        android:backgroundTint="#F1F1F1"
         android:padding="12dp"
-        android:textColorHint="#858080"
-        android:textSize="20sp" />
+        android:textColorHint="#111111"
+        android:textSize="20sp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/BtChangePas"
-        android:layout_width="341dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Chỉnh sửa Mật Khẩu"
+        android:hint="Đổi Mật Khẩu"
+        android:background="@drawable/corner_button_black"
+        android:backgroundTint="#F1F1F1"
         android:padding="12dp"
-        android:textColorHint="#858080"
-        android:textSize="20sp" />
+        android:textColorHint="#111111"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/btMore"
-        android:layout_width="341dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/borderinput"
-        android:hint="Quản Trị Viên"
-        android:padding="12dp"
-        android:textColorHint="#858080"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/corner_button_black"
+        android:backgroundTint="#0AD11A"
+        android:hint=" Tùy Chọn Quản Trị Viên"
         android:visibility="gone"
-        android:textSize="20sp" />
+        android:padding="12dp"
+        android:textColor="#E4E4E4"
+        android:textColorHint="#020101"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </LinearLayout>
