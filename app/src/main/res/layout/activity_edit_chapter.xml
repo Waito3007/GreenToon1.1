@@ -22,6 +22,22 @@
             android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
             android:textColor="#FFFAFA" />
         <TextView
+            android:id="@+id/tvtoonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên Truyện"
+            android:padding="20dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="#111111"
+            android:textSize="33sp"/>
+
+        <ImageView
+            android:id="@+id/imgtoonCover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_avatar" />
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
