@@ -37,7 +37,7 @@ public class ToonListEditChapterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toon_list);
+        setContentView(R.layout.activity_toon_list_edit_chapter);
         listViewToons = findViewById(R.id.listViewToons);
         toonList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("toons");

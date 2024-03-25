@@ -23,7 +23,7 @@ import com.my.greentoon.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToonListEditActivity extends AppCompatActivity {
+public class ToonListEditToonActivity extends AppCompatActivity {
 
     private ListView listViewToons;
     private List<Toon> toonList;
@@ -33,7 +33,7 @@ public class ToonListEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toon_list_edit);
+        setContentView(R.layout.activity_toon_list_edit_toon);
 
         listViewToons = findViewById(R.id.listViewToons);
         editTextSearch = findViewById(R.id.editTextSearch);
@@ -58,7 +58,7 @@ public class ToonListEditActivity extends AppCompatActivity {
                     toonList.add(toon);
                 }
 
-                ToonAdapter adapter = new ToonAdapter(ToonListEditActivity.this, R.layout.item_toon, toonList);
+                ToonAdapter adapter = new ToonAdapter(ToonListEditToonActivity.this, R.layout.item_toon, toonList);
                 listViewToons.setAdapter(adapter);
             }
 
@@ -71,7 +71,7 @@ public class ToonListEditActivity extends AppCompatActivity {
         listViewToons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ToonListEditActivity.this, EditToonActivity.class);
+                Intent intent = new Intent(ToonListEditToonActivity.this, EditToonActivity.class);
                 intent.putExtra("toonId", toonList.get(position).getToonId());
                 startActivity(intent);
             }
@@ -86,7 +86,7 @@ public class ToonListEditActivity extends AppCompatActivity {
             }
         }
         // Cập nhật danh sách truyện hiển thị trên ListView
-        ToonAdapter adapter = new ToonAdapter(ToonListEditActivity.this, R.layout.item_toon, filteredList);
+        ToonAdapter adapter = new ToonAdapter(ToonListEditToonActivity.this, R.layout.item_toon, filteredList);
         listViewToons.setAdapter(adapter);
     }
 }
