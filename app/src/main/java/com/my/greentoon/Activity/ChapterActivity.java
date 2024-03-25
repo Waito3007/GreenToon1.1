@@ -45,8 +45,8 @@ public class ChapterActivity extends AppCompatActivity {
             initializeActivity();
         } else {
             // Handle case where toonId is missing
-            Toast.makeText(this, "Missing toonId", Toast.LENGTH_SHORT).show();
-            finish(); // Close the activity
+            Toast.makeText(this, "Chap đã bị khóa", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -113,7 +113,7 @@ public class ChapterActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Xử lý khi không thể truy xuất dữ liệu chương từ Firebase
-                Toast.makeText(ChapterActivity.this, "Failed to load chapter: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChapterActivity.this, "Tải thất bại:  " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -159,7 +159,7 @@ public class ChapterActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Xử lý khi không thể truy xuất dữ liệu chương từ Firebase
-                Toast.makeText(ChapterActivity.this, "Failed to load chapter: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChapterActivity.this, "Tải thất bại: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -190,7 +190,7 @@ public class ChapterActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Xử lý khi không thể truy xuất dữ liệu chương từ Firebase
-                Toast.makeText(ChapterActivity.this, "Failed to load chapter: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChapterActivity.this, "Tải thất bại:  " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

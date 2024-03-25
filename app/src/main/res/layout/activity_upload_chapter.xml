@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.UploadChapterActivity">
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Spinner
+        android:id="@+id/spinnerToonList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/editTextChapterName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerToonList"
+        android:layout_marginTop="16dp"
+        android:hint="Chapter Name" />
+
+    <EditText
+        android:id="@+id/editTextChapterTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextChapterName"
+        android:layout_marginTop="16dp"
+        android:hint="Chapter Title" />
+
+    <Button
+        android:id="@+id/btnChooseImages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextChapterTitle"
+        android:layout_marginTop="16dp"
+        android:text="Choose Images" />
+
+    <Button
+        android:id="@+id/btnUploadChapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChooseImages"
+        android:layout_marginTop="16dp"
+        android:text="Upload Chapter" />
+
+</RelativeLayout>
