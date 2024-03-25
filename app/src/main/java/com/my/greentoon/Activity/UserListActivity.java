@@ -2,7 +2,9 @@ package com.my.greentoon.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.my.greentoon.Adapter.UserListAdapter;
 import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
@@ -24,6 +27,7 @@ import java.util.List;
 public class UserListActivity extends AppCompatActivity {
 
     private ListView listViewUsers;
+    private Button btBack;
     private ArrayList<User> userList;
     private ArrayAdapter<User> arrayAdapter;
     private ArrayList<User> originalUserList;
@@ -33,10 +37,12 @@ public class UserListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
+        btBack = findViewById(R.id.btBack);
+
         // Khởi tạo và hiển thị danh sách người dùng
         listViewUsers = findViewById(R.id.listViewUsers);
         userList = new ArrayList<>();
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, userList);
+        arrayAdapter = new UserListAdapter(this, userList); // Sử dụng CustomAdapter mới
         listViewUsers.setAdapter(arrayAdapter);
 
         // Lưu danh sách người dùng ban đầu
@@ -53,6 +59,13 @@ public class UserListActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
                 return true;
+            }
+        });
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -93,6 +106,7 @@ public class UserListActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
 
     private void filter(String query) {
         List<User> filteredList = new ArrayList<>();

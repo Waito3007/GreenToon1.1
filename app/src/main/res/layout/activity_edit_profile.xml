@@ -84,6 +84,7 @@
         android:background="@drawable/corner_button_black"
         android:backgroundTint="#0AD11A"
         android:hint=" Tùy Chọn Quản Trị Viên"
+        android:visibility="gone"
         android:padding="12dp"
         android:textColor="#E4E4E4"
         android:textColorHint="#020101"
