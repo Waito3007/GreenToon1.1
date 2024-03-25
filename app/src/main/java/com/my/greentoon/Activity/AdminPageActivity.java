@@ -77,7 +77,7 @@ public class AdminPageActivity extends AppCompatActivity {
         btUploadChap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminPageActivity.this, AddChapterActivity.class);
+                Intent intent = new Intent(AdminPageActivity.this, ToonListUploadChapter.class);
                 startActivity(intent);
             }
         });
