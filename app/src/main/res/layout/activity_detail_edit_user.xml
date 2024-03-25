@@ -78,10 +78,10 @@
             android:id="@+id/btnDeleteUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Xóa Tài Khoản Người Dùng"
             android:background="@drawable/corner_button_black"
             android:backgroundTint="#A10000"
             android:padding="10dp"
-            android:text="Xóa Tài Khoản Người Dùng"
             android:textAllCaps="false"
             android:textColor="#FBFBFB"
             android:textStyle="normal" />
