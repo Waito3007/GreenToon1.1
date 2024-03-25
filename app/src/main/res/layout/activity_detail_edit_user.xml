@@ -1,54 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
+
+    <Button
+        android:id="@+id/btBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+        android:textColor="#FFFAFA" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cài Đặt Người Dùng"
+        android:gravity="center"
+        android:textSize="32dp"
+        android:textColor="#111111"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
 
     <TextView
         android:id="@+id/txtUserId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/txtEmail"
-        android:layout_below="@id/txtUserId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp"/>
+        android:padding="20dp"
+        android:drawableLeft="@drawable/email_ic"
+        android:layout_marginBottom="10dp"
+        android:drawablePadding="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/txtNameUser"
-        android:layout_below="@id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+        android:padding="20dp"
+        android:drawableLeft="@drawable/user_ic"
+        android:layout_marginBottom="8dp"
+        android:drawablePadding="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/btnBlockUser"
-        android:layout_below="@id/txtNameUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Block User"
-        android:layout_marginTop="16dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnDeleteUser"
-        android:layout_below="@id/btnBlockUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete User"
-        android:layout_marginTop="8dp"/>
+        <Button
+            android:id="@+id/btnBlockUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/corner_button_black"
+            android:backgroundTint="#A10000"
+            android:textColor="#FBFBFB"
+            android:text="Block User"
+            android:visibility="gone"/>
 
-    <Button
-        android:id="@+id/btnToggleAdmin"
-        android:layout_below="@id/btnDeleteUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Toggle Admin"
-        android:layout_marginTop="8dp"/>
+        <Button
+            android:id="@+id/btnDeleteUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_button_black"
+            android:backgroundTint="#A10000"
+            android:padding="10dp"
+            android:text="Xóa Tài Khoản Người Dùng"
+            android:textAllCaps="false"
+            android:textColor="#FBFBFB"
+            android:textStyle="normal" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnToggleAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/corner_button_black"
+            android:backgroundTint="#57945C"
+            android:padding="10dp"
+            android:text="Chuyển Đổi Quyền"
+            android:textAllCaps="false"
+            android:textColor="#FBFBFB"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+</LinearLayout>
