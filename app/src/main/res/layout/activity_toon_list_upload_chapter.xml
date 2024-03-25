@@ -1,43 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.ToonListUploadChapter">
 
+    <!-- Thanh tìm kiếm -->
+
+    <Button
+        android:id="@+id/btBack"
+        android:layout_width="352dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="20dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+        android:textColor="#FFFAFA" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-        <Button
-            android:id="@+id/btBack"
-            android:layout_width="64dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
-            android:textColor="#FFFAFA" />
-
-        <ImageButton
-            android:id="@+id/btSearch"
-            android:layout_width="94dp"
-            android:layout_height="match_parent"
-            android:background="@null" />
-
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextViewSearch"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/borderinput"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:foregroundGravity="center_vertical"
+            android:hint="Nhập vào để tìm truyện bạn muốn."
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textColor="#000000" />
     </LinearLayout>
+
+    <!-- Danh sách các toon -->
 
     <ListView
         android:id="@+id/listViewToons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:padding="16dp">
-
-    </ListView>
+        android:padding="8dp"/>
 </LinearLayout>
