@@ -6,7 +6,6 @@ public class Comment {
     private String commentText;
 
     public Comment() {
-        // Required empty public constructor
     }
     public Comment(String userId, String commentText) {
         this.userId = userId;
