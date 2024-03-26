@@ -17,7 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.my.greentoon.Adapter.StatusAdapter.ViewHolder;
 import com.my.greentoon.Model.Status;
 import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
@@ -30,9 +29,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     private List<Status> statusList;
     private User currentUser;
 
-    private ViewHolder.CommentClickListener commentClickListener;
-
-
     public StatusAdapter(Context context, List<Status> statusList, User currentUser) {
         this.context = context;
         this.statusList = statusList;
@@ -40,12 +36,7 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     }
 
     // Phương thức setter để thiết lập commentClickListener
-    public void setCommentClickListener(ViewHolder.CommentClickListener commentClickListener) {
-        this.commentClickListener = commentClickListener;
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public CommentClickListener commentClickListener;
         ImageView imageViewUserAvatar, imageViewStatusContent;
         TextView textViewUserName;
         TextView textViewStatusText;
@@ -75,15 +66,9 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                         break;
                     case R.id.btnComment:
                         // Xử lý khi nút bình luận được nhấn
-                        if (commentClickListener != null) {
-                            commentClickListener.onCommentClick(position);
-                        }
                         break;
                 }
             }
-        }
-        public interface CommentClickListener {
-            void onCommentClick(int position);
         }
 
         private void likeStatus(int position) {
@@ -123,7 +108,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_status, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.commentClickListener = commentClickListener;
         return viewHolder;
     }
 

@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.my.greentoon.Adapter.ImageAdapter;
+import com.my.greentoon.Adapter.ChapterImageAdapter;
 import com.my.greentoon.Fragment.CommentFragment;
 import com.my.greentoon.Model.Chapter;
 import com.my.greentoon.R;
@@ -104,7 +104,7 @@ public class ChapterActivity extends AppCompatActivity {
                     textViewChapterName.setText(chapterName);
 
                     // Khởi tạo và thiết lập Adapter cho RecyclerView
-                    ImageAdapter imageAdapter = new ImageAdapter(listImgChapter);
+                    ChapterImageAdapter imageAdapter = new ChapterImageAdapter(listImgChapter);
                     recyclerViewImages.setAdapter(imageAdapter);
                     recyclerViewImages.setLayoutManager(new LinearLayoutManager(ChapterActivity.this));
                 }
@@ -125,7 +125,7 @@ public class ChapterActivity extends AppCompatActivity {
         // Chuyển qua FragmentManager để bắt đầu một giao dịch Fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // Thay thế fragment hiện tại bằng CommentFragment
-        transaction.replace(R.id.fragment_container, commentFragment);
+        transaction.replace(R.id.fragment_containerloc, commentFragment);
         // Thêm transaction vào back stack để cho phép người dùng quay lại fragment trước đó (nếu cần)
         transaction.addToBackStack(null);
         // Kết thúc

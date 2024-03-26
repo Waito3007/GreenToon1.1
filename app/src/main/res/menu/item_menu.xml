@@ -15,6 +15,10 @@
         android:id="@+id/nav_follow"
         android:icon="@drawable/ic_bookmark"
         android:title="theo giỏi" />
+    <item
+        android:id="@+id/nav_Platform"
+        android:icon="@drawable/ic_platform"
+        android:title="theo giỏi" />
 
     <item
         android:id="@+id/nav_user"

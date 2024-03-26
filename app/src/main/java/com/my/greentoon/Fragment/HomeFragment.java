@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
                 // Thay thế HomeFragment bằng SearchFragment
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, searchFragment) // R.id.fragment_container là id của container fragment trong layout của activity
+                        .replace(R.id.fragment_containerloc, searchFragment) // R.id.fragment_container là id của container fragment trong layout của activity
                         .addToBackStack(null) // Nếu bạn muốn quay lại HomeFragment khi nhấn nút Back, hãy thêm vào back stack
                         .commit();
             }

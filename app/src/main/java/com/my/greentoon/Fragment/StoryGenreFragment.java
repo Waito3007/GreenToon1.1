@@ -1,14 +1,18 @@
 package com.my.greentoon.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.my.greentoon.Activity.DetailActivity;
 import com.my.greentoon.Adapter.ToonAdapter;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
@@ -30,7 +35,7 @@ public class StoryGenreFragment extends Fragment {
     private ToonAdapter toonAdapter;
 
     private DatabaseReference databaseReference;
-
+    private Button btBack,btSearch;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_story_genre, container, false);
@@ -52,8 +57,28 @@ public class StoryGenreFragment extends Fragment {
         Button btnNgontinh = root.findViewById(R.id.btnNgontinh);
         Button btnTrinhtham = root.findViewById(R.id.btnTrinhtham);
         Button btnTutien = root.findViewById(R.id.btnTutien);
+        btSearch = root.findViewById(R.id.btSearch);
         // Add buttons for other genres here
+        btSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchFragment searchFragment = new SearchFragment();
+                // Lấy reference của FragmentManager
+                FragmentManager fragmentManager = getParentFragmentManager(); // hoặc getChildFragmentManager() tùy vào ngữ cảnh
 
+                // Bắt đầu một giao dịch Fragment
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                // Thay thế Fragment hiện tại bằng UploadStoryFragment
+                transaction.replace(R.id.fragment_container, searchFragment);
+
+                // Thêm transaction vào Back Stack (nếu cần)
+                transaction.addToBackStack(null);
+
+                // Hoàn thành giao dịch
+                transaction.commit();
+            }
+        });
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,10 +129,23 @@ public class StoryGenreFragment extends Fragment {
                 loadToonsByGenre("Tu Tiên");
             }
         });
+        toonAdapter = new ToonAdapter(getContext(), R.layout.item_toon, toonList);
+        listViewToons.setAdapter(toonAdapter);
 
+        // Xử lý sự kiện khi người dùng nhấp vào một mục trong danh sách kết quả tìm kiếm
+        listViewToons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy thông tin của toon được chọn
+                Toon selectedToon = toonList.get(position);
+                // Chuyển sang DetailActivity và truyền toonId của toon được chọn
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("toonId", selectedToon.getToonId());
+                startActivity(intent);
+            }
+        });
         return root;
     }
-
     private void loadToonsByGenre(String genre) {
         Query query = databaseReference.orderByChild("genres/" + genre).equalTo(true);
         query.addValueEventListener(new ValueEventListener() {
