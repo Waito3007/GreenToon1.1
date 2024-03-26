@@ -31,6 +31,7 @@ public class CommentFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private DatabaseReference commentsRef;
+    private DatabaseReference usersRef;
 
     private EditText editTextComment;
     private Button btnPostComment;
@@ -46,6 +47,7 @@ public class CommentFragment extends Fragment {
         // Khởi tạo các thành phần Firebase
         mAuth = FirebaseAuth.getInstance();
         commentsRef = FirebaseDatabase.getInstance().getReference().child("comments");
+        usersRef = FirebaseDatabase.getInstance().getReference().child("users");
 
         // Khởi tạo các view
         editTextComment = view.findViewById(R.id.editTextComment);
@@ -106,19 +108,37 @@ public class CommentFragment extends Fragment {
         String commentText = editTextComment.getText().toString().trim();
         // Kiểm tra nếu nội dung bình luận không rỗng
         if (!commentText.isEmpty()) {
-            // Tạo một đối tượng Comment mới
-            Comment comment = new Comment(userId, commentText);
-            // Đẩy bình luận mới lên Firebase database
-            commentsRef.push().setValue(comment)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            // Xóa nội dung trong EditText sau khi gửi bình luận thành công
-                            editTextComment.setText("");
-                            Toast.makeText(getContext(), "Đăng bình luận thành công", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "Không thể đăng bình luận", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            // Lấy tên người dùng từ cơ sở dữ liệu Firebase
+            usersRef.child(userId).child("nameUser").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String userName = dataSnapshot.getValue(String.class);
+                    if (userName != null) {
+                        // Tạo một đối tượng Comment mới
+                        Comment comment = new Comment(userId, userName, commentText);
+                        // Đẩy bình luận mới lên Firebase database
+                        commentsRef.push().setValue(comment)
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        // Xóa nội dung trong EditText sau khi gửi bình luận thành công
+                                        editTextComment.setText("");
+                                        Toast.makeText(getContext(), "Đăng bình luận thành công", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getContext(), "Không thể đăng bình luận", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        // Xử lý khi không tìm thấy tên người dùng
+                        Toast.makeText(getContext(), "Không thể tìm thấy tên người dùng", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Xử lý khi gặp lỗi trong quá trình đọc từ cơ sở dữ liệu
+                    Toast.makeText(getContext(), "Không thể đọc tên người dùng: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             Toast.makeText(getContext(), "Vui lòng nhập nội dung bình luận", Toast.LENGTH_SHORT).show();
         }

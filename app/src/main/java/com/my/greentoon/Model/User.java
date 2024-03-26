@@ -13,6 +13,9 @@ public class User {
     public String toString() {
         return nameUser; // Trả về tên người dùng khi gọi toString()
     }
+    public String userId() {
+        return nameUser;
+    }
     public User(String userId, String email) {
         this.userId = userId;
         this.email = email;

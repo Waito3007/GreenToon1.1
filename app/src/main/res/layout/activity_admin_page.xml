@@ -87,6 +87,22 @@
         android:textStyle="bold"/>
 
     <Button
+        android:id="@+id/btEditChapter"
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/corner_button_black"
+        android:backgroundTint="#F1F1F1"
+        android:drawableStart="@drawable/ic_editchap"
+        android:hint="Chỉnh sửa Chapter"
+        android:padding="12dp"
+        android:textColorHint="#111111"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <Button
         android:id="@+id/btEditUser"
         android:layout_width="341dp"
         android:layout_height="wrap_content"
@@ -95,26 +111,11 @@
         android:background="@drawable/corner_button_black"
         android:backgroundTint="#F1F1F1"
         android:drawableStart="@drawable/ic_edituser"
-        android:hint="Chỉnh Sửa Người Dùng"
+        android:hint="Quản lý người dùng"
         android:padding="12dp"
         android:textColorHint="#111111"
         android:visibility="gone"
         android:textSize="20sp"
         android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/btEditChapter"
-        android:layout_width="341dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:hint="Chỉnh sửa Chapter"
-        android:background="@drawable/corner_button_black"
-        android:backgroundTint="#F1F1F1"
-        android:padding="12dp"
-        android:textColorHint="#111111"
-        android:visibility="gone"
-        android:drawableStart="@drawable/ic_editchap"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
 </LinearLayout>

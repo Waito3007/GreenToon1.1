@@ -28,6 +28,7 @@ import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PlatformFragment extends Fragment {
@@ -128,6 +129,8 @@ public class PlatformFragment extends Fragment {
                     Status status = dataSnapshot.getValue(Status.class);
                     statusList.add(status);
                 }
+                // Đảo ngược danh sách để hiển thị ở sau ra đầu
+                Collections.reverse(statusList);
                 statusAdapter.notifyDataSetChanged();
             }
 
@@ -136,4 +139,6 @@ public class PlatformFragment extends Fragment {
             }
         });
     }
+
+
 }
