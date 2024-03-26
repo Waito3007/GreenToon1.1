@@ -126,7 +126,6 @@ public class EditChapterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateChapter();
-                finish();
             }
 
         });
