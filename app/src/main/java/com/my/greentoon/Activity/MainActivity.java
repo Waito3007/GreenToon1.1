@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.my.greentoon.Fragment.HomeFragment;
+import com.my.greentoon.Fragment.PlatformFragment;
 import com.my.greentoon.Fragment.ProfileFragment;
 import com.my.greentoon.Fragment.ProfileFragmenthsi;
 import com.my.greentoon.Fragment.SearchFragment;
@@ -50,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_search:
                         fragment = new SearchFragment();
+                        break;
+
+                    case R.id.nav_Platform:
+                        fragment = new PlatformFragment();
                         break;
                     case R.id.nav_user:
                         // Kiểm tra xem người dùng đã đăng nhập hay chưa

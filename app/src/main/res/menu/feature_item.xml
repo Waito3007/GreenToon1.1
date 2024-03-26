@@ -2,7 +2,7 @@
     <item
         android:id="@+id/platform"
         android:title="Diển đàn"
-        android:icon="@drawable/ic_uploadtoon" />
+        android:icon="@drawable/ic_platform" />
     <item
         android:id="@+id/chat"
         android:title="Chat"

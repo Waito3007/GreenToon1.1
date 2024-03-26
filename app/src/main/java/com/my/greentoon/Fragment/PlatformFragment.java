@@ -94,7 +94,7 @@ public class PlatformFragment extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
                 // Thay thế Fragment hiện tại bằng UploadStoryFragment
-                transaction.replace(R.id.fragment_containerloc, uploadStoryFragment);
+                transaction.replace(R.id.fragment_container, uploadStoryFragment);
 
                 // Thêm transaction vào Back Stack (nếu cần)
                 transaction.addToBackStack(null);
