@@ -1,6 +1,7 @@
 package com.my.greentoon.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,7 +48,7 @@ public class EditChapterActivity extends AppCompatActivity {
     private EditText editTextChapterTitle;
     private Button btnUpdateChapter;
 
-    private Button btBack;
+    private Button btBack,btnDeleteChapter;
     private Button btnChooseImages;
 
     private DatabaseReference chaptersRef;
@@ -63,6 +65,7 @@ public class EditChapterActivity extends AppCompatActivity {
 
         spinnerChapterList = findViewById(R.id.spinnerChapterList);
         editTextChapterName = findViewById(R.id.editTextChapterName);
+        btnDeleteChapter = findViewById(R.id.btnDeleteChapter);
         editTextChapterTitle = findViewById(R.id.editTextChapterTitle);
         btnUpdateChapter = findViewById(R.id.btnUpdateChapter);
         btnChooseImages = findViewById(R.id.btnChooseImages);
@@ -127,6 +130,13 @@ public class EditChapterActivity extends AppCompatActivity {
             }
 
         });
+        btnDeleteChapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmDeleteChapter();
+            }
+        });
+
 
         spinnerChapterList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -308,7 +318,49 @@ public class EditChapterActivity extends AppCompatActivity {
             });
         }
     }
+    private void deleteChapter(Chapter chapter) {
+        String toonId = chapter.getToonId();
+        String chapterId = chapter.getChapterId();
 
+        chaptersRef.child(toonId).child(chapterId).removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(EditChapterActivity.this, "Chapter deleted successfully", Toast.LENGTH_SHORT).show();
+                        // Cập nhật lại danh sách chapter sau khi xóa
+                        loadChapters(toonId);
+                        // Đặt lại các trường nhập liệu và ảnh đã chọn
+                        editTextChapterName.setText("");
+                        editTextChapterTitle.setText("");
+                        imageUris.clear();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(EditChapterActivity.this, "Failed to delete chapter: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    private void confirmDeleteChapter() {
+        Chapter selectedChapter = (Chapter) spinnerChapterList.getSelectedItem();
+        if (selectedChapter == null) {
+            Toast.makeText(this, "Please select a chapter to delete", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Delete");
+        builder.setMessage("Are you sure you want to delete this chapter?");
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteChapter(selectedChapter);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
     // Interface để lắng nghe việc tải ảnh lên Storage
     interface OnImagesUploadedListener {
         void onImagesUploaded(List<String> imageUrls);
