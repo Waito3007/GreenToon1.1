@@ -17,7 +17,7 @@
         android:title="theo giỏi" />
     <item
         android:id="@+id/nav_Platform"
-        android:icon="@drawable/ic_platform"
+        android:icon="@drawable/ic_newfeed"
         android:title="theo giỏi" />
 
     <item

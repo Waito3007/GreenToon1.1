@@ -28,6 +28,7 @@ import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -164,12 +165,14 @@ public class HomeFragment extends Fragment {
                         toonList.add(toon);
                     }
                 }
+                // Đảo ngược danh sách để hiển thị từ cao đến thấp
+                Collections.reverse(toonList);
                 topToonAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // lỗi
+                // Xử lý lỗi
             }
         });
     }

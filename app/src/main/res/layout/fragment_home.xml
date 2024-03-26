@@ -16,20 +16,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btDexuat"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/white"
+            android:textColor="#378805"
             android:fontFamily="sans-serif"
             android:foregroundGravity="center"
             android:gravity="center|left"
-            android:paddingStart="20sp"
-            android:text="Đề Xuất"
+            android:paddingStart="30sp"
+            android:text="GREEN TOON"
             android:textSize="20sp"
             android:textStyle="bold" />
-
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Truyện Top"
+            android:textSize="20sp"
+            android:textStyle="bold" />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
@@ -65,12 +75,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:gravity="center|left"
-            android:paddingStart="20sp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
             android:text="Truyện phổ biến"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -79,14 +89,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewPopularToons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_recent"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"

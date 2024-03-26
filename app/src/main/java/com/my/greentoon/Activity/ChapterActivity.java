@@ -106,7 +106,10 @@ public class ChapterActivity extends AppCompatActivity {
                     // Khởi tạo và thiết lập Adapter cho RecyclerView
                     ChapterImageAdapter imageAdapter = new ChapterImageAdapter(listImgChapter);
                     recyclerViewImages.setAdapter(imageAdapter);
-                    recyclerViewImages.setLayoutManager(new LinearLayoutManager(ChapterActivity.this));
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(ChapterActivity.this);
+                    layoutManager.setReverseLayout(true); // Đặt reverseLayout thành true
+                    layoutManager.setStackFromEnd(true); // Đặt stackFromEnd thành true để đảm bảo các item được xếp từ dưới lên
+                    recyclerViewImages.setLayoutManager(layoutManager);
                 }
             }
 
