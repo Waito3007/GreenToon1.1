@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,8 +49,30 @@ public class ProfileFragmenthsi extends Fragment {
         imgAvatar = view.findViewById(R.id.imgAvatar);
         tvfollow = view.findViewById(R.id.tvfollow);
         btLogout.setOnClickListener(v -> logoutUser());
+
+        tvfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WatchListFragment watchListFragment = new WatchListFragment();
+                // Lấy reference của FragmentManager
+                FragmentManager fragmentManager = getParentFragmentManager(); // hoặc getChildFragmentManager() tùy vào ngữ cảnh
+
+                // Bắt đầu một giao dịch Fragment
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                // Thay thế Fragment hiện tại bằng UploadStoryFragment
+                transaction.replace(R.id.fragment_container, watchListFragment);
+
+                // Thêm transaction vào Back Stack (nếu cần)
+                transaction.addToBackStack(null);
+
+                // Hoàn thành giao dịch
+                transaction.commit();
+            }
+        });
         return view;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
