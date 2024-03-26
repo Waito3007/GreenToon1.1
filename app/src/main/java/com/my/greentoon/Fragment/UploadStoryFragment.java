@@ -133,6 +133,8 @@ public class UploadStoryFragment extends Fragment {
                                 .addOnSuccessListener(aVoid -> {
                                     progressDialog.dismiss();
                                     Toast.makeText(getContext(), "Story uploaded successfully", Toast.LENGTH_SHORT).show();
+                                    // Kết thúc Fragment sau khi upload xong
+                                    getActivity().getSupportFragmentManager().popBackStack();
                                 })
                                 .addOnFailureListener(e -> {
                                     progressDialog.dismiss();

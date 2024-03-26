@@ -41,7 +41,7 @@ public class SearchFragment extends Fragment {
     private ToonAdapter searchAdapter;
 
     private List<String> allToonNames;
-    private Button btTheloai;
+    private Button btTheloai,btRecent;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -161,10 +161,9 @@ public class SearchFragment extends Fragment {
                 // Cập nhật adapter để hiển thị danh sách toon đã được lọc
                 searchAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "Failed to search: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), ": " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

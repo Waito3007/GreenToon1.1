@@ -105,7 +105,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#4DEF08"
                 android:textSize="10sp"
-                android:text="Chap củ nhất" />
+                android:text="Chap đầu tiên" />
 
             <Button
                 android:id="@+id/btNewchap"

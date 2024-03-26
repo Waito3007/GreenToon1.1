@@ -32,9 +32,6 @@
             android:name=".Activity.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.FeatureActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar">
@@ -78,9 +75,6 @@
             android:exported="false" />
         <activity
             android:name=".Activity.EditAvatarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.EditEmailActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.EditUsernameActivity"
