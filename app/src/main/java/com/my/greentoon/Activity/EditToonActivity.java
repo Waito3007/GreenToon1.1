@@ -1,5 +1,7 @@
 package com.my.greentoon.Activity;
 
+import static com.my.greentoon.R.id.btBack;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -47,6 +49,7 @@ public class EditToonActivity extends AppCompatActivity {
     private Button btnUpdateToon;
     private Button btnDeleteToon;
 
+    private Button btBack;
     private Uri newImageUri;
     private String toonId;
 
@@ -74,13 +77,19 @@ public class EditToonActivity extends AppCompatActivity {
         btnChooseNewCover = findViewById(R.id.btnChooseNewCover);
         btnUpdateToon = findViewById(R.id.btnUpdateToon);
         btnDeleteToon = findViewById(R.id.btnDeleteToon);
+        btBack = findViewById(R.id.btBack);
         tagContainer = findViewById(R.id.tagContainer);
 
         // Load existing toon data
         loadToonData();
         loadToonTags();
 
-
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btnChooseNewCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,14 +100,18 @@ public class EditToonActivity extends AppCompatActivity {
         btnUpdateToon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 updateToon();
+                finish();
             }
         });
 
         btnDeleteToon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 deleteToon();
+                finish();
             }
         });
     }
@@ -306,4 +319,5 @@ public class EditToonActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

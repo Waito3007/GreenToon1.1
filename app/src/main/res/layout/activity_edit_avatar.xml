@@ -16,6 +16,17 @@
         android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
         android:textColor="#FFFAFA" />
 
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thay Đổi Ảnh Đại Diện"
+        android:gravity="center"
+        android:textSize="32dp"
+        android:textColor="#111111"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"/>
+
     <ImageView
         android:id="@+id/imgAvatar"
         android:layout_width="250dp"

@@ -130,7 +130,7 @@
                 <LinearLayout
                     android:id="@+id/tagContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="300dp"
                     android:layout_marginTop="10dp"
                     android:background="#F3E0E0"
                     android:orientation="vertical" />
