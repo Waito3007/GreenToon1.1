@@ -39,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
     private ListView listViewChapters;
     private List<Chapter> chapterList;
     private DatabaseReference databaseReference;
-    private Button btBack,btHome;
+    private Button btBack,btHome,btNewchap,btChap1;
     private ImageButton btnFollow;
     private boolean isToonFollowed = false;
 
@@ -49,6 +49,8 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         btBack = findViewById(R.id.btBack);
+        btChap1 = findViewById(R.id.btChap1);
+        btNewchap = findViewById(R.id.btNewchap);
         btnFollow = findViewById(R.id.btnFollow);
         imageViewToonCover = findViewById(R.id.imageViewToonCover);
         textViewToonName = findViewById(R.id.textViewToonName);
@@ -169,7 +171,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
         btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,8 +201,32 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+        btNewchap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển đến ChapterActivity của chap mới nhất
+                if (!chapterList.isEmpty()) {
+                    Chapter latestChapter = chapterList.get(chapterList.size() - 1);
+                    moveToChapterActivity(latestChapter);
+                } else {
+                    Toast.makeText(DetailActivity.this, "Không có chap nào", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
+        btChap1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển đến ChapterActivity của chap đầu tiên
+                if (!chapterList.isEmpty()) {
+                    Chapter firstChapter = chapterList.get(0);
+                    moveToChapterActivity(firstChapter);
+                } else {
+                    Toast.makeText(DetailActivity.this, "Không có chap nào", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
     private void updateFollowButtonState() {
         if (isToonFollowed) {
             btnFollow.setImageResource(R.drawable.bookmark_black);
@@ -219,4 +244,11 @@ public class DetailActivity extends AppCompatActivity {
         DatabaseReference followRef = databaseReference.child("follows").child(currentUserId).child(toonId);
         followRef.removeValue();
     }
+    private void moveToChapterActivity(Chapter chapter) {
+        Intent intent = new Intent(DetailActivity.this, ChapterActivity.class);
+        intent.putExtra("chapterId", chapter.getChapterId());
+        intent.putExtra("toonId", chapter.getToonId());
+        startActivity(intent);
+    }
+
 }

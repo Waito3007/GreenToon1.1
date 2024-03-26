@@ -58,13 +58,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewViewCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:drawableLeft="@drawable/ic_hot"
@@ -75,12 +75,30 @@
                 android:id="@+id/btnFollow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@null"
                 app:srcCompat="@drawable/bookmark_white"
                 android:contentDescription="FollowToon" />
+
+            <Button
+                android:id="@+id/btChap1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#4DEF08"
+                android:textSize="10sp"
+                android:text="Chap củ nhất" />
+
+            <Button
+                android:id="@+id/btNewchap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#4DEF08"
+                android:textSize="10sp"
+                android:text="Chap Mới Nhất" />
+
         </LinearLayout>
 
     </LinearLayout>

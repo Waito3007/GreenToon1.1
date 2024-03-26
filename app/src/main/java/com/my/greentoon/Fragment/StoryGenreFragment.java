@@ -1,9 +1,11 @@
 package com.my.greentoon.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.my.greentoon.Activity.DetailActivity;
 import com.my.greentoon.Adapter.ToonAdapter;
 import com.my.greentoon.Model.Toon;
 import com.my.greentoon.R;
@@ -126,10 +129,23 @@ public class StoryGenreFragment extends Fragment {
                 loadToonsByGenre("Tu Tiên");
             }
         });
+        toonAdapter = new ToonAdapter(getContext(), R.layout.item_toon, toonList);
+        listViewToons.setAdapter(toonAdapter);
 
+        // Xử lý sự kiện khi người dùng nhấp vào một mục trong danh sách kết quả tìm kiếm
+        listViewToons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy thông tin của toon được chọn
+                Toon selectedToon = toonList.get(position);
+                // Chuyển sang DetailActivity và truyền toonId của toon được chọn
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("toonId", selectedToon.getToonId());
+                startActivity(intent);
+            }
+        });
         return root;
     }
-
     private void loadToonsByGenre(String genre) {
         Query query = databaseReference.orderByChild("genres/" + genre).equalTo(true);
         query.addValueEventListener(new ValueEventListener() {
