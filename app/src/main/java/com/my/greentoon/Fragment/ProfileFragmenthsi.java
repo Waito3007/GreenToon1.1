@@ -47,6 +47,27 @@ public class ProfileFragmenthsi extends Fragment {
         imgAvatar = view.findViewById(R.id.imgAvatar);
         tvfollow = view.findViewById(R.id.tvfollow);
         btLogout.setOnClickListener(v -> logoutUser());
+
+        tvfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WatchListFragment watchListFragment = new WatchListFragment();
+                // Lấy reference của FragmentManager
+                FragmentManager fragmentManager = getParentFragmentManager(); // hoặc getChildFragmentManager() tùy vào ngữ cảnh
+
+                // Bắt đầu một giao dịch Fragment
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                // Thay thế Fragment hiện tại bằng UploadStoryFragment
+                transaction.replace(R.id.fragment_container, watchListFragment);
+
+                // Thêm transaction vào Back Stack (nếu cần)
+                transaction.addToBackStack(null);
+
+                // Hoàn thành giao dịch
+                transaction.commit();
+            }
+        });
         return view;
     }
     @Override
