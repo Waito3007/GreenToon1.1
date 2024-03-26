@@ -64,7 +64,6 @@ public class EditAvatarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveAvatar();
-                finish();
             }
         });
         btBack.setOnClickListener(new View.OnClickListener() {

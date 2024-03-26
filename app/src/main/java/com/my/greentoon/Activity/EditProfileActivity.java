@@ -53,14 +53,14 @@ Button btUsername,btBack,btImg,btEmail,btMore,BtChangePas;
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Xử lý lỗi nếu có
                 }
             });
         }
         btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         btUsername.setOnClickListener(new View.OnClickListener() {

@@ -89,7 +89,6 @@ public class UploadToonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadToon();
-                finish();
             }
         });
 
