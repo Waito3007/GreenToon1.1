@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
     private List<Chapter> chapterList;
     private DatabaseReference databaseReference;
     private Button btBack;
+    private LinearLayout linearButtonFollow;
     private ImageButton btnFollow;
     private boolean isToonFollowed = false;
 
@@ -55,6 +57,8 @@ public class DetailActivity extends AppCompatActivity {
         textViewToonDes = findViewById(R.id.textViewToonDes);
         listViewChapters = findViewById(R.id.listViewChapters);
         textViewViewCount = findViewById(R.id.textViewViewCount);
+        linearButtonFollow = findViewById(R.id.linearButtonFollow);
+
         chapterList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -164,7 +168,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        btnFollow.setOnClickListener(new View.OnClickListener() {
+        linearButtonFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentUser == null) {
