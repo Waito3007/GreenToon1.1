@@ -23,18 +23,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.my.greentoon.Activity.EditProfileActivity;
-import com.my.greentoon.Activity.FeatureActivity;
 import com.my.greentoon.Activity.SignInActivity;
 import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
 
 public class ProfileFragmenthsi extends Fragment {
     private Button btName;
+    private TextView tvfollow;
     private ImageButton imgAvatar,imgbsetting;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private ImageButton btLogout;
-    private TextView tvfeature;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_fragmenthsi, container, false);
@@ -46,7 +45,7 @@ public class ProfileFragmenthsi extends Fragment {
         btName = view.findViewById(R.id.btName);
         btLogout = view.findViewById(R.id.btLogout);
         imgAvatar = view.findViewById(R.id.imgAvatar);
-        tvfeature = view.findViewById(R.id.tvfeature);
+        tvfollow = view.findViewById(R.id.tvfollow);
         btLogout.setOnClickListener(v -> logoutUser());
         return view;
     }
@@ -56,10 +55,6 @@ public class ProfileFragmenthsi extends Fragment {
         updateProfile();
         imgbsetting.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-            startActivity(intent);
-        });
-        tvfeature.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), FeatureActivity.class);
             startActivity(intent);
         });
     }

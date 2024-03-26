@@ -13,18 +13,18 @@ import com.my.greentoon.R;
 
 import java.util.List;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+public class ChapterImageAdapter extends RecyclerView.Adapter<ChapterImageAdapter.ImageViewHolder> {
 
     private List<String> imageUrls;
 
-    public ImageAdapter(List<String> imageUrls) {
+    public ChapterImageAdapter(List<String> imageUrls) {
         this.imageUrls = imageUrls;
     }
 
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chapter_img, parent, false);
         return new ImageViewHolder(view);
     }
 
