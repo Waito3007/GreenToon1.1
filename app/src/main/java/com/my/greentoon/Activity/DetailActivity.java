@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class DetailActivity extends AppCompatActivity {
     private ListView listViewChapters;
     private List<Chapter> chapterList;
     private DatabaseReference databaseReference;
+    private LinearLayout linearButtonFollow;
     private Button btBack,btHome,btNewchap,btChap1;
     private ImageButton btnFollow;
     private boolean isToonFollowed = false;
@@ -52,6 +54,7 @@ public class DetailActivity extends AppCompatActivity {
         btChap1 = findViewById(R.id.btChap1);
         btNewchap = findViewById(R.id.btNewchap);
         btnFollow = findViewById(R.id.btnFollow);
+        linearButtonFollow = findViewById(R.id.linearButtonFollow);
         imageViewToonCover = findViewById(R.id.imageViewToonCover);
         textViewToonName = findViewById(R.id.textViewToonName);
         textViewToonDes = findViewById(R.id.textViewToonDes);
@@ -171,7 +174,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-        btnFollow.setOnClickListener(new View.OnClickListener() {
+        linearButtonFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentUser == null) {
