@@ -1,48 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical"
+    >
 
-    <EditText
-        android:id="@+id/editTextTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Bạn đang nghĩ gì?"
-        android:backgroundTint="#09F8F8"
-        android:textColorHint="#999"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp"/>
-
-    <Button
-        android:id="@+id/buttonChooseImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextTitle"
-        android:layout_marginTop="42dp"
-        android:background="#09F8F8"
-        android:text="Chọn ảnh"
-        android:textColor="@android:color/white" />
 
     <ImageView
         android:id="@+id/imageViewStory"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_below="@id/buttonChooseImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
         android:src="@drawable/default_avatar" />
+
+    <Button
+        android:id="@+id/buttonChooseImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/Main_color"
+        android:background="@drawable/round_button_primary"
+        android:text="Chọn ảnh"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_coners"
+        android:backgroundTint="#CCC8C8"
+        android:hint="Bạn đang nghĩ gì?"
+        android:padding="12dp"
+        android:textColorHint="@color/black"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/buttonUploadStory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageViewStory"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/Main_color"
+        android:background="@drawable/round_button_primary"
+        android:layout_gravity="center"
         android:text="Tải lên"
-        android:background="#09F8F8"
-        android:textColor="@android:color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
+        android:textColor="@android:color/black" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.my.greentoon.Adapter.StatusAdapter.ViewHolder;
 import com.my.greentoon.Model.Status;
 import com.my.greentoon.Model.User;
 import com.my.greentoon.R;
@@ -26,7 +28,10 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
     private Context context;
     private List<Status> statusList;
-    private User currentUser; // Thêm currentUser vào Adapter
+    private User currentUser;
+
+    private ViewHolder.CommentClickListener commentClickListener;
+
 
     public StatusAdapter(Context context, List<Status> statusList, User currentUser) {
         this.context = context;
@@ -34,12 +39,94 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         this.currentUser = currentUser;
     }
 
+    // Phương thức setter để thiết lập commentClickListener
+    public void setCommentClickListener(ViewHolder.CommentClickListener commentClickListener) {
+        this.commentClickListener = commentClickListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public CommentClickListener commentClickListener;
+        ImageView imageViewUserAvatar, imageViewStatusContent;
+        TextView textViewUserName;
+        TextView textViewStatusText;
+        Button btnLike, btnComment;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageViewUserAvatar = itemView.findViewById(R.id.imageViewUserAvatar);
+            imageViewStatusContent = itemView.findViewById(R.id.imageViewStatusContent);
+            textViewUserName = itemView.findViewById(R.id.textViewUserName);
+            textViewStatusText = itemView.findViewById(R.id.textViewStatusText);
+            btnLike = itemView.findViewById(R.id.btnLike);
+            btnComment = itemView.findViewById(R.id.btnComment);
+
+            btnLike.setOnClickListener(this);
+            btnComment.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                switch (v.getId()) {
+                    case R.id.btnLike:
+                        likeStatus(position);
+                        break;
+                    case R.id.btnComment:
+                        // Xử lý khi nút bình luận được nhấn
+                        if (commentClickListener != null) {
+                            commentClickListener.onCommentClick(position);
+                        }
+                        break;
+                }
+            }
+        }
+        public interface CommentClickListener {
+            void onCommentClick(int position);
+        }
+
+        private void likeStatus(int position) {
+            Status status = statusList.get(position);
+            String statusId = status.getStatusId();
+            String userId = currentUser.getUserId();
+
+            DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference().child("likes").child(statusId).child(userId);
+
+            likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        likesRef.removeValue();
+                        // Cập nhật trạng thái của nút thích
+                        btnLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart_white, 0, 0, 0);
+                        btnLike.setTextColor(context.getResources().getColor(R.color.black));
+                    } else {
+                        likesRef.setValue(true);
+                        // Cập nhật trạng thái của nút thích
+                        btnLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart_black, 0, 0, 0);
+                        btnLike.setTextColor(context.getResources().getColor(R.color.black));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Xử lý khi truy vấn bị hủy bỏ
+                }
+            });
+        }
+
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_status, parent, false);
-        return new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
+        viewHolder.commentClickListener = commentClickListener;
+        return viewHolder;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -48,7 +135,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         holder.textViewStatusText.setText(status.getStatusTitle());
         // Lấy userId của người đăng bài từ status
         String userId = status.getUserId();
-        // TODO: Thực hiện truy vấn cơ sở dữ liệu hoặc sử dụng một cách nào đó để lấy thông tin người dùng từ userId
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -62,13 +148,12 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                         Glide.with(context)
                                 .load(user.getAvatarUser())
                                 .circleCrop()
-                                .placeholder(R.drawable.ic_default_avatar) // Hình ảnh mặc định khi đang tải
-                                .error(R.drawable.ic_default_avatar) // Hình ảnh khi có lỗi
+                                .placeholder(R.drawable.ic_default_avatar)
+                                .error(R.drawable.ic_default_avatar)
                                 .into(holder.imageViewUserAvatar);
                     }
                 }
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -78,25 +163,33 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
 
         // Hiển thị nội dung của status
         Glide.with(context).load(status.getStatusContent()).into(holder.imageViewStatusContent);
+
+        // Kiểm tra xem người dùng đã thích status này chưa
+        DatabaseReference likesRef = FirebaseDatabase.getInstance().getReference().child("likes").child(status.getStatusId()).child(currentUser.getUserId());
+        likesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // Người dùng đã thích status, cập nhật trạng thái của nút thích
+                    holder.btnLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart_black, 0, 0, 0);
+                    holder.btnLike.setTextColor(context.getResources().getColor(R.color.black));
+                } else {
+                    // Người dùng chưa thích status, cập nhật trạng thái của nút thích
+                    holder.btnLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart_white, 0, 0, 0);
+                    holder.btnLike.setTextColor(context.getResources().getColor(R.color.black));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Xử lý khi truy vấn bị hủy bỏ
+            }
+        });
     }
 
 
     @Override
     public int getItemCount() {
         return statusList.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageViewUserAvatar,imageViewStatusContent;
-        TextView textViewUserName;
-        TextView textViewStatusText;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageViewUserAvatar = itemView.findViewById(R.id.imageViewUserAvatar);
-            imageViewStatusContent = itemView.findViewById(R.id.imageViewStatusContent);
-            textViewUserName = itemView.findViewById(R.id.textViewUserName);
-            textViewStatusText = itemView.findViewById(R.id.textViewStatusText);
-        }
     }
 }

@@ -34,7 +34,6 @@ import java.util.List;
 public class PlatformFragment extends Fragment {
 
     private ImageView imageViewUserAvatar;
-    private TextView textViewUserName;
     private Button buttonPostStatus;
 
     private RecyclerView recyclerViewStatus;
@@ -51,7 +50,6 @@ public class PlatformFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_platform, container, false);
 
         imageViewUserAvatar = root.findViewById(R.id.imageViewUserAvatar);
-        textViewUserName = root.findViewById(R.id.textViewUserName);
         buttonPostStatus = root.findViewById(R.id.buttonPostStatus);
         recyclerViewStatus = root.findViewById(R.id.recyclerViewStatus);
 
