@@ -54,8 +54,6 @@ public class UploadChapterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_chapter);
-
-
         editTextChapterName = findViewById(R.id.editTextChapterName);
         editTextChapterTitle = findViewById(R.id.editTextChapterTitle);
         btnChooseImages = findViewById(R.id.btnChooseImages);

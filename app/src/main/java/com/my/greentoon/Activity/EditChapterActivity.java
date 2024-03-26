@@ -47,7 +47,6 @@ public class EditChapterActivity extends AppCompatActivity {
     private EditText editTextChapterName;
     private EditText editTextChapterTitle;
     private Button btnUpdateChapter;
-
     private Button btBack,btnDeleteChapter;
     private Button btnChooseImages;
 
