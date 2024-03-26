@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +41,7 @@ public class SearchFragment extends Fragment {
     private ToonAdapter searchAdapter;
 
     private List<String> allToonNames;
-
+    private Button btTheloai;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -50,12 +53,30 @@ public class SearchFragment extends Fragment {
 
         autoCompleteTextViewSearch = rootView.findViewById(R.id.autoCompleteTextViewSearch);
         listViewSearchResults = rootView.findViewById(R.id.listViewSearchResults);
-
+        btTheloai =rootView.findViewById(R.id.btTheloai);
         databaseReference = FirebaseDatabase.getInstance().getReference("toons");
         searchResults = new ArrayList<>();
-
         allToonNames = new ArrayList<>();
+        btTheloai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StoryGenreFragment storyGenreFragment = new StoryGenreFragment();
+                // Lấy reference của FragmentManager
+                FragmentManager fragmentManager = getParentFragmentManager(); // hoặc getChildFragmentManager() tùy vào ngữ cảnh
 
+                // Bắt đầu một giao dịch Fragment
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                // Thay thế Fragment hiện tại bằng UploadStoryFragment
+                transaction.replace(R.id.fragment_container, storyGenreFragment);
+
+                // Thêm transaction vào Back Stack (nếu cần)
+                transaction.addToBackStack(null);
+
+                // Hoàn thành giao dịch
+                transaction.commit();
+            }
+        });
         return rootView;
     }
 

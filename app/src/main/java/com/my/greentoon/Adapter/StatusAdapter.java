@@ -48,7 +48,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
         holder.textViewStatusText.setText(status.getStatusTitle());
         // Lấy userId của người đăng bài từ status
         String userId = status.getUserId();
-        // TODO: Thực hiện truy vấn cơ sở dữ liệu hoặc sử dụng một cách nào đó để lấy thông tin người dùng từ userId
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -68,8 +67,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
                     }
                 }
             }
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Xử lý khi truy vấn bị hủy bỏ

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -34,7 +33,6 @@ import java.util.List;
 public class PlatformFragment extends Fragment {
 
     private ImageView imageViewUserAvatar;
-    private TextView textViewUserName;
     private Button buttonPostStatus;
 
     private RecyclerView recyclerViewStatus;
@@ -51,7 +49,6 @@ public class PlatformFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_platform, container, false);
 
         imageViewUserAvatar = root.findViewById(R.id.imageViewUserAvatar);
-        textViewUserName = root.findViewById(R.id.textViewUserName);
         buttonPostStatus = root.findViewById(R.id.buttonPostStatus);
         recyclerViewStatus = root.findViewById(R.id.recyclerViewStatus);
 
@@ -97,7 +94,7 @@ public class PlatformFragment extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
                 // Thay thế Fragment hiện tại bằng UploadStoryFragment
-                transaction.replace(R.id.fragment_container, uploadStoryFragment);
+                transaction.replace(R.id.fragment_containerloc, uploadStoryFragment);
 
                 // Thêm transaction vào Back Stack (nếu cần)
                 transaction.addToBackStack(null);

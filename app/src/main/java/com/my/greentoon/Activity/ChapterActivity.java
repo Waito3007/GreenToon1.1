@@ -125,7 +125,7 @@ public class ChapterActivity extends AppCompatActivity {
         // Chuyển qua FragmentManager để bắt đầu một giao dịch Fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // Thay thế fragment hiện tại bằng CommentFragment
-        transaction.replace(R.id.fragment_container, commentFragment);
+        transaction.replace(R.id.fragment_containerloc, commentFragment);
         // Thêm transaction vào back stack để cho phép người dùng quay lại fragment trước đó (nếu cần)
         transaction.addToBackStack(null);
         // Kết thúc

@@ -18,7 +18,6 @@ import com.my.greentoon.R;
 import java.util.List;
 
 public class ToonAdapter extends ArrayAdapter<Toon> {
-
     private Context context;
     private List<Toon> toonList;
 
@@ -27,31 +26,25 @@ public class ToonAdapter extends ArrayAdapter<Toon> {
         this.context = context;
         this.toonList = toonList;
     }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_toon, parent, false);
         }
-
         TextView textViewToonName = convertView.findViewById(R.id.textViewToonName);
         TextView textViewToonDesc = convertView.findViewById(R.id.textViewToonDesc);
         TextView textViewCount = convertView.findViewById(R.id.textViewCount);
         ImageView imageViewToonCover = convertView.findViewById(R.id.imageViewToonCover);
-
         Toon currentToon = toonList.get(position);
-
         textViewToonName.setText(currentToon.getToonName());
         textViewToonDesc.setText(currentToon.getToonDes());
         String count = String.valueOf(currentToon.getViewCount());
        textViewCount.setText(count);
-
         // Sử dụng thư viện Glide để hiển thị ảnh từ URL
         Glide.with(context)
                 .load(currentToon.getToonCover())
                 .into(imageViewToonCover);
-
         return convertView;
     }
 }

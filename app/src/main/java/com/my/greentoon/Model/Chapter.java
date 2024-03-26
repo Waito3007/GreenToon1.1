@@ -77,4 +77,5 @@ public class Chapter {
     public void setDatetimeupchap(String datetimeupchap) {
         this.datetimeupchap = datetimeupchap;
     }
+
 }

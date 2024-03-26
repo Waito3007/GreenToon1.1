@@ -9,6 +9,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +32,7 @@ public class StoryGenreFragment extends Fragment {
     private ToonAdapter toonAdapter;
 
     private DatabaseReference databaseReference;
-
+    private Button btBack,btSearch;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_story_genre, container, false);
@@ -52,8 +54,28 @@ public class StoryGenreFragment extends Fragment {
         Button btnNgontinh = root.findViewById(R.id.btnNgontinh);
         Button btnTrinhtham = root.findViewById(R.id.btnTrinhtham);
         Button btnTutien = root.findViewById(R.id.btnTutien);
+        btSearch = root.findViewById(R.id.btSearch);
         // Add buttons for other genres here
+        btSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchFragment searchFragment = new SearchFragment();
+                // Lấy reference của FragmentManager
+                FragmentManager fragmentManager = getParentFragmentManager(); // hoặc getChildFragmentManager() tùy vào ngữ cảnh
 
+                // Bắt đầu một giao dịch Fragment
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                // Thay thế Fragment hiện tại bằng UploadStoryFragment
+                transaction.replace(R.id.fragment_container, searchFragment);
+
+                // Thêm transaction vào Back Stack (nếu cần)
+                transaction.addToBackStack(null);
+
+                // Hoàn thành giao dịch
+                transaction.commit();
+            }
+        });
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

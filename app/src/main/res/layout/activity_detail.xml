@@ -9,14 +9,29 @@
     <!-- ImageView để hiển thị ảnh bìa -->
     <!-- TextView để hiển thị tên truyện -->
 
-    <Button
-        android:id="@+id/btBack"
-        android:layout_width="352dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="20dp"
-        android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
-        android:textColor="#FFFAFA" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btBack"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+            android:textColor="#FFFAFA" />
+
+        <Button
+            android:id="@+id/btHome"
+            android:layout_width="33dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_home"
+            android:textColor="#FFFAFA" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewToonName"

@@ -11,7 +11,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.my.greentoon.Fragment.ChatFragment;
 import com.my.greentoon.Fragment.PlatformFragment;
 import com.my.greentoon.Fragment.PremiumFragment;
-import com.my.greentoon.Fragment.StoryGenreFragment;
 import com.my.greentoon.R;
 
 public class FeatureActivity extends AppCompatActivity {
@@ -24,8 +23,8 @@ public class FeatureActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new StoryGenreFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containerloc,
+                new PlatformFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -35,9 +34,6 @@ public class FeatureActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
-                        case R.id.story_genre:
-                            selectedFragment = new StoryGenreFragment();
-                            break;
                         case R.id.platform:
                             selectedFragment = new PlatformFragment();
                             break;
@@ -49,7 +45,7 @@ public class FeatureActivity extends AppCompatActivity {
                             break;
                     }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_containerloc,
                             selectedFragment).commit();
 
                     return true;

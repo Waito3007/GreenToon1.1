@@ -1,35 +1,55 @@
 <!-- fragment_search.xml -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F8F8"
     android:orientation="vertical">
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextViewSearch"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/borderinput"
-        android:drawableLeft="@drawable/ic_search"
-        android:drawablePadding="10dp"
-        android:foregroundGravity="center_vertical"
-        android:hint="Nhập vào để tìm truyện bạn muốn."
-        android:inputType="text"
-        android:paddingLeft="10dp"
-        android:textColor="#000000" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/listViewSearchResults"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp" />
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextViewSearch"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/borderinput"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:foregroundGravity="center_vertical"
+            android:hint="Nhập vào để tìm truyện bạn muốn."
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textColor="#000000" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btTheloai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="2dp"
+            android:backgroundTint="#0AD11A"
+            android:hint=" Lọc theo thể loại"
+            android:textColor="#E4E4E4"
+            android:textColorHint="#020101"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/listViewSearchResults"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp" />
+    </LinearLayout>
+
+</FrameLayout>

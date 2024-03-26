@@ -27,7 +27,6 @@ public class PopularToonAdapter extends RecyclerView.Adapter<PopularToonAdapter.
     public interface OnItemClickListener {
         void onItemClick(Toon toon);
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

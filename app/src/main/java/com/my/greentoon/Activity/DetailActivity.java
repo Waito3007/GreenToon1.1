@@ -39,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
     private ListView listViewChapters;
     private List<Chapter> chapterList;
     private DatabaseReference databaseReference;
-    private Button btBack;
+    private Button btBack,btHome;
     private ImageButton btnFollow;
     private boolean isToonFollowed = false;
 
@@ -55,6 +55,7 @@ public class DetailActivity extends AppCompatActivity {
         textViewToonDes = findViewById(R.id.textViewToonDes);
         listViewChapters = findViewById(R.id.listViewChapters);
         textViewViewCount = findViewById(R.id.textViewViewCount);
+        btHome = findViewById(R.id.btHome);
         chapterList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -97,14 +98,19 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        btBack.setOnClickListener(new View.OnClickListener() {
+        btHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         DatabaseReference chaptersRef = databaseReference.child("chapters").child(toonId);
         chaptersRef.addValueEventListener(new ValueEventListener() {
             @Override
