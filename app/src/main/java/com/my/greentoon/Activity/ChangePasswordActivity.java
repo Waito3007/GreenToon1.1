@@ -39,6 +39,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 changePassword();
+                finish();
             }
         });
         btBack.setOnClickListener(new View.OnClickListener() {

@@ -23,7 +23,7 @@ import com.my.greentoon.R;
 public class DetailEditUserActivity extends AppCompatActivity {
 
     private TextView txtUserId, txtEmail, txtNameUser;
-    private Button  btnDeleteUser, btnToggleAdmin;
+    private Button  btnDeleteUser, btnToggleAdmin, btBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class DetailEditUserActivity extends AppCompatActivity {
         txtNameUser = findViewById(R.id.txtNameUser);
         btnDeleteUser = findViewById(R.id.btnDeleteUser);
         btnToggleAdmin = findViewById(R.id.btnToggleAdmin);
+        btBack = findViewById(R.id.btBack);
 
         // Lấy ID của người dùng được chọn từ Intent
         final String selectedUserId = getIntent().getStringExtra("selectedUserId");
@@ -58,9 +59,15 @@ public class DetailEditUserActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             deleteUser(selectedUserId);
+                            finish();
                         }
                     });
-
+                    btBack.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    });
                     // Bắt sự kiện chuyển đổi quyền admin
                     btnToggleAdmin.setOnClickListener(new View.OnClickListener() {
                         @Override

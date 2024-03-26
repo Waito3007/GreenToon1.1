@@ -45,6 +45,8 @@ public class EditChapterActivity extends AppCompatActivity {
     private EditText editTextChapterName;
     private EditText editTextChapterTitle;
     private Button btnUpdateChapter;
+
+    private Button btBack;
     private Button btnChooseImages;
 
     private DatabaseReference chaptersRef;
@@ -64,6 +66,7 @@ public class EditChapterActivity extends AppCompatActivity {
         editTextChapterTitle = findViewById(R.id.editTextChapterTitle);
         btnUpdateChapter = findViewById(R.id.btnUpdateChapter);
         btnChooseImages = findViewById(R.id.btnChooseImages);
+        btBack = findViewById(R.id.btBack);
         chaptersRef = FirebaseDatabase.getInstance().getReference().child("chapters");
         chapterList = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, chapterList);
@@ -102,6 +105,13 @@ public class EditChapterActivity extends AppCompatActivity {
             });
         }
 
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         btnChooseImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +123,7 @@ public class EditChapterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateChapter();
+                finish();
             }
 
         });
