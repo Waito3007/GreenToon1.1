@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -102,21 +103,27 @@ public class DetailEditUserActivity extends AppCompatActivity {
                         finish();
 
                         // Sau khi xóa thành công từ Realtime Database, tiến hành xóa từ Authentication
-                        FirebaseAuth.getInstance().getCurrentUser().delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        // Xóa thành công từ Authentication
-                                        Toast.makeText(DetailEditUserActivity.this, "Đã xóa người dùng từ Authentication", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Xử lý khi có lỗi xảy ra khi xóa từ Authentication
-                                        Toast.makeText(DetailEditUserActivity.this, "Thất bại khi xóa từ Authentication: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            user.delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Xóa thành công từ Authentication
+                                            Toast.makeText(DetailEditUserActivity.this, "Đã xóa người dùng từ Authentication", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Xử lý khi có lỗi xảy ra khi xóa từ Authentication
+                                            Toast.makeText(DetailEditUserActivity.this, "Thất bại khi xóa từ Authentication: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        } else {
+                            // Xử lý trường hợp không tìm thấy người dùng hiện tại trong Authentication
+                            Toast.makeText(DetailEditUserActivity.this, "Không tìm thấy người dùng trong Authentication", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -127,6 +134,7 @@ public class DetailEditUserActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     // Phương thức chuyển đổi quyền admin
     private void toggleAdmin(DatabaseReference databaseReference, User user) {
