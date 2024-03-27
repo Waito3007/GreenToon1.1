@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 Fragment fragment = null;
+                FirebaseUser currentUser = mAuth.getCurrentUser();
 
                 switch (item.getItemId()){
 
@@ -54,11 +55,15 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_Platform:
-                        fragment = new PlatformFragment();
+                        if(currentUser != null) {
+                            fragment = new PlatformFragment(); // Người dùng đã đăng nhập
+                        } else {
+                            fragment = new NoneFragment(); // Người dùng chưa đăng nhập
+                        }
                         break;
                     case R.id.nav_user:
                         // Kiểm tra xem người dùng đã đăng nhập hay chưa
-                        FirebaseUser currentUser = mAuth.getCurrentUser();
+//                        FirebaseUser currentUser = mAuth.getCurrentUser();
                         if(currentUser != null) {
                             fragment = new ProfileFragmenthsi(); // Người dùng đã đăng nhập
                         } else {
@@ -66,7 +71,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case R.id.nav_follow:
-                        fragment = new WatchListFragment();
+                        if(currentUser != null) {
+                            fragment = new WatchListFragment(); // Người dùng đã đăng nhập
+                        } else {
+                            fragment = new NoneFragment(); // Người dùng chưa đăng nhập
+                        }
                         break;
                 }
 

@@ -40,7 +40,6 @@
             android:textColorHint="#020101"
             android:textSize="15sp"
             android:textStyle="bold" />
-
         <ListView
             android:id="@+id/listViewSearchResults"
             android:layout_width="match_parent"
