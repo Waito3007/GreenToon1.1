@@ -114,7 +114,7 @@ public class DetailEditUserActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         // Xử lý khi có lỗi xảy ra khi xóa từ Authentication
-                                        Toast.makeText(DetailEditUserActivity.this, "Thất bại khi xóa từ Authentication: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(DetailEditUserActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     }
